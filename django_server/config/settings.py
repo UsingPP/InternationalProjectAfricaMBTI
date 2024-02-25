@@ -46,9 +46,10 @@ CORS_ORIGIN_ALLOW_ALL = True #추가
 INSTALLED_APPS = [
     "app", # 추가
     "corsheaders", # 추가
+    'rest_framework' , #추가
     "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
+    "django.contrib.auth", # 관리자만 접근할수있게 API보안을 보장 해주는 기능 제공(원래있었음)
+    "django.contrib.contenttypes", # 관리자만 접근할수있게 API보안을 보장 해주는 기능 제공(원래있었음)
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
