@@ -1,300 +1,125 @@
-
-
-
-export const surveyJson = {
-
-  "title": "Leadership Survey",
-  "description": "Thank you for using our service. We would highly appreciate if you would take the time to fill our Leadership survey. ",
-  "pages": [
-    {
-      elements: [
-        {
-          name: "fullname", 
-          title: "Full Name", 
-          defaultQuestionTitle: "Enter your full name:",
-          elementsJSON: [
-            { type: "text", name: "firstName", title: "First Name", isRequired: true },
-            // Optional question, hidden by default
-            { type: "text", name: "middleName", title: "Middle Name", startWithNewLine: false, visible: false },
-            { type: "text", name: "lastName", title: "Last Name", isRequired: true, startWithNewLine: false }
-          ]
-        },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-    //     {
-    //       name: "H2",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "H3",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "H4",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "H5",
-    //       title:  ,
-    //       type:
-    //     }
-    //   ]
-    // },
-    // {
-    //   elements: [
-    //     {
-    //       name: "SDT1",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT2",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT3",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT4",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT5",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT6",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT7",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT8",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT9",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT10",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT11",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT12",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT13",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT14",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT15",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT16",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "SDT17",
-    //       title:  ,
-    //       type:
-    //     }
-    //   ]
-    // },
-    // {
-    //   elements: [
-    //     {
-    //       name: "L-ST1",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "L-ST2",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "L-ST3",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "L-ST4",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-A1",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-A2",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-A3",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-A4",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-A5",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-N1",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-N2",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-S1",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-S2",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-C1",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-C2",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-C3",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-C4",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-C5",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-CT1",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-CT2",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-SA1",
-    //       title:  ,
-    //       type:
-    //     }
-    //     ,
-    //     {
-    //       name: "L-SA2",
-    //       title:  ,
-    //       type:
-    //     },
-    //     {
-    //       name: "L-SA3",
-    //       title:  ,
-    //       type:
-    //     }
-    //     , {
-    //       name: "L-PS1",
-    //       title:  ,
-    //       type:
-    //     }
-    //     , {
-    //       name: "L-PS2",
-    //       title:  ,
-    //       type:
-    //     }
-      ]
+export function processDataFromServer(jsonData, key) {
+  const title_list = {
+    H: "인적사항",
+    SDT: "지속가능발전",
+    L: "리더십재량",
+  };
+  const double_depth_panel = {
+    L: {
+      list: {
+        ST: { title: "System Thinking" },
+        A: { title: "Anticipatory" },
+        N: { title: "Normative" },
+        S: { title: "Strategic" },
+        C: { title: "Collaboration" },
+        CT: { title: "Critical Thinking" },
+        SA: { title: "Self Awareness" },
+        PS: { title: "Problem Solving" },
+      },
+      title: "리더십재량",
     },
-  ],
-  "showQuestionNumbers": "off",
-  pageNextText: "Forward",
-  pagePrevText: "Back",
-  completeText: "Submit"
-};
+  };
+
+  let surveyJsonData = "";
+  let extractedChars = "";
+
+  // 서버에서 받은 데이터를 가공하여 surveyJson 형식에 맞게 변환합니다.
+  const generatedElements = jsonData.map((question) => {
+    let data = {
+      // 기본설정
+      name: question.question_code,
+      title: question.question_details,
+      type: question.survey_type,
+      isRequired: true,
+    };
+    // 코드에 따른 예외 설정
+    if (key == "H") {
+      if (data.name == "H4") {
+        data["choices"] = [
+          "I am an undergraduate student",
+          "I am a graduate student",
+          "I am a working professional",
+        ];
+      } else if (data.name == "H2") {
+        data["choices"] = [
+          "1. Asia",
+          "2. Africa",
+          "3. North America",
+          "4. South America",
+          "5. Antarctica",
+          "6. Europe",
+          "7. Oceania",
+        ];
+      } else if (data.name == "H5") {
+        data["rateCount"] = 7;
+        data["rateMax"] = 7;
+      }else if (data.name == "H3") {
+        data["choices"] = [
+          "~10",
+        "10~20",
+        "20~30",
+        "30~40",
+        "40~50",
+        "50~60",
+        "over 60",
+      ]
+      }
+    } 
+    else if (key == "SDT") {
+      data["choices"] = [
+        "Not Interested",
+        "Somewhat Interested",
+        "Neutral",
+        "Interested",
+        "Very Interested",
+      ];
+    } else if (key == "L") {
+      data["choices"] = ["Very Interested", "Interested"];
+      data["colCount"] = 0;
+    }
+    return data;
+  });
+
+  // if (key in double_depth_panel) {
+  //   surveyJsonData = {
+  //     type: "panel",
+  //     name: "panel",
+  //     elements: [],
+  //     title: double_depth_panel[key]["title"],
+  //   };
+  //   let dicc = double_depth_panel[key]["list"];
+  //   for (let subkey in dicc) {
+  //     console.log(subkey);
+  //     surveyJsonData.elements.push({
+  //       type: "panel",
+  //       name: key + "-" + subkey,
+  //       title: dicc[subkey]["title"],
+  //       isRequired: true,
+  //       elements: [],
+  //       state: "expanded",
+  //     });
+  //   }
+
+  //   generatedElements.forEach((element) => {
+  //     extractedChars = element.name.match(/[A-Z]+/g);
+  //     let code = extractedChars.join("-");
+  //     surveyJsonData.elements.forEach((ele) => {
+  //       if (ele.name == code) {
+  //         ele.elements.push(element);
+  //       }
+  //     });
+  //   });
+  // } else {
+    surveyJsonData = {
+      type: "panel",
+      name: "personal-information",
+      elements: generatedElements,
+      title: title_list[key],
+      state: "expanded",
+      // 필요에 따라 추가 페이지나 세부 설정을 변경해주세요.
+    };
+  // }
+  console.log(surveyJsonData);
+
+  return surveyJsonData;
+}

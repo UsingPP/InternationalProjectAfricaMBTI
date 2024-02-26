@@ -6,30 +6,47 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Question, User, SurveyType
-from datetime import date
+from .models import Question, User, SurveyType, Response as res
+from datetime import datetime as date
 from django.core.serializers import serialize
-
-
+from django.db.models import Q
+import re
+from .survey_info import SURVAY_BASIS_INFO
 class TransmitSurveyDataApi(APIView):
     def post(self, request):
         # POST 요청으로 전송된 데이터 가져오기
-        data = request.data
-        int_value = 0
-        text_value = "-"
-        user = User(complete_date =date.today() )
-        for q_code, q_value in data:
-            question = Question.objects.get(question_code=q_code)
-            if question.is_int == 1:
-                int_value = q_value
-            else:
-                text_value = q_value
-            response = Response.objects.create(int_value=q_value, text_value=q_value, question=question, user = user)
-            response.save()
-        # 받은 데이터에 대한 처리 로직 작성
-        # 예를 들어, 받은 데이터를 기반으로 무언가를 생성하거나 처리하는 등의 작업 수행
+        user = User(complete_date =date.now() )
+        user.save()
+        print(request.data)
 
-        # 작업이 완료되면 적절한 응답 반환
+        data = request.data["surveyData"]
+        print(data)
+        questions = Question.objects.all()
+        for question in questions:
+            obj = res()
+            try:
+                basis_convert = False
+                symbol = re.sub(r'\d+$', '', question.question_code)
+                if (symbol in SURVAY_BASIS_INFO):
+                    basis_convert = True
+                if (question.question_code in data.keys()):
+                    value = data[question.question_code]
+                    if (basis_convert):
+                        value = SURVAY_BASIS_INFO[symbol][value]
+                    obj.text_value = value
+                    obj.question = question
+                    obj.user = user 
+                else:
+                    value = data[symbol][question.question_code]
+                    if (basis_convert):
+                        value = SURVAY_BASIS_INFO[symbol][value]
+                    obj.text_value = value
+                    obj.question = question
+                    obj.user = user
+                print("성공 %s"%question.question_code)
+                obj.save()
+            except:
+                print("제출되지 않았거나, (서버상)데이터불일치 %s"%question.question_code)
         return Response({"message": "Data received successfully"}, status=status.HTTP_201_CREATED)
 
 
@@ -50,32 +67,51 @@ class QuestionAddApi(APIView):
         question.save()
         return Response({"message": "question added successfully"}, status=status.HTTP_201_CREATED)
 
-
 class QuestionListApi(APIView):
     def get(self, request):
-        key = request.GET.get('key')
+        code = request.GET.get('code')
+        start = int(request.GET.get('start'))
+        end = int(request.GET.get('end'))
+        print(code, start, end)
         ls = []
-        if key == 'L':
-        # 'key'가 'LD'인 경우에 대한 처리
-            data = Question.objects.filter(question_code__regex=r'^L-[A-Za-z]+\d+$')
-            print(data)
-        elif key == "H":
-            data = Question.objects.filter(question_code__regex=r'^H\d+$')
-        elif key =="SDT":
-            data = Question.objects.filter(question_code__regex=r'^SDT\d+$')
-        else:
-        # 다른 경우에 대한 처리
-            data = Question.objects.all()
+        data = Question.objects.filter(Q(question_code__startswith=code))
         for i, obj in enumerate(data):
-            dictionary = {}
-            surveytype_id = obj.surveytype_id
-            surveytype = SurveyType.objects.get(id=surveytype_id)
-            dictionary['question_code'] = obj.question_code
-            dictionary['question_details'] = obj.question_details
-            dictionary['survey_type'] = surveytype.type_name
-            ls.append(dictionary)
+            q_code = obj.question_code
+            if ( start <=int(re.findall(r'\d+$', q_code)[-1])<=end):
+                dictionary = {}
+                surveytype_id = obj.surveytype_id
+                surveytype = SurveyType.objects.get(id=surveytype_id)
+                dictionary['question_code'] = q_code
+                dictionary['question_details'] = obj.question_details
+                dictionary['survey_type'] = surveytype.type_name
+                ls.append(dictionary)
         # JSON 데이터 출력
         return JsonResponse(ls, safe=False)
+# class QuestionListApi(APIView):
+#     def get(self, request):
+#         key = request.GET.get('key')
+#         ls = []
+#         if key == 'L':
+#         # 'key'가 'LD'인 경우에 대한 처리
+#             data = Question.objects.filter(question_code__regex=r'^L-[A-Za-z]+\d+$')
+#             print(data)
+#         elif key == "H":
+#             data = Question.objects.filter(question_code__regex=r'^H\d+$')
+#         elif key =="SDT":
+#             data = Question.objects.filter(question_code__regex=r'^SDT\d+$')
+#         else:
+#         # 다른 경우에 대한 처리
+#             data = Question.objects.all()
+#         for i, obj in enumerate(data):
+#             dictionary = {}
+#             surveytype_id = obj.surveytype_id
+#             surveytype = SurveyType.objects.get(id=surveytype_id)
+#             dictionary['question_code'] = obj.question_code
+#             dictionary['question_details'] = obj.question_details
+#             dictionary['survey_type'] = surveytype.type_name
+#             ls.append(dictionary)
+#         # JSON 데이터 출력
+#         return JsonResponse(ls, safe=False)
 class QuestionTypeAddApi(APIView):
     def post(self, request):
         data = request.data
