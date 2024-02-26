@@ -1,0 +1,49 @@
+H1	text	성별
+H2	text	대륙
+H3	text	나이
+H4	radiogroup	자신이 하고있는
+H5	radiogroup	리더십점수
+SDT1	radiogroup	GOAL1
+SDT2	radiogroup	GOAL2
+SDT3	radiogroup	GOAL3
+SDT4	radiogroup	GOAL4
+SDT5	radiogroup	GOAL5
+SDT6	radiogroup	GOAL6
+SDT7	radiogroup	GOAL7
+SDT8	radiogroup	GOAL8
+SDT9	radiogroup	GOAL9
+SDT10	radiogroup	GOAL10
+SDT11	radiogroup	GOAL11
+SDT12	radiogroup	GOAL12
+SDT13	radiogroup	GOAL13
+SDT14	radiogroup	GOAL14
+SDT15	radiogroup	GOAL15
+SDT16	radiogroup	GOAL16
+SDT17	radiogroup	GOAL17
+L-ST1	radiogroup	system thinking 1
+L-ST2	radiogroup	system thinking 2
+L-ST3	radiogroup	system thinking 3
+L-ST4	radiogroup	system thinking 4
+L-A1	radiogroup	anticipatory 1
+L-A2	radiogroup	anticipatory 2
+L-A3	radiogroup	anticipatory 3
+L-A4	radiogroup	anticipatory 4
+L-A5	radiogroup	anticipatory 5
+L-N1	radiogroup	Normative 1
+L-N2	radiogroup	Normative 2
+L-S1	radiogroup	Strategic 1
+L-S2	radiogroup	Strategic 2
+L-C1	radiogroup	Collaboration 1
+L-C2	radiogroup	Collaboration 2
+L-C3	radiogroup	Collaboration 3
+L-C4	radiogroup	Collaboration 4
+L-C5	radiogroup	Collaboration 5
+L-CT1	radiogroup	Critical Thinking 1
+L-CT2	radiogroup	Critical Thinking 2
+L-SA1	radiogroup	Self Awareness 1
+L-SA2	radiogroup	Self Awareness 2
+L-SA3	radiogroup	Self Awareness 3
+L-PS1	radiogroup	Problem Solving 1
+L-PS2	radiogroup	Problem Solving 2
+comment	radiogroup	추가로 달고싶은 느낀점
+contact_여부	radiogroup	컨택 요청 여부
