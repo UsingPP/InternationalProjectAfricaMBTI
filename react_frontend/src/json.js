@@ -1,5 +1,5 @@
 async function getDataFromServer(code, start, end) {
-  const url = `http://127.0.0.1:8000/api/question-list/?code=${code}&start=${start}&end=${end}`;
+  const url = `http://SurveyLeadership2024.pythonanywhere.com/api/question-list/?code=${code}&start=${start}&end=${end}`;
   const data = await fetch(url).then((response) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
