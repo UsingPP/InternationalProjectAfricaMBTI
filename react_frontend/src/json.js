@@ -281,8 +281,7 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-PS",
-                "isRequired": true,
-
+                
                 title:
                   "[Problem-solving] Please rate your level of following competence",
                 columns: [
