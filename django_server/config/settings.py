@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR_BASE_DIR = BASE_DIR.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -23,9 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-84pqi4ci3$=&d_hr(kmbo$him4bqev76+p2pgv%@ky=#s)sdly"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+'SurveyLeadership2024.pythonanywhere.com',
+'127.0.0.1'
+]
+
 
 
 
@@ -67,13 +71,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
+import os
 ROOT_URLCONF = "config.urls"
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR_BASE_DIR, "react_frontend", 'build','static')]
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR_BASE_DIR, 'react_frontend', 'build')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
