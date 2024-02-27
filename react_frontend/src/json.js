@@ -1,5 +1,5 @@
 async function getDataFromServer(code, start, end) {
-  const url = `http://SurveyLeadership2024.pythonanywhere.com/api/question-list/?code=${code}&start=${start}&end=${end}`;
+  const url = `https://SurveyLeadership2024.pythonanywhere.com/api/question-list/?code=${code}&start=${start}&end=${end}`;
   const data = await fetch(url).then((response) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -76,9 +76,9 @@ async function fetchData(){
 export const json = await fetchData().then( (myVariables) =>{
     console.log(myVariables.H)
     let data = {
-        title: "Cancellation Survey",
+        title: "Leadership Survey",
         description:
-          "Thank you for using our service. We would highly appreciate if you would take the time to fill our cancellation survey. This would help us improve the service.",
+          "Thank you for using our service. We would highly appreciate if you would take the time to fill our Leadership survey. This would help you find your potential.",
         pages: [
           {
             name: "page1",

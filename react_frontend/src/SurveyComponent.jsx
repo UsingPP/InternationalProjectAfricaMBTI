@@ -14,7 +14,7 @@ function SurveyComponent() {
       surveyData: sender.data, // 이벤트에서 받은 설문 데이터
     };
     // POST 요청을 보낼 URL
-    const url = "http://SurveyLeadership2024.pythonanywhere.com/api/transmit-survey-data/";
+    const url = "https://SurveyLeadership2024.pythonanywhere.com/api/transmit-survey-data/";
     // fetch를 사용하여 POST 요청을 보냅니다.
     fetch(url, {
       method: "POST", // POST 메서드 사용
