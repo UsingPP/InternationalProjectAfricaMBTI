@@ -87,6 +87,7 @@ export const json = await fetchData().then( (myVariables) =>{
                 type: myVariables.H[0].type,
                 name: myVariables.H[0].name,
                 title: myVariables.H[0].title,
+                "isRequired": true,
                 choices: [
                   "Male",
                   "Female",
@@ -98,6 +99,7 @@ export const json = await fetchData().then( (myVariables) =>{
                 type: myVariables.H[1].type,
                 name: myVariables.H[1].name,
                 title: myVariables.H[1].title,
+                "isRequired": true,
                 choices: [
                   "Africa",
                   "Europe",
@@ -112,18 +114,9 @@ export const json = await fetchData().then( (myVariables) =>{
                 type: myVariables.H[2].type,
                 name: myVariables.H[2].name,
                 title: myVariables.H[2].title,
+                "isRequired": true,
+
                 showOtherItem: true,
-                choices: [
-                  "I am an undergraduate student",
-                  "I am a graduate student",
-                  "I am in a professional vacational (TVET/CTE) program ",
-                  "I am a working professional",
-                ],
-              },
-              {
-                type: myVariables.H[3].type,
-                name: myVariables.H[3].name,
-                title: myVariables.H[3].title,
                 choices: [
                   "~10",
                   "10~20",
@@ -132,6 +125,20 @@ export const json = await fetchData().then( (myVariables) =>{
                   "40~50",
                   "50~60",
                   "over 60",
+                  
+                ],
+              },
+              {
+                type: myVariables.H[3].type,
+                name: myVariables.H[3].name,
+                title: myVariables.H[3].title,
+                "isRequired": true,
+
+                choices: [
+                  "I am an undergraduate student",
+                  "I am a graduate student",
+                  "I am in a professional vacational (TVET/CTE) program ",
+                  "I am a working professional",
                 ],
               },
               {
@@ -149,6 +156,8 @@ export const json = await fetchData().then( (myVariables) =>{
                 type: "matrix",
                 name: "SDT",
                 title: "Sustainable Development Topics",
+                "isRequired": true,
+
                 columns: [
                   "Not interested",
                   "somewhat interested",
@@ -161,6 +170,8 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-ST",
+                "isRequired": true,
+
                 title:
                   "Leadership discrement Test [Systems thinking] Please rate your level of following competence.",
                 columns: [
@@ -175,6 +186,8 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-A",
+                "isRequired": true,
+
                 title:
                   "[Anticipatory] Please rate your level of following competence.",
                 columns: [
@@ -189,6 +202,8 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-N",
+                "isRequired": true,
+
                 title: "[Normative] Please rate your level of following competence.",
                 columns: [
                   "Extremely incompetent",
@@ -203,6 +218,8 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-S",
+                "isRequired": true,
+
                 title: "[Strategic] Please rate your level of following competence.",
                 columns: [
                   "Extremely incompetent",
@@ -215,6 +232,8 @@ export const json = await fetchData().then( (myVariables) =>{
               },
               {
                 type: "matrix",
+                "isRequired": true,
+
                 name: "L-C",
                 title:
                   "[Collaboration] Please rate your level of following competence.",
@@ -230,6 +249,8 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-CT",
+                "isRequired": true,
+
                 title:
                   "[Critical thinking] Please rate your level of following competence.",
                 columns: [
@@ -244,6 +265,8 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-SA",
+                "isRequired": true,
+
                 title:
                   "[Self-awareness] Please rate your level of following competence.",
                 columns: [
@@ -258,6 +281,8 @@ export const json = await fetchData().then( (myVariables) =>{
               {
                 type: "matrix",
                 name: "L-PS",
+                "isRequired": true,
+
                 title:
                   "[Problem-solving] Please rate your level of following competence",
                 columns: [
