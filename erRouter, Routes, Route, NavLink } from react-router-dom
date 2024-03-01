@@ -1,0 +1,14 @@
+[33m22ec0e8[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/react_front[m[33m, [m[1;32mreact_front[m[33m)[m HEAD@{0}: reset: moving to 22ec0e8
+[33ma2d5199[m[33m ([m[1;31morigin/develope[m[33m)[m HEAD@{1}: checkout: moving from 22ec0e8030d1a93ec1fa0dff58288a3c74a6b638 to origin/develope
+[33m22ec0e8[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/react_front[m[33m, [m[1;32mreact_front[m[33m)[m HEAD@{2}: reset: moving to 22ec0e8
+[33ma2d5199[m[33m ([m[1;31morigin/develope[m[33m)[m HEAD@{3}: checkout: moving from 22ec0e8030d1a93ec1fa0dff58288a3c74a6b638 to origin/develope
+[33m22ec0e8[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/react_front[m[33m, [m[1;32mreact_front[m[33m)[m HEAD@{4}: reset: moving to 22ec0e8
+[33ma2d5199[m[33m ([m[1;31morigin/develope[m[33m)[m HEAD@{5}: checkout: moving from react_front to origin/develope
+[33m22ec0e8[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/react_front[m[33m, [m[1;32mreact_front[m[33m)[m HEAD@{6}: commit: Upgrade json.js file
+[33m5db48e2[m HEAD@{7}: commit: FrontEnd Skeleton Form
+[33mdf1391b[m HEAD@{8}: commit: FrontEnd Skeleton Form
+[33m0f8950d[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{9}: checkout: moving from master to react_front
+[33m0f8950d[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{10}: checkout: moving from version_alpha to master
+[33mfb36935[m[33m ([m[1;31morigin/version_alpha[m[33m)[m HEAD@{11}: commit: 연습
+[33m0f8950d[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{12}: checkout: moving from master to version_alpha
+[33m0f8950d[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{13}: initial pull

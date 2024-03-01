@@ -1,2 +1,4 @@
 venv/
+myvenv/
+node_modules/
 requesttest.py
