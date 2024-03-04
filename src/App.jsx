@@ -11,6 +11,9 @@ import Intro from './pages/Intro';
 import Home from './pages/Home.jsx';
 import SignIn from './pages/sign/signin.jsx';
 import { Route, Routes } from 'react-router-dom';
+
+// 테스트용
+import About from "./pages/About.jsx"
 const useStyles = makeStyles({
   appMain: {
     '@media (min-width:600px)': {
@@ -37,8 +40,7 @@ export default function App() {
             exact
             element={<LeadershipSurvey />}
           ></Route>
-          {/* <Route path="/home" exact element={< />}></Route> */}
-          {/* <Route path="/about" exact element={<About />}></Route> */}
+          <Route path="/about" exact element={<About />}></Route>
           {/* <Route path="/blogs" exact element={<Blogs />}></Route> */}
         </Routes>
         {/* <SideMenu />

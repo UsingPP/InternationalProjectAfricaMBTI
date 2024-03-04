@@ -2,6 +2,7 @@ import { Box, Container } from '@mui/material';
 import React from 'react';
 import Header from './components/Header.jsx';
 import SideMenu from './components/SideMenu.jsx';
+import MultipleItems from "./components/carouselSlider.jsx"
 export default function Home() {
   return (
     <>
@@ -10,6 +11,7 @@ export default function Home() {
       <Container sx={{ marginLeft: '55px' }}>
         <Box>서베이 참여한거</Box>
         <Box>서베이 리스트</Box>
+        <MultipleItems/>
       </Container>
     </>
   );
