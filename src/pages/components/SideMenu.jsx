@@ -38,6 +38,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser , faCircleInfo} from '@fortawesome/free-solid-svg-icons'
 
 const drawerWidth = 240;
 
@@ -108,32 +110,33 @@ export default function SideMenu() {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem
-            disablePadding
-            sx={{ display: 'block' }}
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
+            <ListItem
+              disablePadding
+              sx={{ display: 'block' }}
+              onClick={() => {
+                navigate('/myPage');
               }}
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
                 }}
               >
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                </ListItemIcon>
+                <ListItemText primary="myPage" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+      
 
           <ListItem
             disablePadding
@@ -156,38 +159,13 @@ export default function SideMenu() {
                   justifyContent: 'center',
                 }}
               >
-                <InboxIcon />
+                
+                <FontAwesomeIcon icon={faCircleInfo} />
               </ListItemIcon>
               <ListItemText primary="About" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
 
-          <ListItem
-            disablePadding
-            sx={{ display: 'block' }}
-            onClick={() => {
-              navigate('/blogs');
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Blogs" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
         </List>
         <Divider />
       </Drawer>

@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import {DialogActions, Button} from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
 import Avatar from '@mui/material/Avatar';
 
@@ -17,33 +18,34 @@ export default function SignUp() {
     nation: '',
     passwordMatchError: false,
   });
+  const onsubmit= async(e)=>{
+    e.preventDefault();
+    console.log(signupData )
+    try{
+      const response = await fetch("http://127.0.0.1:8000/SignUP/",
+      {
+        method : "POST",
+        headers :{
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(signupData)
+      })
+    
+    if (response.ok){
 
+      const data = await response.json();
+      console.log("로그인성공");
+    }else{
+      console.log("서버오류 : ", response.status)
+    }} catch (error) {
+      console.error('오류:', error);
+    }
+  }
   const onChange = (e) => {
     const { name, value } = e.target;
     console.log(1);
 
-    // 사용자의 IP 주소 가져오기
-    // 가져오는 이유 -> 마지막 항목인 nation에 이용할것. 사용자의 국가로 추정되는 국가를 최상단에 올리기
-    fetch('https://api.ipify.org?format=json')
-      .then((response) => response.json())
-      .then((data) => {
-        const userIP = data.ip;
-
-        // IP 주소를 기반으로 국가 가져오기
-        fetch(`https://ipapi.co/${userIP}/json/`)
-          .then((response) => response.json())
-          .then((userData) => {
-            const userCountry = userData.country_name;
-            console.log('사용자의 국가:', userCountry);
-          })
-          .catch((error) => {
-            console.error('오류 발생:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('오류 발생:', error);
-      });
-
+ 
     // 새로운 상태를 생성하고 이전 상태를 복사
     const updatedSignupData = { ...signupData, [name]: value };
 
@@ -74,6 +76,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
           Sign UP
         </Typography>
+        <form onSubmit={onsubmit}>
         <TextField
           label="name"
           name="name"
@@ -91,7 +94,7 @@ export default function SignUp() {
           fullWidth
           onChange={onChange}
         />
-        <TextField label="id" name="id" margin="dense" required fullWidth />
+        <TextField label="id" name="id" margin="dense" required fullWidth onChange={onChange}/>
         <TextField
           label="PassWord"
           type="password"
@@ -130,6 +133,17 @@ export default function SignUp() {
           required
           fullWidth
         />
+         <DialogActions>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            fullWidth
+          >
+            Sign UP{' '}
+          </Button>
+        </DialogActions>
+        </form>
       </Box>
     </Container>
   );
