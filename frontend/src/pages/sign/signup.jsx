@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useState ,useRef} from 'react';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import {DialogActions, Button} from '@mui/material';
+import { Grid, DialogActions, Button} from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
 import Avatar from '@mui/material/Avatar';
+
 
 export default function SignUp() {
   const [signupData, signupDataChange] = useState({
     name: '',
-    birthdate: '',
+    birthdate_YY: '',
+    birthdate_MM: '',
+    birthdate_DD: '',
     userid: '',
     password: '',
     passwordConfirm: '',
@@ -19,6 +22,12 @@ export default function SignUp() {
   const onsubmit= async(e)=>{
     e.preventDefault();
     console.log(signupData )
+    // YY, MM, DD 값을 추출합니다.
+    const { birthdate_YY, birthdate_MM, birthdate_DD, ...rest } = signupData;
+
+    // birthdate 키를 추가합니다.
+    const birthdate = `${birthdate_YY}/${birthdate_MM}/${birthdate_DD}`;
+    const updatedUserData = { ...rest, birthdate };
     try{
       const response = await fetch("http://127.0.0.1:8000/signup/",
       {
@@ -26,27 +35,25 @@ export default function SignUp() {
         headers :{
           "Content-Type" : "application/json"
         },
-        body : JSON.stringify(signupData)
+        body : JSON.stringify(updatedUserData)
       })
-    
-    if (response.ok){
-
-      const data = await response.json();
-      console.log("회원가입성공");
-    }else{
+    const data = await response.json();
+    if (data.message == "EXISTS_ID"){
+      window.alert("The same ID exists");
+    }else if (data.message == "success"){
+      window.alert("success")
+      window.location.reload();
+    }
+    else{
       console.log("서버오류 : ", response.status)
     }} catch (error) {
       console.error('오류:', error);
     }
   }
-  const onChange = (e) => {
+  function onChange(e ){
     const { name, value } = e.target;
-    console.log(1);
-
- 
     // 새로운 상태를 생성하고 이전 상태를 복사
     const updatedSignupData = { ...signupData, [name]: value };
-
     // 비밀번호 확인과 관련된 로직
     if (name === 'passwordConfirm') {
       if (value !== signupData.password && value !== '') {
@@ -55,9 +62,17 @@ export default function SignUp() {
         updatedSignupData.passwordMatchError = false;
       }
     }
+    if (name.slice(0,-3) === "birthdate"){
+     if(value.length >2){
+      updatedSignupData[name] = value.slice(0,2)
+     }
+      
+    }
+
     // 상태 업데이트
     signupDataChange(updatedSignupData);
   };
+
   return (
     <Container>
       <Box
@@ -84,14 +99,35 @@ export default function SignUp() {
           autoFocus
           onChange={onChange}
         />
-        <TextField
-          label="birthdate"
-          name="birthdate"
-          margin="dense"
-          required
-          fullWidth
-          onChange={onChange}
-        />
+        <Grid container>
+          <Grid item xs = {4} paddingRight = "4px">
+   <TextField label="birthyear"
+         name="birthdate_YY"
+         margin="dense"
+         required
+         fullWidth
+         value = {signupData.birthdate_YY}
+        onChange={onChange} /></Grid>
+          <Grid item xs = {4}>
+
+   <TextField label="birthmonth"
+         name="birthdate_MM"
+         margin="dense"
+         required
+         fullWidth
+         value = {signupData.birthdate_MM}
+        onChange={onChange}/></Grid>
+          <Grid item xs = {4} paddingLeft = "4px">
+
+   <TextField label="birthdate"
+         name="birthdate_DD"
+         margin="dense"
+         required
+         fullWidth
+         
+         value = {signupData.birthdate_DD}
+        onChange={onChange}/></Grid>
+        </Grid>
         <TextField label="id" name="userid" margin="dense" required fullWidth onChange={onChange}/>
         <TextField
           label="PassWord"

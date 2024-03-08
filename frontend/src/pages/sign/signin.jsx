@@ -79,15 +79,21 @@ export default function SignIn() {
         body : JSON.stringify(signInData)
       })
     
-    if (response.ok){
-      const data = await response.json();
+    const data = await response.json();
+    console.log(data)
+    if (data.message == "success"){
+      console.log("로그인성공");
       const token = data.token;
       localStorage.setItem('token', token);
-      console.log("로그인성공");
       window.location.href = "/home"
-    }else{
-      console.log("서버오류 : ", response.status)
+    }else if (data.message == "ID or password is incorrect"){
+      window.alert("ID or password is incorrect");
+      setSignInData({
+        userid: "",
+        password:""
+      })
     }} catch (error) {
+
       console.error('오류:', error);
     }
   }

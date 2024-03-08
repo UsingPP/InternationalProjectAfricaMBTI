@@ -8,7 +8,7 @@ import { RadialLinearScale,  Title,  LineElement, Filler,
   Legend,
   PointElement } from 'chart.js';
 import {Chart as ChartJS} from "chart.js"
-ChartJS.register(RadialLinearScale,PointElement,LineElement,Filler);
+ChartJS.register(RadialLinearScale,PointElement,LineElement,Filler,Legend);
 
 const options = {
   scales: {
@@ -39,9 +39,10 @@ function RadarChartLeadershipData() {
       body : JSON.stringify({survey_name : "leadership_survey01"})
     })
     const data = await response.json()
+    console.log(data)
     const userData = [
       {
-        name: "user",
+        name: `you : ${data.username}`,
         scores:  names.map((co)=>data["leadership_mean_by_sector"][Object.keys(co)[0]]),
         // Object.values(data["leadership_mean_by_sector"]),
         backgroundColor: "#ff638470",
@@ -49,8 +50,8 @@ function RadarChartLeadershipData() {
         borderColor : "#ff6384"
       },
       {
-        name: "by_world",
-        scores:  [55,55,44,37,83,54,75,75],
+        name: "other",
+        scores: names.map((co)=>data["other"]["leadership_mean_by_sector"][Object.keys(co)[0]]),
         backgroundColor: "#36a2eb70",
         borderColor : "#36a2eb"
       },

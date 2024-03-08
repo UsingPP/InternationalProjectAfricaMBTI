@@ -5,18 +5,19 @@ import {
   TextField,
   Button,
   Box,
-  Slider,
   Paper,
   Typography,
-  Avatar,
-  AppBar,
 } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+
 import { makeStyles, styled } from '@mui/styles';
 import { Data, initialData } from './Data.jsx';
 import { useForm, Form } from '../components/useForm.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PrettoSlider } from '../components/Slider';
-import { width } from '@mui/system';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 const useStyle = makeStyles((theme) => ({
   nextBtn: {
     width: '150px',
@@ -130,7 +131,7 @@ export default function SurveyForm() {
   return (
     <Form>
       {/* H Question */}
-      <Box sx = {{backgroundColor : "primary.main" ,paddingTop : 2, paddingBottom : 1, paddingLeft : 3}}>
+      <Box sx = {{backgroundColor : "primary.main" ,paddingTop : 2, paddingBottom : 1, paddingLeft : 3, fontFamily:"'Nanum Myeongjo'"}}>
       <Typography variant="h4" component="subtitle1" color = "#fff" fontWeight={"medium"} >
         Leadership Discretion Survey
       </Typography>
@@ -164,13 +165,7 @@ export default function SurveyForm() {
             value={values.H1}
             onChange={valueChange}
           />
-          <TextField
-            variant="outlined"
-            name="H2"
-            label="Continent"
-            value={values.H2}
-            onChange={valueChange}
-          />
+
           <TextField
             variant="outlined"
             name="H3"
@@ -178,17 +173,55 @@ export default function SurveyForm() {
             onChange={valueChange}
             value={values.H3}
           />
+                     <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Continent</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={values.H2}
+            name="H2"
+
+            onChange={valueChange}
+            label="Continent"
+
+            >
+              <MenuItem value={"Asia"}>Asia</MenuItem>
+              <MenuItem value={"Europe"}>Europe</MenuItem>
+              <MenuItem value={"Africa"}>Africa</MenuItem>
+              <MenuItem value={"North America"}>North America</MenuItem>
+              <MenuItem value={"South America"}>South America</MenuItem>
+              <MenuItem value={"Austrialia"}>Austrialia</MenuItem>
+              <MenuItem value={"Antarctica"}>Antarctica</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} flexDirection={"column"} display={"flex"} alignItems={"center"}>
-          <TextField
-            variant="outlined"
-            label="Choose following option describe you the best"
-            name="H4"
-            value={values.H4}
+        <TextField
+                variant="outlined"
+                name="H6"
+                label="Please indicate the country you currently live in."
+                onChange={valueChange}
+                value={values.H6}
+              />
+        <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Choose following option describe you the best</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={values.H4}
+              name="H4"
             onChange={valueChange}
-          />
-    
+            label="Continent"
+
+            >
+              <MenuItem value={"undergraduated"}>I am an undergraduate student</MenuItem>
+              <MenuItem value={"graduated"}>I am a graduate student</MenuItem>
+              <MenuItem value={"working professional"}>I am a working professional</MenuItem>
+            </Select>
+          </FormControl>
+        
         </Grid>
+           
         <Grid item xs={12} paddingTop = '50px'>
           {/* 이게 소질문 집단 */}
           <Grid container spacing={2}>
@@ -454,10 +487,10 @@ export default function SurveyForm() {
               </Grid>
               <Grid item xs={12} md={7}>
                 <Box>
-                  <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
+                <Typography variant='h6' sx={{ mb: 1 }} gutterBottom>
                     Anticipatory - Q2
                   </Typography>
-                  <Typography sx={{ ml: 2 }} variant="subtitle1">
+                  <Typography variant='subtitle1' sx={{ ml: 2 }} >
                     The ability to create one’s own visions for the future
                   </Typography>
                 </Box>

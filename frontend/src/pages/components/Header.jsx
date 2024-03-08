@@ -1,17 +1,14 @@
 import React from 'react';
 import {
-  Badge,
-  InputBase,
+  Typography,
   AppBar,
   Toolbar,
   Grid,
   IconButton,
 } from '@mui/material';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import { useNavigate } from 'react-router-dom';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import { withStyles, makeStyles } from '@mui/styles';
-import SearchIcon from '@mui/icons-material/Search';
+import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#fff !important',
@@ -40,32 +37,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
+  const navigate = useNavigate();
+  function logout(){
+    localStorage.clear()
+    window.location.href = "/signin"
+  }
   const classes = useStyles();
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar>
         <Grid container>
-          <Grid item>
-            <InputBase
-              className={classes.searchInput}
-              placeholder="Search"
-              startAdornment={<SearchIcon fontSize="small" />}
-            />
+        <Grid item onClick={() => {navigate('/home')}}>
+            <Typography align='left' sx={{fontFamily:"'Source Serif 4'", color:"#000000", fontSize:28, fontWeight : 900}}> Our'Survey </Typography>
           </Grid>
           <Grid item sm></Grid>
           <Grid item>
             <IconButton>
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsNoneIcon />
-              </Badge>
+              
             </IconButton>
             <IconButton>
-              <Badge badgeContent={4} color="primary">
-                <ChatBubbleOutlineIcon />
-              </Badge>
+              
+              
             </IconButton>
+
             <IconButton>
-              <PowerSettingsNewIcon />
+              <PowerSettingsNewIcon onClick = {logout} />
             </IconButton>
           </Grid>
         </Grid>

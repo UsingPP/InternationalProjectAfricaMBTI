@@ -4,6 +4,7 @@ export const initialData = {
   H3: '',
   H4: '',
   H5: '',
+  H6: '',
   SDT1: 50,
   SDT2: 50,
   SDT3: 50,

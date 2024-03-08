@@ -7,6 +7,7 @@ import {data} from "../Data/leadershipdata"
 import SlotCounter from 'react-slot-counter';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
+import { positions } from '@mui/system';
 import 'bootstrap/dist/css/bootstrap.css';
 const init_data = {
   "leadership_score_self": "",
@@ -25,7 +26,7 @@ const init_data = {
 function Result() {
   const classes = useStyles();
   const discretes = data;
-  const progressColor = ["danger","warning","info","success" ]
+  const progressColor = ["success","warning","danger","danger" ]
   const backColor1 = ["#7FFF00C2","#FFFF00C2",	"#FF4500C2"	 ]
   const backColor2 = ["#7FFF0030","#FFFF0030",	"#FF450030"	 ]
   const borderColor = ["#32CD32C2","#FFD700C2",	"	#DC143CC2"	 ]
@@ -66,8 +67,8 @@ function Result() {
     <div>
      
     </div>
-      <Grid container>
-        <Grid item xs={12} >
+      <Grid container  >
+        <Grid item xs={12}sx={{ position: 'relative' }} >
           <Box sx={{ marginX: "20%", marginTop: "20px", marginBottom: "12px"}}>
             <Typography variant='h2' align='center' sx = {{ borderBottom: "1px solid black", fontFamily : "'Source Serif 4'", fontSize : 72, fontWeight : 700}}>
               Your Survey Result

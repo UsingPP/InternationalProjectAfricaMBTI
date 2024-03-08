@@ -33,14 +33,15 @@ class SignUp(APIView):
         print(data)
         try:
             if User.objects.filter(userid = data['userid']).exists():
-                return JsonResponse({"message" : "EXISTS_ID"}, status=400)
+                print(1)
+                return JsonResponse({"message" : "EXISTS_ID"}, status=201)
             User.objects.create(
-                userid 	 = data['userid'], 
-                password = bcrypt.hashpw(data["password"].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8"),
-                name=data["name"],
+            userid 	 = data['userid'], 
+            password = bcrypt.hashpw(data["password"].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8"),
+            name=data["name"],
                 birthdate=data["birthdate"]
             ).save()
-            return HttpResponse(status=200)
+            return JsonResponse({"message" : "success"}, status=200)
         except KeyError:
             return JsonResponse({"message" : "INVALID_KEYS"}, status=400)
 
@@ -56,12 +57,12 @@ class SignIn(APIView):
                     token = jwt.encode({'user' : user.userid}, SECRET_KEY, algorithm='HS256')
                     print(token)
                     ## 로그인 성공시
-                    return JsonResponse({"token" : token}, status=200)
+                    return JsonResponse({"message" : "success" , "token" : token}, status=200)
                                                                                                                                     ## 이제 토큰을 프론트에서 local storage에 저장하는 코드 작성하면됌
                 ## 아이디는 맞는데 비밀번호가 틀린경우
-                return HttpResponse(status=401)
+                return JsonResponse({"message" : "ID or password is incorrect"})
             ## 아이디도 틀린경우
-            return HttpResponse(status=400)
+            return JsonResponse({"message" : "ID or password is incorrect"})
         ## 뭔가 잘못된경우
         except KeyError:
             return JsonResponse({'message' : "INVALID_KEYS"}, status=400)
@@ -109,30 +110,32 @@ class RecieveData(APIView):
                 print(userob.userid, userob.name)
                 print(data["data"])
                 questions = survey.question_set.all()
-
-                # 일괄 저장할 데이터를 모아놓을 임시 리스트
                 responses_to_save = []
-
-                # 모든 데이터를 반복하여 처리
+                flag = 0
                 for key, value in data["data"].items():
                     q = questions.filter(question_code=key)
                     if len(q) == 1:
-                        # 문제가 발생하지 않았을 때만 임시 리스트에 저장
-                        if (not res.objects.filter(question = q.first() , user = user).exists()):
-                          responses_to_save.append(res( question=q.first(), value=value,user=userob))
+                        q= q.first()
+                        if (not res.objects.filter(question = q, user = userob).exists()):
+                            responses_to_save.append(res( question=q, value=value,user=userob))
                         else:
-                            print("이미참여")
-                            return JsonResponse({"error": "이미 참여함"}, status=200)
+                            responses_to_save.append(res( question=q, value=value,user=userob))
+                            flag = 1
                     else:
                         # 문제가 발생하면 반복문을 중단함
                         print(key, value)
                         print("문제가 발생하여 데이터를 저장할 수 없습니다.")
-                        break
+                        return HttpResponse("문제중복 : 데이터베이스 문제")
 
                 # 모든 데이터가 성공적으로 저장될 수 있는지 확인
                 if len(responses_to_save) == len(data["data"]):
                     # 모든 데이터를 일괄 저장
+                    if (flag == 1 ):
+                        for q in questions:
+                            res.objects.get(user = userob, question = q).delete()
+                            print(q.question_code, "삭제")
                     for response in responses_to_save:
+                        print(response.question)
                         response.save()
                     print("모든 데이터가 성공적으로 저장되었습니다.")
                     return JsonResponse({"success": survey_name}, status=200)
@@ -142,6 +145,7 @@ class RecieveData(APIView):
         else: 
             return JsonResponse({"error": "Survey name x"}, status=400)
 ## 5. 결과 폼 계산 후 전달
+from django.db.models import Avg
 class send_result(APIView):
     authentication_classes = [TokenAuthentication]
     def post(self, request):
@@ -156,13 +160,22 @@ class send_result(APIView):
         userob = User.objects.get(userid = user.userid)
         questions = Question.objects.filter(survey = survey)
         resdic = {}
+        resalldic = {}
+        print(questions)
         if (len(questions)!= 0 ):
             for question in questions:
                 resval = res.objects.filter(question = question, user = userob).first()
+                print(userob.userid)
+                print(question.question_code)
+                resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
                 resdic[question.question_code] = resval.value
+                resalldic[question.question_code] = resall
             print(resdic)
             data = result_process_leadership_survey01(resdic)
+            other= result_process_leadership_survey01(resalldic)
             data["username"] = userob.name
+            data["other"] = other
+            print(data)
         return JsonResponse(data, status = 200)
         
 
