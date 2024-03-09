@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import RadarChartLeadershipData from "../charts/RadarChartLeadershipData"
-import {Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
+import {Divider, Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
 import useStyles from "../styles"
 import { PrettoSlider } from '../charts/Slider'
 import {data} from "../Data/leadershipdata"
@@ -9,6 +9,8 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 import { positions } from '@mui/system';
 import 'bootstrap/dist/css/bootstrap.css';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 const init_data = {
   "leadership_score_self": "",
   "leadership_mean_by_sector": {
@@ -21,6 +23,8 @@ const init_data = {
       "L_SA":"",
       "L_PS":"",
   }
+}
+function onClickpdf(){
 }
 
 function Result() {
@@ -41,6 +45,7 @@ function Result() {
       return 0;
     }
   }
+
   const fetchData = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/send_result/", {
@@ -65,8 +70,9 @@ function Result() {
   return (
     <Container className={classes.background_box} maxWidth="lg" sx={{ borderRadius: '16px' }}>
     <div>
-     
+      
     </div>
+    <br></br>
       <Grid container  >
         <Grid item xs={12}sx={{ position: 'relative' }} >
           <Box sx={{ marginX: "20%", marginTop: "20px", marginBottom: "12px"}}>
@@ -80,15 +86,15 @@ function Result() {
         </Grid>
         <Grid item xs={12}>
           <Grid container>
-            <Grid item xs={6}>
+            <Grid item md={6} xs = {12}>
               <RadarChartLeadershipData></RadarChartLeadershipData>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item md={6} xs = {12} paddingX = "10px !important">
               <Box >
-                <Typography variant="h5" marginLeft="5%" marginY="2%">
+                <Typography variant="h5" sm = {{marginY:"1%"}}md = {{marginLeft: "5%" ,marginY:"2%"}}>
                   Total Point
                 </Typography>
-                <Typography variant="h1" align="center">
+                <Typography variant="h1" sx = {{fontFamily : "'Source Serif 4'", fontWeight : "600"}} align="center" >
                 {isLoading ? <CircularProgress/> : <SlotCounter value={() => {
                   // 배열의 평균 계산
                   const values = Object.values(resultdata["leadership_mean_by_sector"]);
@@ -111,14 +117,16 @@ function Result() {
                   console.log(int, progressColor[Math.floor(int/20)])
                   const index = appraise_level(int)
                   return (
+                  <Paper sx = {{marginY : "12px" , paddingY : "5px"}}>
                   <Grid container>
-                    <Grid item xs={4}>
-                      <Typography variant="subtitle1" align='center'>{discrete.name}</Typography>
+                    <Grid item xs={12} sm = {4}>
+                      <Typography fontWeight={600} variant="subtitle1" align='center'>{discrete.name}</Typography>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} sm = {8}>
                       <ProgressBar  animated label = {int} variant={progressColor[index]} now={int} />
                     </Grid>
                   </Grid>
+                  </Paper>
                 )}) }
               </Box>
             </Grid>
@@ -145,15 +153,20 @@ function Result() {
                                 {/* <Typography variant='h4' marginY = "12px" gutterBottom marginLeft = "12px" backgroundColor ={backColor1[index]} ></Typography> */}
                     {discrete.name} <Rating  precision={0.5} name="read-only" value={Math.floor( int / 10)/2} readOnly />
                   </Typography>
+
                 </Grid>
                 <Grid item xs = {12} align = "center">
                   <Paper  align = "left" sx = {{width  : "90%" ,marginBottom : "20px", paddingY : "20px" ,paddingX : "18px"}}>
                     <Typography sx = {{ fontFamily : "'Source Serif 4'", fontSize : 32, fontWeight : 500}}>
                     {discrete.level[index].name}
                     </Typography>
-                    <Typography variant = "body1" marginY = "12px" sx = {{fontFamily : "'Nanum Myeongjo'", fontSize : 21}}>
-                    {discrete.level[index].detail}
-                    </Typography>
+                <Divider orientation="horizontal"sx = {{borderBottomWidth: 5, borderColor : "#00003360"}} flexItem />
+
+                    {discrete.level[index].detail.split("\n").map((d)=>(
+                      <Typography variant = "body1" marginY = "20px" sx = {{fontFamily : "'Nanum Myeongjo'", fontSize : 17}}>
+                      {d}
+                      </Typography>
+                    ))}
                   </Paper>
                 </Grid>
                 </Grid>

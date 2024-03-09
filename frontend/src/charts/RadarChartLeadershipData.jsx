@@ -2,26 +2,40 @@ import React, { useEffect, useState } from 'react';
 import {CircularProgress, Paper, Container, Typography } from '@mui/material';
 import { Radar } from 'react-chartjs-2';
 import {data as dd} from "../Data/leadershipdata"
+import useStyles from "../styles"
 
 import { RadialLinearScale,  Title,  LineElement, Filler,
   Tooltip,
   Legend,
   PointElement } from 'chart.js';
 import {Chart as ChartJS} from "chart.js"
-ChartJS.register(RadialLinearScale,PointElement,LineElement,Filler,Legend);
-
+ChartJS.register( RadialLinearScale,PointElement,LineElement,Filler,Legend);
 const options = {
+  plugins: {
+    legend: {
+        labels: {
+            font: {
+                style: 'italic',
+                weight: '600',
+            }
+        } 
+    },labels: {
+      render : "label",
+      fontColor : "green"
+    }
+},
   scales: {
     r: {
         angleLines: {
-            display: false
+            display: true
         },
         suggestedMin: 0,
-        suggestedMax: 10
+        suggestedMax: 100,
     }
 }
 }
 function RadarChartLeadershipData() {
+  const classes = useStyles();
   const [IsLoading, setIsLoading] = useState(true);
   const [userDataForChart, setUserDataForChart] = useState({
     labels: [],
@@ -58,8 +72,17 @@ function RadarChartLeadershipData() {
        
     ];
     console.log(data)
-    const labels = names.map((co)=>Object.values(co)[0]);
-    console.log(labels)
+    const labels = names.map((co)=>{
+      let a = Object.values(co)[0];
+      if (a.includes(" ")){
+        a = a.split(" ")
+      }
+      if (a.includes("-")){
+        a = a.split("-")
+      }
+      return (a)
+    });
+    console.log("라벨" ,labels)
     const datasets = userData.map(user => ({
       label: user.name,
       data: Object.values(user.scores),
@@ -72,9 +95,9 @@ function RadarChartLeadershipData() {
   }, []);
 
   return (
-    <Container>
-      <Paper sx= {{paddingY : "25px"}}>
-        <Typography></Typography>
+    <Container className={classes.radarChartContainer}>
+      <Paper sx= {{paddingY : "25px"}} >
+        <Typography variant  = "h3"align = "center" sx = {{fontFamily : "'Source Serif 4'", fontWeight : "600" , marginX : "12px" , borderRadius : "20px",border : "0px solid black" , marginBottom : "50px"}}> Radar Chart</Typography>
         {IsLoading ?
          <CircularProgress/> : <Radar data={userDataForChart} options = {options} />}
       </Paper>
