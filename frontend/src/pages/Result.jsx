@@ -48,7 +48,7 @@ function Result() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/send_result/", {
+      const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +70,7 @@ function Result() {
   return (
     <Container className={classes.background_box} maxWidth="lg" sx={{ borderRadius: '16px' }}>
     <div>
-      
+
     </div>
     <br></br>
       <Grid container  >
@@ -102,9 +102,9 @@ function Result() {
                   const average = sum / values.length;
                   return average.toFixed(1);
                 }} />}
-        
+
                 </Typography>
-                
+
 
               </Box>
               <br></br>
@@ -112,7 +112,7 @@ function Result() {
                 <Typography variant="h5" marginLeft="5%" marginY="2%">
                   <Box >Category</Box>
                 </Typography>
-                {isLoading ?<CircularProgress/> : discretes.map((discrete) =>{ 
+                {isLoading ?<CircularProgress/> : discretes.map((discrete) =>{
                   const int = resultdata["leadership_mean_by_sector"][discrete["code"]].toFixed(1)
                   console.log(int, progressColor[Math.floor(int/20)])
                   const index = appraise_level(int)

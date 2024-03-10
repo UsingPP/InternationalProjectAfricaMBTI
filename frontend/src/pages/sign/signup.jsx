@@ -29,7 +29,7 @@ export default function SignUp() {
     const birthdate = `${birthdate_YY}/${birthdate_MM}/${birthdate_DD}`;
     const updatedUserData = { ...rest, birthdate };
     try{
-      const response = await fetch("http://127.0.0.1:8000/signup/",
+      const response = await fetch("http://leadershipsurvey.pythonanywhere.com/signup/",
       {
         method : "POST",
         headers :{
@@ -66,7 +66,7 @@ export default function SignUp() {
      if(value.length >2){
       updatedSignupData[name] = value.slice(0,2)
      }
-      
+
     }
 
     // 상태 업데이트
@@ -124,7 +124,7 @@ export default function SignUp() {
          margin="dense"
          required
          fullWidth
-         
+
          value = {signupData.birthdate_DD}
         onChange={onChange}/></Grid>
         </Grid>

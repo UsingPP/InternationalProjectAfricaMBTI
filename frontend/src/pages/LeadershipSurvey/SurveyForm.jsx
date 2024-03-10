@@ -100,7 +100,7 @@ export default function SurveyForm() {
     if (currentPage == 3){
       const token = localStorage.getItem('token');
       try{
-        const response = await fetch("http://127.0.0.1:8000/recievedata/",
+        const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
         {
           method : "POST",
           headers :{
@@ -109,9 +109,9 @@ export default function SurveyForm() {
           },
           body : JSON.stringify({ survey_name : "leadership_survey01",data:values})
         })
-      
+
       if (response.ok){
-  
+
         const data = await response.json();
         console.log("전송성공");
         window.location.href = "/result"
@@ -219,9 +219,9 @@ export default function SurveyForm() {
               <MenuItem value={"working professional"}>I am a working professional</MenuItem>
             </Select>
           </FormControl>
-        
+
         </Grid>
-           
+
         <Grid item xs={12} paddingTop = '50px'>
           {/* 이게 소질문 집단 */}
           <Grid container spacing={2}>
@@ -294,7 +294,7 @@ export default function SurveyForm() {
         </Grid>
 
         <Grid item xs={12}>
- 
+
           <Box align  = "center">
         <img src = "https://static.thenounproject.com/png/3757146-200.png" className = {classes.Images}/>
 
@@ -938,9 +938,9 @@ export default function SurveyForm() {
               </Grid>
             </Grid>
           </Paper>
-          
+
         </Grid>
-        
+
         <Grid item xs={12}>
         <br></br>
           <br></br>
@@ -1166,7 +1166,7 @@ export default function SurveyForm() {
               </Grid>
             </Grid>
           </Paper>
-          
+
         </Grid>
         <Grid item xs={12}>
           {/* 소질문 페이퍼 섹션 */}
@@ -1294,8 +1294,8 @@ export default function SurveyForm() {
 
             </Box>
 
-        
-          
+
+
             <Typography variant="h6" component="subtitle2">
               This section surveys your interest in 17 sustainability topics.
               <br />

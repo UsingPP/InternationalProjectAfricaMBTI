@@ -18,7 +18,7 @@ const options = {
                 style: 'italic',
                 weight: '600',
             }
-        } 
+        }
     },labels: {
       render : "label",
       fontColor : "green"
@@ -44,7 +44,7 @@ function RadarChartLeadershipData() {
   const names = dd.map((d) => ({ [d.code]: d.name }));
   console.log(names)
   useEffect( async()  =>  {
-    const response = await fetch("http://127.0.0.1:8000/send_result/", {
+    const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
       method : "POST",
       headers :{
         "Content-Type" : "application/json",
@@ -69,7 +69,7 @@ function RadarChartLeadershipData() {
         backgroundColor: "#36a2eb70",
         borderColor : "#36a2eb"
       },
-       
+
     ];
     console.log(data)
     const labels = names.map((co)=>{

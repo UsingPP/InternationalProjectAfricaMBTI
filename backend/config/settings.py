@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-e1%5vh0ngzn15@2q65)z&ee5e8v3gv1^b)*f=p@)-p8teaj4ul
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
 from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Access 토큰 유효 기간 설정
@@ -40,6 +40,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
   ]
 }
+ALLOWED_HOSTS = [
+'LeadershipSurvey.pythonanywhere.com',
+'127.0.0.1'
+]
 INSTALLED_APPS = [
   "app",
     "django.contrib.admin",
@@ -50,7 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 CORS_ORIGIN_WHITELIST = [ #추가
-  'https://localhost:3000' 
+  'https://localhost:3000'
 ]
 CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ]
 CORS_ORIGIN_ALLOW_ALL = True #추가
@@ -68,11 +72,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
-
+import os
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "build", "static")]
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "build")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -143,7 +148,7 @@ import json
 
 from django.core.exceptions import ImproperlyConfigured
 
-with open("config/secret.json") as f:
+with open(os.path.join(BASE_DIR, "config/secret.json")) as f:
     secrets = json.loads(f.read())
 
 def get_secret(setting, secrets=secrets):
