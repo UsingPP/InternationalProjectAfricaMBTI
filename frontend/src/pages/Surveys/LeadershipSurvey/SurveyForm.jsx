@@ -11,10 +11,10 @@ import {
 import MenuItem from '@mui/material/MenuItem';
 
 import { makeStyles, styled } from '@mui/styles';
-import { Data, initialData } from './Data.jsx';
-import { useForm, Form } from '../components/useForm.jsx';
+import { FormData, initialData } from './form_Data.jsx';
+import { useForm, Form } from '../../components/useForm.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
-import { PrettoSlider } from '../components/Slider';
+import { PrettoSlider } from '../../components/Slider.jsx';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -278,7 +278,7 @@ export default function SurveyForm() {
         <Grid item>
           <Paper elevation={10} sx={{ p: 5 }} variant="outlined">
             <Typography variant="h6" component="subtitle2">
-              In this section, we will conduct a survey on a total of <b>8</b>{' '}
+              In this section, we will conduct a survey on a total of <b>8</b>
               key leadership discretion. <br />
               <Typography
                 variant="subtitle1"

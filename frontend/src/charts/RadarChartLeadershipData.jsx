@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {CircularProgress, Paper, Container, Typography } from '@mui/material';
 import { Radar } from 'react-chartjs-2';
-import {data as dd} from "../Data/leadershipdata"
+import {data as dd} from "../pages/Surveys/LeadershipSurvey/result_data"
 import useStyles from "../styles"
 
 import { RadialLinearScale,  Title,  LineElement, Filler,

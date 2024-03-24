@@ -1,16 +1,13 @@
 import React, {useState,useEffect} from 'react'
-import RadarChartLeadershipData from "../charts/RadarChartLeadershipData"
+import RadarChartLeadershipData from "../../../charts/RadarChartLeadershipData"
 import {Divider, Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
-import useStyles from "../styles"
-import { PrettoSlider } from '../charts/Slider'
-import {data} from "../Data/leadershipdata"
+import useStyles from "../../../styles"
+import {data} from "./result_data"
 import SlotCounter from 'react-slot-counter';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 import { positions } from '@mui/system';
 import 'bootstrap/dist/css/bootstrap.css';
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 const init_data = {
   "leadership_score_self": "",
   "leadership_mean_by_sector": {
@@ -23,8 +20,6 @@ const init_data = {
       "L_SA":"",
       "L_PS":"",
   }
-}
-function onClickpdf(){
 }
 
 function Result() {

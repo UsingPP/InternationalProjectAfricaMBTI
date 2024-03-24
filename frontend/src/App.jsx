@@ -3,12 +3,12 @@ import React , {useState}from 'react';
 import { makeStyles, ThemeProvider } from '@mui/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import { createTheme } from '@mui/material/styles';
-import LeadershipSurvey from './pages/LeadershipSurvey/LeadershipSurvey.jsx';
+import LeadershipSurvey from './pages/Surveys/LeadershipSurvey/LeadershipSurvey.jsx';
 import Intro from './pages/Intro';
 import Home from './pages/Home.jsx';
 import SignIn from './pages/sign/signin.jsx';
 import {Routes, Route, Link} from "react-router-dom";
-import Result from './pages/Result';
+import Result from './pages/Surveys/LeadershipSurvey/Result';
 import Footer from './pages/components/Footer.jsx';
 // 테스트용
 import About from "./pages/About.jsx";

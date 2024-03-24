@@ -2,8 +2,8 @@ import React from 'react';
 import SurveyForm from './SurveyForm';
 import { Paper, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Header from '../components/Header.jsx';
-import SideMenu from '../components/SideMenu.jsx';
+import Header from '../../components/Header.jsx';
+import SideMenu from '../../components/SideMenu.jsx';
 
 const useStyles = makeStyles((theme) => ({
   pageContent: {
