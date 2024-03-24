@@ -13,28 +13,28 @@ const useStyle = makeStyles({
   },
 })
 
-function MultipleItems() {
+function Surveycarousel(props) {
   const navigate = new useNavigate();
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: props.slidesToShow,
+    slidesToScroll: props.slidesToScroll,
   };
   
   const classes = useStyle()
-  const list = [1,2,3,4,5]
+
   return (
     <Container>
       <Slider {...settings} >
-      {list.map((index)=>(
+      {props.surveys.map((survey)=>(
         <Box sx = {{padding :3}}>
-          <Card id = {index} className = {classes.slider_list}>
-            <CardMedia sx = {{height : 140}}image = "https://avatars.githubusercontent.com/u/114085307?v=4"></CardMedia>
+          <Card className = {classes.slider_list}>
+            <CardMedia sx = {{height : 140}}image = {survey.image}></CardMedia>
             <CardContent>
               <Typography variant = "h5">
-                SURVEY{index}
+                {survey.title}
               </Typography>
               <Typography fontSize={14}    color ="text.secondary" sx={{ 
                   overflow: 'hidden', 
@@ -44,10 +44,10 @@ function MultipleItems() {
                   WebkitLineClamp: 3, // 최대 표시할 줄 수를 지정합니다. 여기서는 4줄로 설정했습니다.
                   height: '63px', // 텍스트가 표시될 최대 높이를 지정합니다.
                 }}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                  {survey.describe}
               </Typography>
             </CardContent>
-            <CardActions sx = {{display : "flex", justifyContent : "flex-end"}}  onClick = {() => {navigate('/home/survey_LeaderShip');
+            <CardActions sx = {{display : "flex", justifyContent : "flex-end"}}  onClick = {() => {navigate(survey.link);
             }}>
                 <Button variant = "outlined" color = "success">...show more</Button>
             </CardActions>
@@ -58,4 +58,4 @@ function MultipleItems() {
 
 }
 
-export default MultipleItems;
+export default Surveycarousel;
