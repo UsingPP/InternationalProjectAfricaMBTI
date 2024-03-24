@@ -3,19 +3,19 @@ export const data = [
       "name": "Systems thinking",
       "code" : "L_ST",
   
-      "detail": "the abilities to recognize and understand relationships; to analyze complex systems; to think of how systems are embedded within different domains and different scales; and to deal with uncertainty.",
+      "detail": "st_desc",
       "level": [
         {
           "name": "Top Level (Exemplary)",
-          "detail": "According to your self-report, your systems thinking competency is exemplary. \nSystems thinking competency involves the abilities to recognize and understand relationships; to analyze complex systems; to think of how systems are embedded within different domains and different scales; and to deal with uncertainty.\nYour keen recognition of relationships and analytical skills in dissecting complex systems demonstrate a profound understanding of how systems operate across domains and scales. Your ability to navigate uncertainty is a valuable asset to our team's approach to sustainability.\nContinue leveraging your systems thinking approach to address complex challenges. Your ability to understand relationships and analyze systems is crucial in our sustainability initiatives. Consider sharing your insights with the team to enhance our understanding of interconnected systems and mentor others to develop their systems thinking competency. \n"
+          "detail": "st_topl_desc"
         },
         {
           "name": "Average Level (Competent)",
-          "detail": "According to your self-report, your systems thinking competency is competent. \nSystems thinking competency involves the abilities to recognize and understand relationships; to analyze complex systems; to think of how systems are embedded within different domains and different scales; and to deal with uncertainty. \nYour efforts to recognize relationships and analyze systems contribute to a thoughtful approach to sustainability initiatives. To further enhance your competency, consider seeking opportunities to deepen your understanding of how systems operate across domains and scales.\nYour commitment to systems thinking is evident, and there's room for growth by actively seeking opportunities to delve deeper into understanding interconnected systems. Engage in discussions and training focusing on systems thinking principles and explore how these principles can be applied in various domains. Your dedication to improvement in this area will contribute to a more holistic and practical approach to sustainability within the team. It would be helpful for you to participate in more sustainable development projects and to take some advanced training to enhance your skills. \n"
+          "detail": "st_avgl_desc"
         },
         {
           "name": "Low Level (Needs Improvement)",
-          "detail": "According to your self-report, the results indicate a need for improvement in your systems thinking competency.\nSystems thinking competency involves the abilities to recognize and understand relationships; to analyze complex systems, to think of how systems are embedded within different domains and different scales; and to deal with uncertainty.\nFocusing on recognizing relationships, analyzing complex systems, and actively seeking to understand how systems operate across different domains and scales will contribute to a more comprehensive approach to sustainability.\nRecognizing the need for improvement is a positive step toward growth. Actively seek opportunities to expand your knowledge of systems thinking principles and engage with team members who excel in this competency. Consider participating in relevant training or workshops to enhance your skills in recognizing relationships and analyzing systems. Your dedication to improving your systems thinking competency is crucial, and with consistent effort, you can contribute more effectively to our team's sustainability initiatives. It would be helpful for you to participate in more sustainable development projects and to take some advanced training to enhance your skills. \n"
+          "detail": "st_lowl_desc"
         }
       ]
   },

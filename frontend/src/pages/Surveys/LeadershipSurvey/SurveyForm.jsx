@@ -107,7 +107,7 @@ export default function SurveyForm() {
             'Authorization': `Bearer ${token}`,
             "Content-Type" : "application/json"
           },
-          body : JSON.stringify({ survey_name : "leadership_survey01",data:values})
+          body : JSON.stringify({ survey_name : "leadership_survey01", data:values})
         })
 
       if (response.ok){

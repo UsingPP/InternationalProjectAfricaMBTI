@@ -8,27 +8,17 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 import { positions } from '@mui/system';
 import 'bootstrap/dist/css/bootstrap.css';
-const init_data = {
-  "leadership_score_self": "",
-  "leadership_mean_by_sector": {
-      "L_ST":"",
-      "L_A":"",
-      "L_N":"",
-      "L_S":"",
-      "L_C":"",
-      "L_CT":"",
-      "L_SA":"",
-      "L_PS":"",
-  }
-}
+import { useTranslation } from "react-i18next";
 
 function Result() {
   const classes = useStyles();
   const discretes = data;
+  const { t, i18n } = useTranslation()
+
+  const changelanguageToKo = () => i18n.changeLanguage('ko')
+  const changelanguageToEn = () => i18n.changeLanguage('en')
+
   const progressColor = ["success","warning","danger","danger" ]
-  const backColor1 = ["#7FFF00C2","#FFFF00C2",	"#FF4500C2"	 ]
-  const backColor2 = ["#7FFF0030","#FFFF0030",	"#FF450030"	 ]
-  const borderColor = ["#32CD32C2","#FFD700C2",	"	#DC143CC2"	 ]
   const [resultdata, setresultdata] = useState(1);
   const [isLoading, setIsLoading] = useState(true)
   function appraise_level(score){
@@ -65,14 +55,18 @@ function Result() {
   return (
     <Container className={classes.background_box} maxWidth="lg" sx={{ borderRadius: '16px' }}>
     <div>
-
+      <span>language : {i18n.language}</span>
+      <h1>{t('welcome')}</h1>
+      <button onClick={changelanguageToKo}>Korean</button>
+      <button onClick={changelanguageToEn}>English</button>  
     </div>
+
     <br></br>
       <Grid container  >
         <Grid item xs={12}sx={{ position: 'relative' }} >
           <Box sx={{ marginX: "20%", marginTop: "20px", marginBottom: "12px"}}>
             <Typography variant='h2' align='center' sx = {{ borderBottom: "1px solid black", fontFamily : "'Source Serif 4'", fontSize : 72, fontWeight : 700}}>
-              Your Survey Result
+              {t('Your Survey Result')}
             </Typography>
             <Typography variant='body1' align='center'  sx = {{fontFamily : "'Source Serif 4'", marginBottom: "21px"}}>
               ---Servey Name LongLongTEXT IS HERE---
@@ -153,13 +147,13 @@ function Result() {
                 <Grid item xs = {12} align = "center">
                   <Paper  align = "left" sx = {{width  : "90%" ,marginBottom : "20px", paddingY : "20px" ,paddingX : "18px"}}>
                     <Typography sx = {{ fontFamily : "'Source Serif 4'", fontSize : 32, fontWeight : 500}}>
-                    {discrete.level[index].name}
+                    {t(discrete.level[index].name)}
                     </Typography>
                 <Divider orientation="horizontal"sx = {{borderBottomWidth: 5, borderColor : "#00003360"}} flexItem />
 
                     {discrete.level[index].detail.split("\n").map((d)=>(
                       <Typography variant = "body1" marginY = "20px" sx = {{fontFamily : "'Nanum Myeongjo'", fontSize : 17}}>
-                      {d}
+                      {t(d)}
                       </Typography>
                     ))}
                   </Paper>

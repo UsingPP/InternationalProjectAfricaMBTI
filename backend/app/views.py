@@ -144,7 +144,9 @@ class RecieveData(APIView):
             return JsonResponse({"error":"error"}, status=400)
         else: 
             return JsonResponse({"error": "Survey name x"}, status=400)
+        
 ## 5. 결과 폼 계산 후 전달
+
 from django.db.models import Avg
 class send_result(APIView):
     authentication_classes = [TokenAuthentication]
