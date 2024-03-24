@@ -11,7 +11,7 @@ import {
 import MenuItem from '@mui/material/MenuItem';
 
 import { makeStyles, styled } from '@mui/styles';
-import { FormData, initialData } from './form_Data.jsx';
+import { FormData as FD, initialData } from './form_Data.jsx';
 import { useForm, Form } from '../../components/useForm.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PrettoSlider } from '../../components/Slider.jsx';
@@ -38,7 +38,8 @@ const useStyle = makeStyles((theme) => ({
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
 
 export default function SurveyForm() {
-  console.log(FormData)
+  const FormData = FD.ko
+  
   const section1 = FormData.sections[0];
   const section2 = FormData.sections[1];
   const classes = useStyle();
@@ -114,9 +115,7 @@ export default function SurveyForm() {
               component="p"
               sx={{ color: 'red', fontWeight: 'medium' }}
             >
-              Please read the following description of each competency and
-              rate your own competency in that competency on a scale of 100
-              points.
+              {FormData.notice}
             </Typography>
           </Typography>
         </Grid>
