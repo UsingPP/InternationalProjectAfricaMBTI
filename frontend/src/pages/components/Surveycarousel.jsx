@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../css/carouselSliderCss.css";
+import "./css/carouselSliderCss.css";
 import { useNavigate } from "react-router-dom";
 import {Card, CardMedia, CardContent, CardActions, CardHeader, Typography,Button,Grid,Box ,Stack} from "@mui/material"
 import {makeStyles} from "@mui/styles"

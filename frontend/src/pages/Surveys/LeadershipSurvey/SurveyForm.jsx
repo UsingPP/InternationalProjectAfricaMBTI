@@ -100,14 +100,14 @@ export default function SurveyForm() {
     if (currentPage == 3){
       const token = localStorage.getItem('token');
       try{
-        const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
+        const response = await fetch("http://127.0.0.1:8000/recievedata/",
         {
           method : "POST",
           headers :{
             'Authorization': `Bearer ${token}`,
             "Content-Type" : "application/json"
           },
-          body : JSON.stringify({ survey_name : "leadership_survey01",data:values})
+          body : JSON.stringify({ survey_name : "LeadershipSurvey",data:values})
         })
 
       if (response.ok){
@@ -173,17 +173,15 @@ export default function SurveyForm() {
             onChange={valueChange}
             value={values.H3}
           />
-                     <FormControl fullWidth>
+          <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Continent</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={values.H2}
             name="H2"
-
             onChange={valueChange}
             label="Continent"
-
             >
               <MenuItem value={"Asia"}>Asia</MenuItem>
               <MenuItem value={"Europe"}>Europe</MenuItem>

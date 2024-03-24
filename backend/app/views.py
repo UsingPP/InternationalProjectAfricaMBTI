@@ -96,9 +96,10 @@ class RecieveData(APIView):
     def post(self, request):
         data = json.loads(request.body)
         print(data)
-        data = json.loads(request.body)
         survey_name = data.get("survey_name")
         print(survey_name)
+        for i in Survey.objects.all():
+            print(i.survey_name)
         print(Survey.objects.filter(survey_name = survey_name))
         if Survey.objects.filter(survey_name = survey_name).exists():
             print("해당 서베이 존재")
@@ -113,9 +114,13 @@ class RecieveData(APIView):
                 responses_to_save = []
                 flag = 0
                 for key, value in data["data"].items():
+                    print(key)
                     q = questions.filter(question_code=key)
+                    print(q)
                     if len(q) == 1:
+
                         q= q.first()
+                        
                         if (not res.objects.filter(question = q, user = userob).exists()):
                             responses_to_save.append(res( question=q, value=value,user=userob))
                         else:

@@ -38,7 +38,7 @@ const useStyle = makeStyles((theme) => ({
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
 
 export default function SurveyForm() {
-  const FormData = FD.ko
+  const FormData = FD.en
   
   const section1 = FormData.sections[0];
   const section2 = FormData.sections[1];
@@ -61,14 +61,15 @@ export default function SurveyForm() {
       const token = localStorage.getItem('token');
       try {
         console.log(values)
-        const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
+        const response = await fetch("http://127.0.0.1:8000/recievedata/",
+          // "http://leadershipsurvey.pythonanywhere.com/recievedata/",
           {
             method: "POST",
             headers: {
               'Authorization': `Bearer ${token}`,
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ survey_name: "leadership_survey01", data: values })
+            body: JSON.stringify({ survey_name: "InclusiveLeadershipSurvey", data: values })
           })
 
         if (response.ok) {

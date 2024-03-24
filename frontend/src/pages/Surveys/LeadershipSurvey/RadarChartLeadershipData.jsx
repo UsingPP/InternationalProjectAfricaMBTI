@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {CircularProgress, Paper, Container, Typography } from '@mui/material';
 import { Radar } from 'react-chartjs-2';
-import {data as dd} from "../pages/Surveys/LeadershipSurvey/result_data"
-import useStyles from "../styles"
+import {data } from "./result_data"
+import useStyles from "../../../styles"
 
 import { RadialLinearScale,  Title,  LineElement, Filler,
   Tooltip,
@@ -34,23 +34,28 @@ const options = {
     }
 }
 }
-function RadarChartLeadershipData() {
+function RadarChartLeadershipData(props) {
+  const lang = props.language
+  const dd = data[lang].data
+  console.log(dd)
+
   const classes = useStyles();
   const [IsLoading, setIsLoading] = useState(true);
   const [userDataForChart, setUserDataForChart] = useState({
     labels: [],
     datasets: []
   });
+
   const names = dd.map((d) => ({ [d.code]: d.name }));
   console.log(names)
   useEffect( async()  =>  {
-    const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
+    const response = await fetch("http://127.0.0.1:8000/send_result/", {
       method : "POST",
       headers :{
         "Content-Type" : "application/json",
         'Authorization': `Bearer ${localStorage.getItem("token")}`,
       },
-      body : JSON.stringify({survey_name : "leadership_survey01"})
+      body : JSON.stringify({survey_name : "LeadershipSurvey"})
     })
     const data = await response.json()
     console.log(data)
@@ -97,7 +102,7 @@ function RadarChartLeadershipData() {
   return (
     <Container className={classes.radarChartContainer}>
       <Paper sx= {{paddingY : "25px"}} >
-        <Typography variant  = "h3"align = "center" sx = {{fontFamily : "'Source Serif 4'", fontWeight : "600" , marginX : "12px" , borderRadius : "20px",border : "0px solid black" , marginBottom : "50px"}}> Radar Chart</Typography>
+        <Typography variant  = "h3"align = "center" sx = {{fontFamily : "'Source Serif 4'", fontWeight : "600" , marginX : "12px" , borderRadius : "20px",border : "0px solid black" , marginBottom : "50px"}}></Typography>
         {IsLoading ?
          <CircularProgress/> : <Radar data={userDataForChart} options = {options} />}
       </Paper>
