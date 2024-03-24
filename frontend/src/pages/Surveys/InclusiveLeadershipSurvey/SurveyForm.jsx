@@ -38,7 +38,7 @@ const useStyle = makeStyles((theme) => ({
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
 
 export default function SurveyForm() {
-  const FormData = FD.en
+  const FormData = FD.ko
   
   const section1 = FormData.sections[0];
   const section2 = FormData.sections[1];
@@ -151,7 +151,7 @@ export default function SurveyForm() {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={5} >
                 <PrettoSlider
                   defaultValue={50}
                   min={0}

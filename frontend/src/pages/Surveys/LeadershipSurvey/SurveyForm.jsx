@@ -11,7 +11,7 @@ import {
 import MenuItem from '@mui/material/MenuItem';
 
 import { makeStyles, styled } from '@mui/styles';
-import { FormData, initialData } from './form_Data.jsx';
+import { FormData as FD, initialData } from './form_Data.jsx';
 import { useForm, Form } from '../../components/useForm.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PrettoSlider } from '../../components/Slider.jsx';
@@ -36,7 +36,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
-
+const FormData = FD.en
 export default function SurveyForm() {
   const classes = useStyle();
   const { values, setValues, valueChange } = useForm(initialData);
