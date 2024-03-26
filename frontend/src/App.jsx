@@ -21,6 +21,7 @@ if (cookieLanguage == null){
   let browserLocales = navigator.languages === undefined 
 ? [navigator.language] : navigator.languages[0];
   browserLocales = browserLocales.split("-")[0]
+  console.log(browserLocalse)
   if (!languageList.includes(browserLocales)){
     browserLocales = "en"
   }
