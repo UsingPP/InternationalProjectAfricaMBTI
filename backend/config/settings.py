@@ -56,9 +56,13 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 CORS_ORIGIN_WHITELIST = [ #추가
+<<<<<<< HEAD
+  'https://localhost:3000','*'
+=======
   'https://localhost:3000', "*"
+>>>>>>> 35dd93ee0a421ab4bfef12cb38c298a50b470551
 ]
-CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ]
+CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ,'*']
 CORS_ORIGIN_ALLOW_ALL = True #추가
 
 MIDDLEWARE = [
