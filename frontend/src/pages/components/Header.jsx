@@ -1,11 +1,17 @@
 import React from 'react';
 import {
+  Stack,
+  FormControl,
+  InputLabel,
+  MenuItem ,
   Typography,
   AppBar,
   Toolbar,
   Grid,
   IconButton,
 } from '@mui/material';
+import {setCookit, getCookie, deleteCookie, setCookie} from "../../Functions/Cookie"
+import Select from '@mui/material/Select';
 import { useNavigate } from 'react-router-dom';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { makeStyles } from '@mui/styles';
@@ -42,6 +48,12 @@ export default function Header() {
     localStorage.clear()
     window.location.href = "/signin"
   }
+  const [lang, setLang] = React.useState(getCookie("setLanguage"));
+  const handleChange = (event) => {
+    setLang(event.target.value);
+    setCookie("setLanguage", event.target.value, 10)
+    window.location.reload()
+  };
   const classes = useStyles();
   return (
     <AppBar position="static" className={classes.root}>
@@ -52,17 +64,25 @@ export default function Header() {
           </Grid>
           <Grid item sm></Grid>
           <Grid item>
-            <IconButton>
-              
-            </IconButton>
-            <IconButton>
-              
-              
-            </IconButton>
-
-            <IconButton>
+          <Stack direction="row">
+          <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Language</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={lang}
+          defaultValue={lang}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value="ko">Korean</MenuItem>
+          <MenuItem value="en">English</MenuItem>
+        </Select>
+      </FormControl>
+          <IconButton>
               <PowerSettingsNewIcon onClick = {logout} />
             </IconButton>
+            </Stack>
           </Grid>
         </Grid>
       </Toolbar>

@@ -14,6 +14,7 @@ const useStyle = makeStyles({
 })
 
 function Surveycarousel(props) {
+  console.log(props)
   const navigate = new useNavigate();
   const settings = {
     dots: true,
@@ -49,7 +50,7 @@ function Surveycarousel(props) {
             </CardContent>
             <CardActions sx = {{display : "flex", justifyContent : "flex-end"}}  onClick = {() => {navigate(survey.link);
             }}>
-                <Button variant = "outlined" color = "success">...show more</Button>
+                <Button variant = "outlined" color = "success">{props.btntxt}</Button>
             </CardActions>
           </Card></Box>
       ))}

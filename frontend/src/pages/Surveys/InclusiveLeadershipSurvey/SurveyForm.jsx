@@ -37,8 +37,8 @@ const useStyle = makeStyles((theme) => ({
 
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
 
-export default function SurveyForm() {
-  const FormData = FD.ko
+export default function SurveyForm(props) {
+  const FormData = FD[props.language]
   
   const section1 = FormData.sections[0];
   const section2 = FormData.sections[1];
@@ -61,7 +61,7 @@ export default function SurveyForm() {
       const token = localStorage.getItem('token');
       try {
         console.log(values)
-        const response = await fetch("http://127.0.0.1:8000/recievedata/",
+        const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
           // "http://leadershipsurvey.pythonanywhere.com/recievedata/",
           {
             method: "POST",

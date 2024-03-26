@@ -36,8 +36,9 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
-const FormData = FD.en
-export default function SurveyForm() {
+
+export default function SurveyForm(props) {
+  const FormData = FD[props.language]
   const classes = useStyle();
   const { values, setValues, valueChange } = useForm(initialData);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
@@ -138,7 +139,7 @@ export default function SurveyForm() {
       {/* H Question */}
       <Box sx = {{backgroundColor : "primary.main" ,paddingTop : 2, paddingBottom : 1, paddingLeft : 3, fontFamily:"'Nanum Myeongjo'"}}>
       <Typography variant="h4" component="subtitle1" color = "#fff" fontWeight={"medium"} >
-        Leadership Discretion Survey
+        {FormData.title}
       </Typography>
       <Box marginTop = "10px">
       <Divider orientation="horizontal" flexItem />
@@ -159,7 +160,6 @@ export default function SurveyForm() {
               sx={{ color: 'red', fontWeight: 'medium' }}
             >
               <br/>
-              {FormData.description2}
               <br/>
             </Typography>
           </Typography>
@@ -171,7 +171,7 @@ export default function SurveyForm() {
               variant="contained"
               onClick={handleNextPage}
             >
-              Next
+            {FormData.start}
             </Button>
         </Grid>
       </Grid>
@@ -258,7 +258,7 @@ export default function SurveyForm() {
               variant="contained"
               onClick={handleNextPage}
             >
-              Next
+              {FormData.next}
             </Button>
           </Grid>
         </Grid>
@@ -346,7 +346,7 @@ export default function SurveyForm() {
               variant="contained"
               onClick={handleNextPage}
             >
-              Next
+              {FormData.next}
             </Button>
           </Grid>
         </Grid>
@@ -360,8 +360,7 @@ export default function SurveyForm() {
         display="none"
         style={{ display: currentPage === 4 ? 'flex' : 'none' }}
       >
-        Your submitted data will soon be analyzed and the results will be
-        available shortly. Please wait for the analysis to be completed.{' '}
+        {FormData.loadingtext}
         <CircularProgress />
       </Grid>
     </Form>

@@ -3,8 +3,11 @@
 
     ko : {
       title: "리더십 재량 조사",
+      start :"시작하기",
+      next : "다음",
       description: "리더십 조사에 참여해 주셔서 감사합니다!",
       description2: "먼저 개인 정보를 제공해주세요.",
+      loadingtext : "제출된 데이터가 곧 분석될 예정이며 결과가 곧 제공될 것입니다. 분석이 완료될 때까지 기다려주세요",
       questions: [
         //question[0]
         {
@@ -409,6 +412,8 @@
 
     en : {
     title: 'Leadership Discretion Survey',
+    start :"Start",
+    next : "Next",
     description:
       "Thank you for agreeing to participate in the leadership survey!",
     description2 : "Please provide your personal information first.",
@@ -434,6 +439,7 @@
       {
         type: "PrettoSlider",
         name: "LeadershipQuestions",
+        loadingtext : "Your submitted data will soon be analyzed and the results will be available shortly. Please wait for the analysis to be completed.",
         columns: [
           'Extremely incompetent',
           'Somewhat incompetent',

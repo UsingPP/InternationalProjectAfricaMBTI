@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
 }));
-export default function LeadershipSurvey() {
+export default function LeadershipSurvey(props) {
   const classes = useStyles();
   return (
     <>
@@ -46,7 +46,7 @@ export default function LeadershipSurvey() {
         }}
       >
         <Paper className={classes.pageContent}>
-          <SurveyForm />
+          <SurveyForm language = {props.language}/>
         </Paper>
       </Container>
     </>
