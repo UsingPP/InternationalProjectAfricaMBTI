@@ -47,7 +47,7 @@ function Result(props) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
+      const response = await fetch("http://127.0.0.1:8000/send_result/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

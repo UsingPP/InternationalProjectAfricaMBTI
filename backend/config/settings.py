@@ -41,18 +41,19 @@ REST_FRAMEWORK = {
   ]
 }
 ALLOWED_HOSTS = [
-'LeadershipSurvey.pythonanywhere.com',
+'leadershipsurvey.pythonanywhere.com',
 '127.0.0.1'
 ]
 INSTALLED_APPS = [
   "app",
-  'rest_framework',
+  
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
 ]
 CORS_ORIGIN_WHITELIST = [ #추가
   'https://localhost:3000', "*"
