@@ -54,9 +54,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 CORS_ORIGIN_WHITELIST = [ #추가
-  'https://localhost:3000'
+  'https://localhost:3000','*'
 ]
-CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ]
+CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ,'*']
 CORS_ORIGIN_ALLOW_ALL = True #추가
 
 MIDDLEWARE = [
