@@ -119,7 +119,7 @@ class RecieveData(APIView):
                     q = questions.filter(question_code=key)
                     print(q)
                     if len(q) == 1:
-
+                        print(key,value)
                         q= q.first()
 
                         if (not res.objects.filter(question = q, user = userob).exists()):
@@ -155,12 +155,10 @@ from django.db.models import Avg
 class send_result(APIView):
     authentication_classes = [TokenAuthentication]
     def post(self, request):
+        surveylist = ["LeadershipSurvey", "InclusiveLeadershipSurvey"]
         data = json.loads(request.body)
-        print(data)
         survey_name = data["survey_name"]
-                                                # '''
-                                                # {survey_name : "설문조사 이름"}
-                                                # '''
+        print("|======================", survey_name)
         survey = Survey.objects.get(survey_name = survey_name)
         user = request.user
         userob = User.objects.get(userid = user.userid)
@@ -176,12 +174,22 @@ class send_result(APIView):
                 resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
                 resdic[question.question_code] = resval.value
                 resalldic[question.question_code] = resall
-            print(resdic)
-            data = result_process_leadership_survey01(resdic)
-            other= result_process_leadership_survey01(resalldic)
+            ## resalldic은 question 이름별로 전체 평균
+            ## resdic은 사용자의 value 
+            data = {}
+            if (survey_name == surveylist[0]):
+                data = result_process_leadership_survey01(resdic)
+                other= result_process_leadership_survey01(resalldic)
+                print("===========",other)
+                print("===========",data)
+                data["other"] = other
+            elif (survey_name == surveylist[1]):
+                data = result_process_survey_IncluciveSurvey(resdic)
+                other= result_process_survey_IncluciveSurvey(resalldic)
+                print("===========",other)
+                print("===========",data)
+                data["other"] = other
             data["username"] = userob.name
-            data["other"] = other
-            print(data)
         return JsonResponse(data, status = 200)
 
 
@@ -212,6 +220,25 @@ def result_process_leadership_survey01(resdic):
         leadership_mean[key] = value["sum"]/value["count"]
     print(leadership_mean)
     return { "leadership_score_self" :leadership_score_self, "leadership_mean_by_sector" :  leadership_mean}
+def result_process_survey_IncluciveSurvey(resdic):
+    leadership_score_self = ""
+    lis = ["openness", "availability","accessibility","Entrepreneurshipmindset"]
+    Ldic = {}
+    for key,value in resdic.items():
+        q_type = re.sub(r'\d+$', '', key)
+        print(q_type)
+        if (q_type in lis):
+            if (q_type not in Ldic):
+                Ldic[q_type] = {"sum" : float(value), "count" : 1}
+            else:
+                Ldic[q_type]["sum"]+=float(value)
+                Ldic[q_type]["count"]+=1
+    leadership_mean = {}
+    for key, value in Ldic.items():
+        leadership_mean[key] = value["sum"]/value["count"]
+
+    
+    return { "leadership_mean_by_sector" :  leadership_mean}
 
 ## 6. 아이디 유효성
 ## 7. xxx 님의 result

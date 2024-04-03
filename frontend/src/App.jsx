@@ -9,8 +9,9 @@ import Intro from './pages/Intro';
 import Home from './pages/Home/Home.jsx';
 import SignIn from './pages/sign/signin/signin.jsx';
 import {Routes, Route, Link} from "react-router-dom";
-import Result from './pages/Surveys/LeadershipSurvey/Result';
+import ResultLeadership from './pages/Surveys/LeadershipSurvey/Result';
 import Footer from './pages/components/Footer.jsx';
+import ResultInclusive from "./pages/Surveys/InclusiveLeadershipSurvey/Result.jsx"
 // 테스트용
 import About from "./pages/About.jsx";
 import { useNavigate } from 'react-router-dom';
@@ -72,7 +73,9 @@ export default function App() {
           <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey language = {lang}/>} />
           <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey language = {lang}/>} />
           <Route path="/about" exact element={<About language = {lang}/>} />
-          <Route path="/Result" element={<Result language = {lang}/>} />
+          <Route path="/result/leadershipsurvey" element={<ResultLeadership language = {lang}/>} />
+          <Route path="/result/inclusiveleadershipsurvey" element={<ResultInclusive language = {lang}/>} />
+          {/* <Route path="/result/inclusiveleadershipsurvey" element={<Result language = {lang}/>} /> */}
         </Routes> 
         :
         <Routes>

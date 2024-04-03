@@ -11,7 +11,12 @@ import { RadialLinearScale,  Title,  LineElement, Filler,
 import {Chart as ChartJS} from "chart.js"
 ChartJS.register( RadialLinearScale,PointElement,LineElement,Filler,Legend);
 const options = {
+  layout: {
+    padding: {
+    }
+},
   plugins: {
+    
     legend: {
         labels: {
             font: {
@@ -36,9 +41,8 @@ const options = {
 }
 function RadarChartLeadershipData(props) {
   const lang = props.language
-  const dd = data[lang].data
-  console.log(dd)
-
+  const textdata1 = data[lang].data1
+  const textdata2 = data[lang].data2
   const classes = useStyles();
   const [IsLoading, setIsLoading] = useState(true);
   const [userDataForChart, setUserDataForChart] = useState({
@@ -46,17 +50,20 @@ function RadarChartLeadershipData(props) {
     datasets: []
   });
 
-  const names = dd.map((d) => ({ [d.code]: d.name }));
-  console.log(names)
+  const names = textdata1.slice(0, 3).map(d => ({ [d.code]: d.name }));
+
+    console.log(textdata1,names)
+
   useEffect( async()  =>  {
-    // const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/leadershipsurvey/", {
-    const response = await fetch("http://127.0.0.1:8000/send_result/", {
+    // const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
+      const response = await fetch("http://127.0.0.1:8000/send_result/", {
+
       method : "POST",
       headers :{
         "Content-Type" : "application/json",
         'Authorization': `Bearer ${localStorage.getItem("token")}`,
       },
-      body : JSON.stringify({survey_name : "LeadershipSurvey"})
+      body : JSON.stringify({survey_name : "InclusiveLeadershipSurvey"})
     })
     const data = await response.json()
     console.log(data)
@@ -71,13 +78,14 @@ function RadarChartLeadershipData(props) {
       },
       {
         name: "other",
+        //question code로 찾기
         scores: names.map((co)=>data["other"]["leadership_mean_by_sector"][Object.keys(co)[0]]),
         backgroundColor: "#36a2eb70",
         borderColor : "#36a2eb"
       },
 
     ];
-    console.log(data)
+    console.log(userData)
     const labels = names.map((co)=>{
       let a = Object.values(co)[0];
       if (a.includes(" ")){
@@ -95,19 +103,17 @@ function RadarChartLeadershipData(props) {
       backgroundColor: user.backgroundColor,
       borderColor : user.borderColor
     }));
-
+    console.log(datasets)
     setUserDataForChart({ labels, datasets });
     setIsLoading(false)
   }, []);
 
   return (
-    <Container className={classes.radarChartContainer}>
-      <Paper sx= {{paddingY : "25px"}} >
-        <Typography variant  = "h3"align = "center" sx = {{fontFamily : "'Source Serif 4'", fontWeight : "600" , marginX : "12px" , borderRadius : "20px",border : "0px solid black" , marginBottom : "50px"}}></Typography>
+<>
         {IsLoading ?
          <CircularProgress/> : <Radar data={userDataForChart} options = {options} />}
-      </Paper>
-    </Container>
+  </>       
+
   );
 }
 

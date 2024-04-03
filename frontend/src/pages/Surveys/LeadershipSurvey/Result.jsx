@@ -22,7 +22,7 @@ const init_data = {
   }
 }
 
-function Result(props) {
+function ResultLeadership(props) {
   const lang = props.language
   const classes = useStyles();
   const data = dt[lang].data
@@ -47,7 +47,7 @@ function Result(props) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/send_result/", {
+      const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -178,4 +178,4 @@ function Result(props) {
   )
 }
 
-export default Result
+export default ResultLeadership

@@ -60,8 +60,24 @@ export default function SurveyForm(props) {
     if (currentPage == 2) {
       const token = localStorage.getItem('token');
       try {
+
+      //   values Example {
+      //     "openness1": 50,
+      //     "openness2": 50,
+      //     "openness3": 50,
+      //     "availability1": 50,
+      //     "availability2": 50,
+      //     "availability3": 50,
+      //     "availability4": 50,
+      //     "accessibility1": 50,
+      //     "accessibility2": 50,
+      //     "Entrepreneurshipmindset1": 50,
+      //     "Entrepreneurshipmindset2": 50,
+      //     "Entrepreneurshipmindset3": 50,
+      //     "Entrepreneurshipmindset4": 50
+      // }
         console.log(values)
-        const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
+        const response = await fetch("http://127.0.0.1:8000/recievedata/",
           // "http://leadershipsurvey.pythonanywhere.com/recievedata/",
           {
             method: "POST",
@@ -76,7 +92,7 @@ export default function SurveyForm(props) {
 
           const data = await response.json();
           console.log("전송성공");
-          window.location.href = "/result"
+          window.location.href = "/result/inclusiveleadershipsurvey"
         } else {
           console.log("서버오류 : ", response.status)
         }
@@ -124,7 +140,6 @@ export default function SurveyForm(props) {
         <Grid item xs={12}>
           <Box align="center">
             <img src={question.image} className={classes.Images} />
-            {/* 소질문 페이퍼 섹션 */}
             <Typography variant="h4" gutterBottom fontWeight="medium">
               0{q_index+1} : {question.name}
             </Typography>
@@ -134,7 +149,6 @@ export default function SurveyForm(props) {
             </Typography>
           </Box>
           <Paper elevation={10} sx={{ p: 5 }}>
-            {/* 이게 소질문 집단 */}
             {question.rows.map((subquestion, index)=>(
               <Grid
               container

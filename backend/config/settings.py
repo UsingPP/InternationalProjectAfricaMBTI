@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 CORS_ORIGIN_WHITELIST = [ #추가
   'https://localhost:3000', "*"
 ]
-CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ,'*']
+CSRF_TRUSTED_ORIGINS = ['https://localhost:3000','http://leadershipsurvey.pythonanywhere.com/']
 CORS_ORIGIN_ALLOW_ALL = True #추가
 
 MIDDLEWARE = [
