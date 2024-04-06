@@ -2,22 +2,23 @@ import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Divider,
-  TextField,
   Button,
   Box,
   Paper,
   Typography,
 } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-
 import { makeStyles, styled } from '@mui/styles';
 import { FormData as FD, initialData } from './form_Data.jsx';
 import { useForm, Form } from '../../components/useForm.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PrettoSlider } from '../../components/Slider.jsx';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
+import FormLabel from '@mui/material/FormLabel';
+
+
 
 const useStyle = makeStyles((theme) => ({
   nextBtn: {
@@ -36,10 +37,10 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function SurveyForm() {
-  const FormData = FD.ko
-  
-  const section1 = FormData.sections[0];
-  const section2 = FormData.sections[1];
+  const FormData = FD.en;
+  const pageSetting = FormData.page[0];
+  const page1 = FormData.page[1];
+  const page2 = FormData.page[2];
   const classes = useStyle();
   const { values, setValues, valueChange } = useForm(initialData);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
@@ -66,7 +67,7 @@ export default function SurveyForm() {
               'Authorization': `Bearer ${token}`,
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ survey_name: "leadership_survey01", data: values })
+            body: JSON.stringify({ survey_name: "SustainabilitySCCTStudySurvey", data: values })
           })
 
         if (response.ok) {
@@ -107,27 +108,42 @@ export default function SurveyForm() {
       >
         <Grid item xs={12} sx={{ marginTop: '10px', marginBottom: '50px' }}>
           <Typography variant="h6" component="subtitle2">
+
+            {/* -------------------- 수정 가능 ---------------*/}
             {FormData.description}
+            {/* -------------------- 수정 가능 ---------------*/}
+
             <Typography
               variant="subtitle1"
               component="p"
               sx={{ color: 'red', fontWeight: 'medium' }}
             >
+              {/* -------------------- 수정 가능 ---------------*/}
               {FormData.notice}
+              {/* -------------------- 수정 가능 ---------------*/}
+
             </Typography>
           </Typography>
         </Grid>
-        {section1.questions.map((question, q_index)=>(
+        {page1.questions.map((question, q_index)=>(
         <Grid item xs={12}>
           <Box align="center">
             <img src={question.image} className={classes.Images} />
             {/* 소질문 페이퍼 섹션 */}
             <Typography variant="h4" gutterBottom fontWeight="medium">
-              0{q_index+1} : {question.name}
+              
+              {/* -------------------- 수정 가능 ---------------*/}
+              0{q_index+1}. {question.name}
+              {/* -------------------- 수정 가능 ---------------*/}
+            
             </Typography>
             <br></br>
             <Typography variant="subtitle1" gutterBottom>
+              
+              {/* -------------------- 수정 가능 ---------------*/}
               <b>{question.name}</b>: {question.detail}
+              {/* -------------------- 수정 가능 ---------------*/}
+              
             </Typography>
           </Box>
           <Paper elevation={10} sx={{ p: 5 }}>
@@ -138,28 +154,47 @@ export default function SurveyForm() {
               spacing={2}
               sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
             >
-              <Grid item xs={12} md={7}>
+              <Grid item xs={12} md={3}>
                 <Box>
                   <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                    {question.name} - Q{index+1}
+                    
+                    {/* -------------------- 수정 가능 ---------------*/}
+                    {subquestion.title}
+                    {/* -------------------- 수정 가능 ---------------*/}
+
                   </Typography>
                   <Typography sx={{ ml: 2 }} variant="subtitle1">
+
+                    {/* -------------------- 수정 가능 ---------------
                     {subquestion.desc}
+                    -------------------- 수정 가능 ---------------*/}
+                    
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={5}>
-                <PrettoSlider
-                  defaultValue={50}
-                  min={0}
-                  max={100}
-                  step={10}
-                  marks={section1.marks}
+              <Grid item xs={12} md={9}>
+              <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
                   name={subquestion.name}
-                  valueLabelDisplay="auto"
-                  onChange={valueChange}
-                // 값 표시 포맷 지정
-                />
+                  onChange = {valueChange}
+                >
+                  <FormControlLabel value="environmental" control={<Radio />} label="Environmental" onChange = {valueChange}/>
+                    <Typography sx = {{fontSize : 14}} >
+                      {subquestion.desc_env}
+                    </Typography>
+                  <FormControlLabel value="social" control={<Radio />} label="Social" />
+                    <Typography sx = {{fontSize : 14}}>
+                      {subquestion.desc_social}
+                    </Typography >
+                  <FormControlLabel value="economic" control={<Radio />} label="Economic" />
+                    <Typography sx = {{fontSize : 14}}>
+                      {subquestion.desc_economic}
+                    </Typography>
+                </RadioGroup>
+              </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <Divider orientation="horizontal" flexItem />
@@ -185,42 +220,49 @@ export default function SurveyForm() {
         </Grid>
       </Grid>
 
-
-
-      {/* -------------------------------2 페이지------------------------------- */}
+     {/* -------------------------------2페이지------------------------------- */}
       <Grid
         container
         style={{ display: currentPage === 2 ? 'flex' : 'none' }}
-        sx={{ alignItems: 'center', justifyContent: 'center' }}
-        spacing={5}
       >
-        <Grid item>
-          <Paper elevation={10} sx={{ p: 5 }} variant="outlined">
-            <Typography variant="h6" component="subtitle2">
-             {section2.title}<br />
-              <Typography
-                variant="subtitle1"
-                component="p"
-                sx={{ color: 'red', fontWeight: 'medium' }}
-              >
-                Please read the following description of each competency and
-                rate your own competency in that competency on a scale of 100
-                points.
-              </Typography>
+        <Grid item xs={12} sx={{ marginTop: '10px', marginBottom: '50px' }}>
+          <Typography variant="h6" component="subtitle2">
+
+            {/* -------------------- 수정 가능 ---------------*/}
+            {FormData.description}
+            {/* -------------------- 수정 가능 ---------------*/}
+
+            <Typography
+              variant="subtitle1"
+              component="p"
+              sx={{ color: 'red', fontWeight: 'medium' }}
+            >
+              {/* -------------------- 수정 가능 ---------------*/}
+              {FormData.notice}
+              {/* -------------------- 수정 가능 ---------------*/}
+
             </Typography>
-          </Paper>
+          </Typography>
         </Grid>
-        {section2.questions.map((question)=>(
+        {page2.questions.map((question, q_index)=>(
         <Grid item xs={12}>
           <Box align="center">
             <img src={question.image} className={classes.Images} />
             {/* 소질문 페이퍼 섹션 */}
             <Typography variant="h4" gutterBottom fontWeight="medium">
-              {question.name}
+              
+              {/* -------------------- 수정 가능 ---------------*/}
+              0{q_index+1} : {question.name}
+              {/* -------------------- 수정 가능 ---------------*/}
+            
             </Typography>
             <br></br>
             <Typography variant="subtitle1" gutterBottom>
+              
+              {/* -------------------- 수정 가능 ---------------*/}
               <b>{question.name}</b>: {question.detail}
+              {/* -------------------- 수정 가능 ---------------*/}
+              
             </Typography>
           </Box>
           <Paper elevation={10} sx={{ p: 5 }}>
@@ -231,15 +273,25 @@ export default function SurveyForm() {
               spacing={2}
               sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
             >
-              <Grid item xs={12} md={7}>
+              <Grid item xs={12} md={6}>
                 <Box>
                   <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
+                    
+                    {/* -------------------- 수정 가능 ---------------*/}
                     {question.name} - Q{index+1}
+                    {/* -------------------- 수정 가능 ---------------*/}
+
                   </Typography>
                   <Typography sx={{ ml: 2 }} variant="subtitle1">
-                    {subquestion.text}
+
+                    {/* -------------------- 수정 가능 ---------------*/}
+                    {subquestion.desc}
+                    {/* -------------------- 수정 가능 ---------------*/}
+                    
                   </Typography>
                 </Box>
+              </Grid>
+              <Grid item xs={12} md={1}>
               </Grid>
               <Grid item xs={12} md={5}>
                 <PrettoSlider
@@ -247,7 +299,7 @@ export default function SurveyForm() {
                   min={0}
                   max={100}
                   step={10}
-                  marks={section2.marks}
+                  marks={pageSetting.marks}
                   name={subquestion.name}
                   valueLabelDisplay="auto"
                   onChange={valueChange}
@@ -260,9 +312,10 @@ export default function SurveyForm() {
             </Grid>
             ))}
           </Paper>
+          <br></br>
+          <br></br>
         </Grid>
         ))}
-        
         <Grid container justifyContent="center">
           <Grid item>
             <Button
@@ -271,11 +324,13 @@ export default function SurveyForm() {
               variant="contained"
               onClick={handleNextPage}
             >
-              Submit
+              Sumbit
             </Button>
           </Grid>
         </Grid>
       </Grid>
+
+
 
       <Grid
         container

@@ -5,6 +5,9 @@ import CssBaseline from '@mui/joy/CssBaseline';
 import { createTheme } from '@mui/material/styles';
 import LeadershipSurvey from './pages/Surveys/LeadershipSurvey/LeadershipSurvey.jsx';
 import InclusiveLeadershipSurvey from './pages/Surveys/InclusiveLeadershipSurvey/InclusiveLeadershipSurvey.jsx';
+import JMLeadershipEvaluationServey from './pages/Surveys/JMLeadershipEvaluationServey/JMLeadershipEvaluationServey.jsx';
+import SustainabilitySCCTStudySurvey from "./pages/Surveys/SustainabilitySCCTStudySurvey/SustainabilitySCCTStudySurvey.jsx";
+
 import Intro from './pages/Intro';
 import Home from './pages/Home.jsx';
 import SignIn from './pages/sign/signin.jsx';
@@ -62,6 +65,8 @@ export default function App() {
           <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/Result" element={<Result />} />
+          <Route path="/home/JMLeadershipEvaluationServey" exact element= { <JMLeadershipEvaluationServey />} />
+          <Route path="/home/SustainabilitySCCTStudySurvey" exact element= { <SustainabilitySCCTStudySurvey />} />
         </Routes> 
         :
         <Routes>
