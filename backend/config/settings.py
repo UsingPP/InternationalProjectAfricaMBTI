@@ -41,22 +41,28 @@ REST_FRAMEWORK = {
   ]
 }
 ALLOWED_HOSTS = [
-'LeadershipSurvey.pythonanywhere.com',
+'leadershipsurvey.pythonanywhere.com',
 '127.0.0.1'
 ]
 INSTALLED_APPS = [
   "app",
+  
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
 ]
 CORS_ORIGIN_WHITELIST = [ #추가
-  'https://localhost:3000'
+<<<<<<< HEAD
+  'https://localhost:3000','*'
+=======
+  'https://localhost:3000', "*"
+>>>>>>> 35dd93ee0a421ab4bfef12cb38c298a50b470551
 ]
-CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ]
+CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ,'*']
 CORS_ORIGIN_ALLOW_ALL = True #추가
 
 MIDDLEWARE = [

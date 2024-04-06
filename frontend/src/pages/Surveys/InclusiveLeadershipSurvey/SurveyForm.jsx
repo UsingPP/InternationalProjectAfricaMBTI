@@ -35,8 +35,11 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-export default function SurveyForm() {
-  const FormData = FD.ko
+
+const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
+
+export default function SurveyForm(props) {
+  const FormData = FD[props.language]
   
   const section1 = FormData.sections[0];
   const section2 = FormData.sections[1];
@@ -60,13 +63,14 @@ export default function SurveyForm() {
       try {
         console.log(values)
         const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
+          // "http://leadershipsurvey.pythonanywhere.com/recievedata/",
           {
             method: "POST",
             headers: {
               'Authorization': `Bearer ${token}`,
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ survey_name: "leadership_survey01", data: values })
+            body: JSON.stringify({ survey_name: "InclusiveLeadershipSurvey", data: values })
           })
 
         if (response.ok) {
@@ -148,7 +152,7 @@ export default function SurveyForm() {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={5} >
                 <PrettoSlider
                   defaultValue={50}
                   min={0}

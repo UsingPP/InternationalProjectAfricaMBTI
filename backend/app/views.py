@@ -36,7 +36,7 @@ class SignUp(APIView):
                 print(1)
                 return JsonResponse({"message" : "EXISTS_ID"}, status=201)
             User.objects.create(
-            userid 	 = data['userid'], 
+            userid 	 = data['userid'],
             password = bcrypt.hashpw(data["password"].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8"),
             name=data["name"],
                 birthdate=data["birthdate"]
@@ -66,7 +66,7 @@ class SignIn(APIView):
         ## 뭔가 잘못된경우
         except KeyError:
             return JsonResponse({'message' : "INVALID_KEYS"}, status=400)
-        
+
 ## 3. 설문조사 데이터 수신
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
@@ -93,12 +93,14 @@ class TokenAuthentication(BaseAuthentication):
         return (user, None)
 class RecieveData(APIView):
     authentication_classes = [TokenAuthentication]
+    print("RecieveData view")
     def post(self, request):
         data = json.loads(request.body)
         print(data)
-        data = json.loads(request.body)
         survey_name = data.get("survey_name")
         print(survey_name)
+        for i in Survey.objects.all():
+            print(i.survey_name)
         print(Survey.objects.filter(survey_name = survey_name))
         if Survey.objects.filter(survey_name = survey_name).exists():
             print("해당 서베이 존재")
@@ -113,9 +115,13 @@ class RecieveData(APIView):
                 responses_to_save = []
                 flag = 0
                 for key, value in data["data"].items():
+                    print(key)
                     q = questions.filter(question_code=key)
+                    print(q)
                     if len(q) == 1:
+
                         q= q.first()
+
                         if (not res.objects.filter(question = q, user = userob).exists()):
                             responses_to_save.append(res( question=q, value=value,user=userob))
                         else:
@@ -142,7 +148,7 @@ class RecieveData(APIView):
                 else:
                     print("일부 데이터가 저장되지 않았습니다.")
             return JsonResponse({"error":"error"}, status=400)
-        else: 
+        else:
             return JsonResponse({"error": "Survey name x"}, status=400)
 ## 5. 결과 폼 계산 후 전달
 from django.db.models import Avg
@@ -177,7 +183,7 @@ class send_result(APIView):
             data["other"] = other
             print(data)
         return JsonResponse(data, status = 200)
-        
+
 
 def result_process_leadership_survey01(resdic):
     leadership_score_self = ""
@@ -206,7 +212,7 @@ def result_process_leadership_survey01(resdic):
         leadership_mean[key] = value["sum"]/value["count"]
     print(leadership_mean)
     return { "leadership_score_self" :leadership_score_self, "leadership_mean_by_sector" :  leadership_mean}
-    
+
 ## 6. 아이디 유효성
 ## 7. xxx 님의 result
 ## 8. 폰으로볼때 result 라이다차트

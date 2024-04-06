@@ -9,14 +9,26 @@ import JMLeadershipEvaluationServey from './pages/Surveys/JMLeadershipEvaluation
 import SustainabilitySCCTStudySurvey from "./pages/Surveys/SustainabilitySCCTStudySurvey/SustainabilitySCCTStudySurvey.jsx";
 
 import Intro from './pages/Intro';
-import Home from './pages/Home.jsx';
-import SignIn from './pages/sign/signin.jsx';
+import Home from './pages/Home/Home.jsx';
+import SignIn from './pages/sign/signin/signin.jsx';
 import {Routes, Route, Link} from "react-router-dom";
 import Result from './pages/Surveys/LeadershipSurvey/Result';
 import Footer from './pages/components/Footer.jsx';
 // 테스트용
 import About from "./pages/About.jsx";
 import { useNavigate } from 'react-router-dom';
+import {setCookie, getCookie, deleteCookie} from "./Functions/Cookie"
+let cookieLanguage = getCookie("setLanguage")
+let languageList = ["en", "ko"]
+if (cookieLanguage == null){
+  let browserLocales = navigator.languages === undefined 
+? [navigator.language] : navigator.languages[0];
+  browserLocales = browserLocales.split("-")[0]
+  if (!languageList.includes(browserLocales)){
+    browserLocales = "en"
+  }
+  setCookie("setLanguage", browserLocales, 10)
+}
 
 const useStyles = makeStyles({
   appMain: {
@@ -38,7 +50,7 @@ const mainTheme = createTheme(
   }
 );
 
-
+const lang = getCookie("setLanguage")
 export default function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token') || false);
@@ -56,7 +68,6 @@ export default function App() {
 
   return (
     <>
-      <CssBaseline />
       <ThemeProvider theme={mainTheme}>
       {isLoggedIn ? 
         <Routes>
@@ -70,8 +81,8 @@ export default function App() {
         </Routes> 
         :
         <Routes>
-          <Route path="/" exact element={<Intro />} />
-          <Route path="/signin" exact element={<SignIn />} />
+          <Route path="/" exact element={<Intro language = {lang} />} />
+          <Route path="/signin" exact element={<SignIn language = {lang} />} />
         </Routes> 
       }
       </ThemeProvider>

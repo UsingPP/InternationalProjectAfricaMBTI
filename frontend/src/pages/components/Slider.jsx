@@ -4,9 +4,13 @@ import { styled } from '@mui/material/styles';
 export const PrettoSlider = styled(Slider)({
   color: '#52af77',
   height: 8,
+  "& .MuiSlider-markLabel" : {
+    whiteSpace: 'pre-line'
+  },
   '& .MuiSlider-track': {
     border: 'none',
   },
+
   '& .MuiSlider-thumb': {
     height: 24,
     width: 24,
@@ -19,13 +23,16 @@ export const PrettoSlider = styled(Slider)({
       display: 'none',
     },
   },
+
   '& .MuiSlider-valueLabel': {
+
     lineHeight: 1.2,
     fontSize: 12,
     background: 'unset',
     padding: 0,
     width: 32,
     height: 32,
+    
     borderRadius: '50% 50% 50% 0',
     backgroundColor: '#52af77',
     transformOrigin: 'bottom left',

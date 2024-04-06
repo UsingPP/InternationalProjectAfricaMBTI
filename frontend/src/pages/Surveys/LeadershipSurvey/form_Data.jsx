@@ -3,8 +3,11 @@
 
     ko : {
       title: "리더십 재량 조사",
+      start :"시작하기",
+      next : "다음",
       description: "리더십 조사에 참여해 주셔서 감사합니다!",
       description2: "먼저 개인 정보를 제공해주세요.",
+      loadingtext : "제출된 데이터가 곧 분석될 예정이며 결과가 곧 제공될 것입니다. 분석이 완료될 때까지 기다려주세요",
       questions: [
         //question[0]
         {
@@ -39,8 +42,8 @@
           questions: [
             {
               name: "L_ST",
-              chapterTitle: "Systyem Thinking",
-              chapterSubtitle: "Systems thinking competency",
+              chapterTitle: "시스템적 사고력",
+              chapterSubtitle: "시스템적 사고력",
               desc: "관계를 인식하고 이해하는 능력; 복잡한 시스템을 분석하는 능력; 시스템이 서로 다른 영역과 다른 규모에 내포되어 있는 방식을 생각하는 능력; 불확실성을 다루는 능력.",
               title: "리더십 판별 테스트 [시스템 사고] 다음 능력의 수준을 평가해주세요.",
               image : "https://static.thenounproject.com/png/3757146-200.png" ,
@@ -67,8 +70,8 @@
             {
               name: "L_A",
               title: "[예측] 다음 능력 수준을 평가해주세요.",
-              chapterTitle: "예측",
-              chapterSubtitle: "예측 능력",
+              chapterTitle: "예측 및 대비 능력",
+              chapterSubtitle: "예측 및 대비 능력",
               desc: "다양한 미래 가능성, 가능성, 원하는 미래를 이해하고 평가하는 능력; 미래에 예방 원칙을 적용하여 미래 비전을 만들고 행동의 결과를 평가하며 위험과 변화에 대처하는 능력.",
               image : "https://cdn-icons-png.flaticon.com/512/7871/7871961.png",
               columns: [
@@ -105,17 +108,17 @@
             {
               name: 'L_N',
               title: '[Normative] Please rate your level of following competence.',
-              chapterTitle: "규범",
-              chapterSubtitle: "규범적 역량",
+              chapterTitle: "규범 이해력",
+              chapterSubtitle: "규범 이해력",
               desc: "자신의 행동에 기반이 되는 규범과 가치를 이해하고 반성하는 능력; 그리고 이해관계의 충돌, 이해 관계 및 상충 관계의 맥락에서 지속 가능한 가치, 원칙, 목표 및 대상을 협상하는 능력",
               image :"https://cdn-icons-png.flaticon.com/512/2191/2191214.png" ,
               
               columns: [
-                'Extremely incompetent',
-                'Somewhat incompetent',
-                'Neither competent nor incompetent',
-                'Somewhat competent',
-                'Extremely competent',
+                "극히 부적임",
+                "다소 부적임",
+                "보통 능숙함도 아니고 부적임도 아님",
+                "다소 능숙함",
+                "극히 능숙함"
               ],
               rows: [          
                 {
@@ -132,17 +135,17 @@
             {
               name: 'L_S',
               title: '[Strategic] Please rate your level of following competence.',
-              chapterTitle: "전략",
+              chapterTitle: "전략적 역량",
               chapterSubtitle: "전략적 역량",
               desc: "지역 및 원격 지역에서 지속 가능성을 더 확대하기 위해 혁신적인 조치를 공동으로 개발하고 시행하는 능력",
                 image : "https://cdn-icons-png.freepik.com/512/3281/3281104.png",
-              columns: [
-                'Extremely incompetent',
-                'Somewhat incompetent',
-                'Neither competent nor incompetent',
-                'Somewhat competent',
-                'Extremely competent',
-              ],
+                columns: [
+                  "극히 부적임",
+                  "다소 부적임",
+                  "보통 능숙함도 아니고 부적임도 아님",
+                  "다소 능숙함",
+                  "극히 능숙함"
+                ],
               rows: [
                 
             {
@@ -159,17 +162,17 @@
               name: 'L_C',
               title:
                 '[Collaboration] Please rate your level of following competence.',
-              chapterTitle : "Collaboration",
-              chapterSubtitle : "Collaboration competency", 
+              chapterTitle : "협력",
+              chapterSubtitle : "협력적 역량", 
               desc: '다른 사람들의 필요성, 관점 및 행동을 이해하고 존중하는 능력 (공감); 다른 사람들과 관련성을 이해하고 예민하게 대하는 능력 (공감 리더십); 그룹 내에서 갈등을 다루는 능력; 협력적이고 참여적인 문제 해결을 촉진하는 능력.',
               image : "https://cdn-icons-png.flaticon.com/512/5371/5371017.png",
               
               columns: [
-                'Extremely incompetent',
-                'Somewhat incompetent',
-                'Neither competent nor incompetent',
-                'Somewhat competent',
-                'Extremely competent',
+                "극히 부적임",
+                "다소 부적임",
+                "보통 능숙함도 아니고 부적임도 아님",
+                "다소 능숙함",
+                "극히 능숙함"
               ],
               rows: [
                 {
@@ -198,16 +201,16 @@
               name: 'L_CT',
               title:
                 '[Critical thinking] Please rate your level of following competence.',
-              chapterTitle : "Critical thinking",
-              chapterSubtitle : "Critical thinking competency", 
+              chapterTitle : "비판적 사고",
+              chapterSubtitle : "비판적 사고 역량", 
               desc : "the ability to question norms, practices, and opinions, to reflect on one’s own values, perceptions, and actions, and to take a position in the sustainability discourse.",
               image : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThabo2rHcyh4dZrUNXjepnJbx8TVmMpt8ZZaYz5a2h_Q&s", 
               columns: [
-                'Extremely incompetent',
-                'Somewhat incompetent',
-                'Neither competent nor incompetent',
-                'Somewhat competent',
-                'Extremely competent',
+                "극히 부적임",
+                "다소 부적임",
+                "보통 능숙함도 아니고 부적임도 아님",
+                "다소 능숙함",
+                "극히 능숙함"
               ],
               rows: [
                 
@@ -229,16 +232,16 @@
               name: 'L_SA',
               title:
                 '[Self-awareness] Please rate your level of following competence.',
-              chapterTitle : "Self-awareness",
-              chapterSubtitle : "Self-awareness competency", 
+              chapterTitle : "자기인식",
+              chapterSubtitle : "자기인식 능력", 
               desc : " the ability to reflect on one’s own role in the local community and (global) society; to continually evaluate and further motivate one’s actions and to deal with one’s feelings and desires.",
               image : "https://static.thenounproject.com/png/298336-200.png" ,
               columns: [
-                'Extremely incompetent',
-                'Somewhat incompetent',
-                'Neither competent nor incompetent',
-                'Somewhat competent',
-                'Extremely competent',
+                "극히 부적임",
+                "다소 부적임",
+                "보통 능숙함도 아니고 부적임도 아님",
+                "다소 능숙함",
+                "극히 능숙함"
               ],
               rows: [
                             
@@ -260,16 +263,16 @@
               name: 'L_PS',
               title:
                 '[Problem-solving] Please rate your level of following competence',
-              chapterTitle : "Integrated Problem-solving",
-              chapterSubtitle : "Integrated problem-solving competency", 
+              chapterTitle : "통합 문제 해결",
+              chapterSubtitle : "통합 문제 해결 능력", 
               desc : "the overarching ability to apply different problem-solving frameworks to complex sustainability problems and develop viable, inclusive and equitable solution options that promote sustainable development, integrating the competencies mentioned earlier.",
               image : "https://cdn-icons-png.flaticon.com/512/2618/2618497.png",
               columns: [
-                'Extremely incompetent',
-                'Somewhat incompetent',
-                'Neither competent nor incompetent',
-                'Somewhat competent',
-                'Extremely competent',
+                "극히 부적임",
+                "다소 부적임",
+                "보통 능숙함도 아니고 부적임도 아님",
+                "다소 능숙함",
+                "극히 능숙함"
               ],
               rows: [
                 {
@@ -280,10 +283,7 @@
                   value: 'L_PS2',
                   text: '복잡한 지속 가능성 문제에 대해 다양한 문제 해결 프레임워크를 적용하고 실현 가능하고 포용적이며 공정한 것을 개발하는 능력',
                   },
-                {
-                  value: 'L_PS3',
-                  text: '?',
-                },
+  
               ],
             }
           ]},
@@ -295,11 +295,11 @@
           desc : "This section surveys your interest in 17 sustainability topics United Nations' Sustainable Development Goals (SDGs) are a set of 17 objectives aimed at promoting sustainable development globally. Here are the 17 SDGs",
           image :  "https://www.researchgate.net/publication/320688917/figure/fig5/AS:952860854468609@1604191139379/17-Sustainable-Development-Goals-SDGs-in-United-Nations-2030-Agenda.ppm",
           columns: [
-            'Not interested',
-            'somewhat interested',
-            'Neutral',
-            'intereted',
-            'Very interested',
+            "매우 관심 없음",
+            "약간 관심 있음",
+            "중립",
+            "관심 있음",
+            "매우 관심 있음"
           ],
           rows: [{
             value: "STD1",
@@ -412,6 +412,8 @@
 
     en : {
     title: 'Leadership Discretion Survey',
+    start :"Start",
+    next : "Next",
     description:
       "Thank you for agreeing to participate in the leadership survey!",
     description2 : "Please provide your personal information first.",
@@ -437,6 +439,7 @@
       {
         type: "PrettoSlider",
         name: "LeadershipQuestions",
+        loadingtext : "Your submitted data will soon be analyzed and the results will be available shortly. Please wait for the analysis to be completed.",
         columns: [
           'Extremely incompetent',
           'Somewhat incompetent',
@@ -689,10 +692,7 @@
                 value: 'L_PS2',
                 text: 'The ability to apply different problem-solving frameworks to complex sustainability problems and develop viable, inclusive and equitable',
               },
-              {
-                value: 'L_PS3',
-                text: '?',
-              },
+            
             ],
           }
         ]},

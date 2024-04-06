@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../css/carouselSliderCss.css";
+import "./css/carouselSliderCss.css";
 import { useNavigate } from "react-router-dom";
 import {Card, CardMedia, CardContent, CardActions, CardHeader, Typography,Button,Grid,Box ,Stack} from "@mui/material"
 import {makeStyles} from "@mui/styles"
@@ -14,6 +14,7 @@ const useStyle = makeStyles({
 })
 
 function Surveycarousel(props) {
+  console.log(props)
   const navigate = new useNavigate();
   const settings = {
     dots: true,
@@ -49,7 +50,7 @@ function Surveycarousel(props) {
             </CardContent>
             <CardActions sx = {{display : "flex", justifyContent : "flex-end"}}  onClick = {() => {navigate(survey.link);
             }}>
-                <Button variant = "outlined" color = "success">...show more</Button>
+                <Button variant = "outlined" color = "success">{props.btntxt}</Button>
             </CardActions>
           </Card></Box>
       ))}
