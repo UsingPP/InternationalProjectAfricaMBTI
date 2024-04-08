@@ -58,14 +58,14 @@ export default function SurveyForm() {
       const token = localStorage.getItem('token');
       try {
         console.log(values)
-        const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
+        const response = await fetch("http://127.0.0.1:8000/recievedata/",
           {
             method: "POST",
             headers: {
               'Authorization': `Bearer ${token}`,
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ survey_name: "JMLeadershipEvaluationServey", data: values })
+            body: JSON.stringify({ survey_name: "JMLeadershipEvaluationSurvey", data: values })
           })
 
         if (response.ok) {

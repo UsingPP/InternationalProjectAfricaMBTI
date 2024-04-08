@@ -34,7 +34,7 @@ function Result() {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ survey_name: "leadership_survey01" })
+        body: JSON.stringify({ survey_name: "JMLeadershipEvaluationSurvey" })
       });
       const resultdata = await response.json();
       setresultdata(resultdata);

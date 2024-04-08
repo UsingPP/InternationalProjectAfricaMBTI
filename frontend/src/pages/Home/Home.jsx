@@ -17,6 +17,7 @@ const useStyle = makeStyles({
   },
 })
 export default function Home(props) {
+  //  App.jsx에서 Router에서 Home태그에 함께  language = {lang} 로 넘겨준 정보를 props.language로 받아서, ./data.jsx의 해당 언어 텍스트를 파싱하는 용도
   const languageText = languageInfo[props.language]
 
   const navigate = new useNavigate();

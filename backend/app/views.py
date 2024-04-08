@@ -96,55 +96,53 @@ class RecieveData(APIView):
     print("RecieveData view")
     def post(self, request):
         data = json.loads(request.body)
-        print(data)
+        # 1. 유효한 유저가 요청을 보냈는지 확인
+        try:
+            user = request.user
+            userob = User.objects.get(userid = user.userid)
+        except:
+            return JsonResponse({"error": "User not Founded"}, status=400)
+        
+        # 2. 해당 서베이가 데이터베이스에 존재하는지부터 확인 (POST 요청을 막보내는 경우 차단)
         survey_name = data.get("survey_name")
-        print(survey_name)
-        for i in Survey.objects.all():
-            print(i.survey_name)
-        print(Survey.objects.filter(survey_name = survey_name))
         if Survey.objects.filter(survey_name = survey_name).exists():
-            print("해당 서베이 존재")
             if (len(Survey.objects.filter(survey_name = survey_name) )== 1):
                 survey = Survey.objects.get(survey_name = survey_name)
-                # 사용자 확인
-                user = request.user
-                userob = User.objects.get(userid = user.userid)
-                print(userob.userid, userob.name)
-                print(data["data"])
                 questions = survey.question_set.all()
                 responses_to_save = []
                 flag = 0
                 for key, value in data["data"].items():
-                    print(key)
                     q = questions.filter(question_code=key)
-                    print(q)
+                    # question이 있는지 확인
                     if len(q) == 1:
-
                         q= q.first()
-
+                        # 해당 사용자가 해당 질문에 대해서 답한 이력이 있는지 확인 
+                        ## 이력이 있으면, flag를 1로 바꾸가
                         if (not res.objects.filter(question = q, user = userob).exists()):
                             responses_to_save.append(res( question=q, value=value,user=userob))
                         else:
                             responses_to_save.append(res( question=q, value=value,user=userob))
                             flag = 1
                     else:
-                        # 문제가 발생하면 반복문을 중단함
+                        # 동일 question이 데이터베이스상에 2개 있으면 에러
                         print(key, value)
                         print("문제가 발생하여 데이터를 저장할 수 없습니다.")
-                        return HttpResponse("문제중복 : 데이터베이스 문제")
+                        return JsonResponse({"error": "DataBase Error / Same Question name duplicated. (to backend team : plz modify question name which duplicate one onother)"}, status=400)
 
                 # 모든 데이터가 성공적으로 저장될 수 있는지 확인
                 if len(responses_to_save) == len(data["data"]):
-                    # 모든 데이터를 일괄 저장
+                    # 플래그가 1이면, 기존의 설문이력 삭제
                     if (flag == 1 ):
                         for q in questions:
                             res.objects.get(user = userob, question = q).delete()
                             print(q.question_code, "삭제")
+                    # 모든 저장리스트 데이터, 데이터베이스 상에 실제 반영
                     for response in responses_to_save:
                         print(response.question)
                         response.save()
                     print("모든 데이터가 성공적으로 저장되었습니다.")
                     return JsonResponse({"success": survey_name}, status=200)
+                # request로 넘겨받은 답변 데이터 개수와, 저장할 수 있는 데이터개수가 다르면 취소 (atomic process)
                 else:
                     print("일부 데이터가 저장되지 않았습니다.")
             return JsonResponse({"error":"error"}, status=400)

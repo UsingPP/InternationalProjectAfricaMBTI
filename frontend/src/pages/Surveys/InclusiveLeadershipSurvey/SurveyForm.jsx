@@ -62,7 +62,7 @@ export default function SurveyForm(props) {
       const token = localStorage.getItem('token');
       try {
         console.log(values)
-        const response = await fetch("http://leadershipsurvey.pythonanywhere.com/recievedata/",
+        const response = await fetch("http://127.0.0.1:8000/recievedata/",
           // "http://leadershipsurvey.pythonanywhere.com/recievedata/",
           {
             method: "POST",

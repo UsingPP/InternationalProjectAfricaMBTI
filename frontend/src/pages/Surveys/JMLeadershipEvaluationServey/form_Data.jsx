@@ -426,6 +426,7 @@ export const FormData = {
 };
 
 export const initialData = {
+    
     //## 1페이지
     experiences1 : 50,
     experiences2 : 50,

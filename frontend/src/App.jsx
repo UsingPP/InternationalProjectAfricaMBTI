@@ -68,16 +68,17 @@ export default function App() {
 
   return (
     <>
+    {/*  language = {lang} 는 사용자가 선택한 언어에 대한 정보를 컴포넌트에 transfer해주는 역할. */}
       <ThemeProvider theme={mainTheme}>
       {isLoggedIn ? 
         <Routes>
-          <Route path="/home" exact element={<Home />} />
-          <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey />} />
-          <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey />} />
-          <Route path="/about" exact element={<About />} />
-          <Route path="/Result" element={<Result />} />
-          <Route path="/home/JMLeadershipEvaluationServey" exact element= { <JMLeadershipEvaluationServey />} />
-          <Route path="/home/SustainabilitySCCTStudySurvey" exact element= { <SustainabilitySCCTStudySurvey />} />
+          <Route path="/home" exact element={<Home  language = {lang} />} />
+          <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey  language = {lang} />} />
+          <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey  language = {lang} />} />
+          <Route path="/about" exact element={<About  language = {lang} />} />
+          <Route path="/Result" element={<Result language = {lang}  />} />
+          <Route path="/home/JMLeadershipEvaluationServey" exact element= { <JMLeadershipEvaluationServey  language = {lang} />} />
+          <Route path="/home/SustainabilitySCCTStudySurvey" exact element= { <SustainabilitySCCTStudySurvey  language = {lang} />} />
         </Routes> 
         :
         <Routes>

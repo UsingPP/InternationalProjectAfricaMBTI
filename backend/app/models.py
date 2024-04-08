@@ -11,6 +11,7 @@ class Survey(models.Model):
 
 class Question(models.Model): 
   question_code = models.CharField(max_length = 100)
+  value_type= models.CharField(max_length = 100, default = "int")
   question_details = models.TextField()
   survey = models.ForeignKey(Survey , on_delete = models.CASCADE)
   class Meta:
