@@ -49,7 +49,7 @@ function RadarChartLeadershipData(props) {
   const names = dd.map((d) => ({ [d.code]: d.name }));
   console.log(names)
   useEffect( async()  =>  {
-    const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
+    const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
       method : "POST",
       headers :{
         "Content-Type" : "application/json",
