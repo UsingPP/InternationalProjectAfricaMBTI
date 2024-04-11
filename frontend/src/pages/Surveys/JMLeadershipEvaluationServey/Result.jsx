@@ -28,7 +28,7 @@ function Result() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://leadershipsurvey.pythonanywhere.com/send_result/", {
+      const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

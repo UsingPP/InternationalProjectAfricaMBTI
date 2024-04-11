@@ -32,7 +32,7 @@ export default function SignUp(props) {
     const birthdate = `${birthdate_YY}/${birthdate_MM}/${birthdate_DD}`;
     const updatedUserData = { ...rest, birthdate };
     try{
-      const response = await fetch("http://leadershipsurvey.pythonanywhere.com/signup/",
+      const response = await fetch("https://leadershipsurvey.pythonanywhere.com/signup/",
       {
         method : "POST",
         headers :{

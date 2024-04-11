@@ -71,7 +71,7 @@ export default function SignIn(props) {
     e.preventDefault();
     console.log(signInData)
     try{
-      const response = await fetch("http://leadershipsurvey.pythonanywhere.com/login/",
+      const response = await fetch("https://leadershipsurvey.pythonanywhere.com/login/",
       {
         method : "POST",
         headers :{
