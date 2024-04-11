@@ -41,6 +41,7 @@ REST_FRAMEWORK = {
   ]
 }
 ALLOWED_HOSTS = [
+'www.leadershipsurvey.pythonanywhere.com',
 'leadershipsurvey.pythonanywhere.com',
 '127.0.0.1'
 ]
