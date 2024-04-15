@@ -6,7 +6,10 @@ import { createTheme } from '@mui/material/styles';
 import LeadershipSurvey from './pages/Surveys/LeadershipSurvey/LeadershipSurvey.jsx';
 import InclusiveLeadershipSurvey from './pages/Surveys/InclusiveLeadershipSurvey/InclusiveLeadershipSurvey.jsx';
 import JMLeadershipEvaluationServey from './pages/Surveys/JMLeadershipEvaluationServey/JMLeadershipEvaluationServey.jsx';
-import SustainabilitySCCTStudySurvey from "./pages/Surveys/SustainabilitySCCTStudySurvey/SustainabilitySCCTStudySurvey.jsx";
+import SelfCheck from './pages/Surveys/SelfCheck/SelfCheck.jsx';
+import DifficultiesInEmotion from './pages/Surveys/DifficultiesInEmotion/DifficultiesInEmotion.jsx';
+import SelfAwareness from './pages/Surveys/SelfAwareness/SelfAawreness.jsx';
+import UN17Goal from './pages/Surveys/UN17Goal/UN17Goal.jsx';
 
 import Intro from './pages/Intro';
 import Home from './pages/Home/Home.jsx';
@@ -18,6 +21,7 @@ import Footer from './pages/components/Footer.jsx';
 import About from "./pages/About.jsx";
 import { useNavigate } from 'react-router-dom';
 import {setCookie, getCookie, deleteCookie} from "./Functions/Cookie"
+
 let cookieLanguage = getCookie("setLanguage")
 let languageList = ["en", "ko"]
 if (cookieLanguage == null){
@@ -73,12 +77,15 @@ export default function App() {
       {isLoggedIn ? 
         <Routes>
           <Route path="/home" exact element={<Home  language = {lang} />} />
-          <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey  language = {lang} />} />
-          <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey  language = {lang} />} />
           <Route path="/about" exact element={<About  language = {lang} />} />
           <Route path="/Result" element={<Result language = {lang}  />} />
+          <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey  language = {lang} />} />
+          <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey  language = {lang} />} />
           <Route path="/home/JMLeadershipEvaluationServey" exact element= { <JMLeadershipEvaluationServey  language = {lang} />} />
-          <Route path="/home/SustainabilitySCCTStudySurvey" exact element= { <SustainabilitySCCTStudySurvey  language = {lang} />} />
+          <Route path="/home/SelfCheck" exact element= { <SelfCheck  language = {lang} />} />
+          <Route path="/home/SelfAwareness" exact element= { <SelfAwareness language = {lang} />} />
+          <Route path="/home/DifficultiesInEmotion" exact element= { <DifficultiesInEmotion  language = {lang} />} />
+          <Route path="/home/UN17Goal" exact element= { <UN17Goal  language = {lang} />} />
         </Routes> 
         :
         <Routes>

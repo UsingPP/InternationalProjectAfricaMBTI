@@ -40,7 +40,6 @@ export default function SurveyForm() {
   const FormData = FD.en;
   const pageSetting = FormData.page[0];
   const page1 = FormData.page[1];
-  const page2 = FormData.page[2];
   const classes = useStyle();
   const { values, setValues, valueChange } = useForm(initialData);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
@@ -56,7 +55,7 @@ export default function SurveyForm() {
   };
   // 다음 페이지로 이동하는 함수
   const handleNextPage = async () => {
-    if (currentPage == 2) {
+    if (currentPage == 1) {
       const token = localStorage.getItem('token');
       try {
         console.log(values)
@@ -215,129 +214,19 @@ export default function SurveyForm() {
               variant="contained"
               onClick={handleNextPage}
             >
-              Next
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-
-     {/* -------------------------------2페이지------------------------------- */}
-      <Grid
-        container
-        style={{ display: currentPage === 2 ? 'flex' : 'none' }}
-      >
-        <Grid item xs={12} sx={{ marginTop: '10px', marginBottom: '50px' }}>
-          <Typography variant="h6" component="subtitle2">
-
-            {/* -------------------- 수정 가능 ---------------*/}
-            {FormData.description}
-            {/* -------------------- 수정 가능 ---------------*/}
-
-            <Typography
-              variant="subtitle1"
-              component="p"
-              sx={{ color: 'red', fontWeight: 'medium' }}
-            >
-              {/* -------------------- 수정 가능 ---------------*/}
-              {FormData.notice}
-              {/* -------------------- 수정 가능 ---------------*/}
-
-            </Typography>
-          </Typography>
-        </Grid>
-        {page2.questions.map((question, q_index)=>(
-        <Grid item xs={12}>
-          <Box align="center">
-            <img src={question.image} className={classes.Images} />
-            {/* 소질문 페이퍼 섹션 */}
-            <Typography variant="h4" gutterBottom fontWeight="medium">
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              0{q_index+1} : {question.name}
-              {/* -------------------- 수정 가능 ---------------*/}
-            
-            </Typography>
-            <br></br>
-            <Typography variant="subtitle1" gutterBottom>
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              <b>{question.name}</b>: {question.detail}
-              {/* -------------------- 수정 가능 ---------------*/}
-              
-            </Typography>
-          </Box>
-          <Paper elevation={10} sx={{ p: 5 }}>
-            {/* 이게 소질문 집단 */}
-            {question.rows.map((subquestion, index)=>(
-              <Grid
-              container
-              spacing={2}
-              sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
-            >
-              <Grid item xs={12} md={6}>
-                <Box>
-                  <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                    
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {question.name} - Q{index+1}
-                    {/* -------------------- 수정 가능 ---------------*/}
-
-                  </Typography>
-                  <Typography sx={{ ml: 2 }} variant="subtitle1">
-
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {subquestion.desc}
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={1}>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <PrettoSlider
-                  defaultValue={50}
-                  min={0}
-                  max={100}
-                  step={10}
-                  marks={pageSetting.marks}
-                  name={subquestion.name}
-                  valueLabelDisplay="auto"
-                  onChange={valueChange}
-                // 값 표시 포맷 지정
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider orientation="horizontal" flexItem />
-              </Grid>
-            </Grid>
-            ))}
-          </Paper>
-          <br></br>
-          <br></br>
-        </Grid>
-        ))}
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Button
-              sx={{ marginTop: '45px' }}
-              className={classes.nextBtn}
-              variant="contained"
-              onClick={handleNextPage}
-            >
               Sumbit
             </Button>
           </Grid>
         </Grid>
       </Grid>
 
-
+     {/* -------------------------------2페이지------------------------------- */}
 
       <Grid
         container
         name="resultWait"
         display="none"
-        style={{ display: currentPage === 3 ? 'flex' : 'none' }}
+        style={{ display: currentPage === 2 ? 'flex' : 'none' }}
       >
         Your submitted data will soon be analyzed and the results will be
         available shortly. Please wait for the analysis to be completed.{' '}

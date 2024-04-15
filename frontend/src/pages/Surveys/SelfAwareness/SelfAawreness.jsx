@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
   
-export default function SustainabilitySCCTStudySurvey() {
+export default function SelfAawreness() {
     const classes = useStyles();
     return (
       <>

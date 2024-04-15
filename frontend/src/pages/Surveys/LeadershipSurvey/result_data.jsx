@@ -154,7 +154,8 @@ export const data = {
       }
 
     ]}]}
-    , en: {title : "Survey Result",
+    , 
+  en: {title : "Survey Result",
   subtitle : "Leadership Survey"
 
     ,data : [

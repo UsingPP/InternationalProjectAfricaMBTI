@@ -38,13 +38,13 @@ const useStyle = makeStyles((theme) => ({
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
 
 export default function SurveyForm(props) {
-  const FormData = FD[props.language]
+  const FormData = FD.en
   const classes = useStyle();
   const { values, setValues, valueChange } = useForm(initialData);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   // 사용자가 선택한 값을 표시할 때 허용 범위를 벗어나지 않도록 조정
   const section = FormData.questions;
-  const questionSection1 = FormData.questions[1];
+  const questionSection2 = FormData.questions[0];
   const valueLabelFormat = (value) => {
     if (value < 0) {
       return 0; // 최솟값으로 설정
@@ -176,42 +176,34 @@ export default function SurveyForm(props) {
         </Grid>
       </Grid>
       
-
-
-
-
-        {/*2페이지*/}
-      <Grid container style={{ display: currentPage === 2 ? 'flex' : 'none' }}>
+      {/*2페이지*/}
+        <Grid container style={{ display: currentPage === 2 ? 'flex' : 'none' }}>
         <Grid item xs={12} paddingTop = '50px'>
           {/* 이게 소질문 집단 */}
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Box>
-                <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                  {section[0].maintitle}
+                <Typography sx={{ mb: 1 }} variant="h3" gutterBottom>
+                  {questionSection2.title}
                 </Typography>
-                <Typography sx={{ ml: 2 }} variant="subtitle1">
-                {section[0].subtitle}
+                <img src={questionSection2.image}/>
+                <Typography sx={{ ml: 2 }} variant="h6">
+                 {questionSection2.desc}
                 </Typography>
               </Box>
             </Grid>
 
-            {questionSection1.questions.map((question, q_index)=>(
               <Grid item xs={12}>
                 <Box align="center">
-                  <img src={question.image} className={classes.Images} />
+
                   {/* 소질문 페이퍼 섹션 */}
-                  <Typography variant="h4" gutterBottom fontWeight="medium">
-                    0{q_index+1} : {question.chapterTitle}
-                  </Typography>
+
                   <br></br>
-                  <Typography variant="subtitle1" gutterBottom>
-                    <b>{question.chapterSubtitle}</b>: {question.desc}
-                  </Typography>
+
                 </Box>
                 <Paper elevation={10} sx={{ p: 5 }}>
                   {/* 이게 소질문 집단 */}
-                  {question.rows.map((subquestion, index)=>(
+                  {questionSection2.rows.map((subquestion, index)=>(
                     <Grid
                     container
                     spacing={2}
@@ -219,11 +211,11 @@ export default function SurveyForm(props) {
                   >
                   <Grid item xs={12} md={7}>
                     <Box>
-                      <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                        {question.chapterTitle} - Q{index+1}
+                      <Typography sx={{ mb: 1, mt : 0.5 }} variant="h6" gutterBottom>
+                        {questionSection2.name} - {subquestion.text}
                       </Typography>
                       <Typography sx={{ ml: 2 }} variant="subtitle1">
-                        {subquestion.text}
+                        {subquestion.desc}
                       </Typography>
                     </Box>
                   </Grid>
@@ -249,7 +241,7 @@ export default function SurveyForm(props) {
           <br></br>
           <br></br>
           </Grid>
-        ))}
+        
         <Grid container justifyContent="center">
           <Grid item>
             <Button
@@ -265,7 +257,6 @@ export default function SurveyForm(props) {
       </Grid>
       </Grid>
      </Grid>
-
 
       <Grid
         container
