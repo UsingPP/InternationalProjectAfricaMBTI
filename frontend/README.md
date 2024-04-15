@@ -1,15 +1,10 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+* 변경사항
+  Surveey 폴더 내에 있던 SCCT 설문조사를 3개로 분할
+  - SelfCheck
+  - SelfAwareness
+  - DifficultiesInEmotion
 
-Currently, two official plugins are available:
+  웹페이지 접근 경로는 home/(설문조사 이름)으로 동일하며, 수정중 Leadership Survey의 en 부분이 사라져서 추후 추가해야 됨.
+  빠르게 확인하려고 UN17Goal은 언어를 그냥 영어로 해놔서 추후 수정 필요
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-
-
-# 새로 추가된 모듈
-
-npm install slick-carousel
-npm install react-slick --save
