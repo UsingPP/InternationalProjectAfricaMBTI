@@ -46,7 +46,9 @@ const options = {
 },
   scales: {
     y : {
-      display : false
+      display : false,
+      min : 0,
+      max : 5
     }
 }
 }
