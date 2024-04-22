@@ -1,8 +1,8 @@
 import React, {useState,useEffect} from 'react'
-import RadarChartLeadershipData from "./RadarChartLeadershipData"
+// import RadarChartLeadershipData from "../../../charts/RadarChartLeadershipData"
 import {Divider, Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
 import useStyles from "../../../styles"
-import {data as dt} from "./result_data"
+import {data} from "./result_data"
 import SlotCounter from 'react-slot-counter';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
@@ -22,12 +22,8 @@ const init_data = {
   }
 }
 
-function LeadershipSurveyResult(props) {
-  const lang = props.language
+function DifficultiesInEmotionResult() {
   const classes = useStyles();
-  const data = dt[lang].data
-  const title = dt[lang].title
-  console.log(data)
   const discretes = data;
   const progressColor = ["success","warning","danger","danger" ]
   const backColor1 = ["#7FFF00C2","#FFFF00C2",	"#FF4500C2"	 ]
@@ -48,16 +44,14 @@ function LeadershipSurveyResult(props) {
   const fetchData = async () => {
     try {
       const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
-      // const response = await fetch("http://127.0.0.1:8000/send_result/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ survey_name: "LeadershipSurvey" })
+        body: JSON.stringify({ survey_name: "InclusiveLeadershipSurvey" })
       });
       const resultdata = await response.json();
-      console.log(resultdata)
       setresultdata(resultdata);
       setIsLoading(false)
     } catch (error) {
@@ -78,17 +72,17 @@ function LeadershipSurveyResult(props) {
         <Grid item xs={12}sx={{ position: 'relative' }} >
           <Box sx={{ marginX: "20%", marginTop: "20px", marginBottom: "12px"}}>
             <Typography variant='h2' align='center' sx = {{ borderBottom: "1px solid black", fontFamily : "'Source Serif 4'", fontSize : 72, fontWeight : 700}}>
-              {title}
+              Your Survey Result
             </Typography>
             <Typography variant='body1' align='center'  sx = {{fontFamily : "'Source Serif 4'", marginBottom: "21px"}}>
-              LeadershipSurvey
+              ---Servey Name LongLongTEXT IS HERE---
               </Typography>
           </Box>
         </Grid>
         <Grid item xs={12}>
           <Grid container>
             <Grid item md={6} xs = {12}>
-              <RadarChartLeadershipData language = {lang}></RadarChartLeadershipData>
+              {/* <RadarChartLeadershipData></RadarChartLeadershipData> */}
             </Grid>
             <Grid item md={6} xs = {12} paddingX = "10px !important">
               <Box >
@@ -179,4 +173,4 @@ function LeadershipSurveyResult(props) {
   )
 }
 
-export default LeadershipSurveyResult
+export default DifficultiesInEmotionResult

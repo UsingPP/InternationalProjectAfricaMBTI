@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import RadarChartLeadershipData from "../../../charts/RadarChartLeadershipData"
+// import RadarChartLeadershipData from "../../../charts/RadarChartLeadershipData"
 import {Divider, Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
 import useStyles from "../../../styles"
 import {data} from "./result_data"
@@ -22,7 +22,7 @@ const init_data = {
   }
 }
 
-function Result() {
+function InclusiveLeadershipSurveyResult() {
   const classes = useStyles();
   const discretes = data;
   const progressColor = ["success","warning","danger","danger" ]
@@ -82,7 +82,7 @@ function Result() {
         <Grid item xs={12}>
           <Grid container>
             <Grid item md={6} xs = {12}>
-              <RadarChartLeadershipData></RadarChartLeadershipData>
+              {/* <RadarChartLeadershipData></RadarChartLeadershipData> */}
             </Grid>
             <Grid item md={6} xs = {12} paddingX = "10px !important">
               <Box >
@@ -173,4 +173,4 @@ function Result() {
   )
 }
 
-export default Result
+export default InclusiveLeadershipSurveyResult

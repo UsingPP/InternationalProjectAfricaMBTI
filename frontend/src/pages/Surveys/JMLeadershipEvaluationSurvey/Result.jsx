@@ -1,13 +1,13 @@
 import React, {useState,useEffect} from 'react'
-import RadarChartLeadershipData from "../../../charts/RadarChartLeadershipData"
+// import RadarChartLeadershipData from "../../../charts/RadarChartLeadershipData"
 import {Divider, Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
 import useStyles from "../../../styles"
 import {data} from "./result_data"
 import SlotCounter from 'react-slot-counter';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import 'bootstrap/dist/css/bootstrap.css';}
+import 'bootstrap/dist/css/bootstrap.css';
 
-function Result() {
+function JMLeadershipEvaluationSurveyResult() {
   const classes = useStyles();
   const discretes = data;
   const progressColor = ["success","warning","danger","danger" ]
@@ -47,7 +47,7 @@ function Result() {
         fetchData();
               }, []);
 
-  return (
+  return (12
   //   <Container className={classes.background_box} maxWidth="lg" sx={{ borderRadius: '16px' }}>
   //   <div>
 
@@ -159,4 +159,4 @@ function Result() {
   )
 }
 
-export default Result
+export default JMLeadershipEvaluationSurveyResult

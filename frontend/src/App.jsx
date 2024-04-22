@@ -1,25 +1,37 @@
-import './App.css';
-import React , {useState}from 'react';
-import { makeStyles, ThemeProvider } from '@mui/styles';
-import CssBaseline from '@mui/joy/CssBaseline';
-import { createTheme } from '@mui/material/styles';
+//기타 페이지 & 컴포넌트 임포트
+import About from "./pages/About.jsx";
+import Intro from './pages/Intro';
+import Home from './pages/Home/Home.jsx';
+import SignIn from './pages/sign/signin/signin.jsx';
+import Footer from './pages/components/Footer.jsx';
+// 설문 페이지 임포트
 import LeadershipSurvey from './pages/Surveys/LeadershipSurvey/LeadershipSurvey.jsx';
 import InclusiveLeadershipSurvey from './pages/Surveys/InclusiveLeadershipSurvey/InclusiveLeadershipSurvey.jsx';
-import JMLeadershipEvaluationServey from './pages/Surveys/JMLeadershipEvaluationServey/JMLeadershipEvaluationServey.jsx';
+import JMLeadershipEvaluationSurvey from './pages/Surveys/JMLeadershipEvaluationSurvey/JMLeadershipEvaluationSurvey.jsx';
 import SelfCheck from './pages/Surveys/SelfCheck/SelfCheck.jsx';
 import DifficultiesInEmotion from './pages/Surveys/DifficultiesInEmotion/DifficultiesInEmotion.jsx';
 import SelfAwareness from './pages/Surveys/SelfAwareness/SelfAawreness.jsx';
 import UN17Goal from './pages/Surveys/UN17Goal/UN17Goal.jsx';
+// 결과 페이지임포트
+import LeadershipSurveyResult from './pages/Surveys/LeadershipSurvey/Result.jsx';
+import InclusiveLeadershipSurveyResult from './pages/Surveys/InclusiveLeadershipSurvey/Result.jsx';
+import JMLeadershipEvaluationSurveyResult from './pages/Surveys/JMLeadershipEvaluationSurvey/Result.jsx';
+import SelfCheckResult from './pages/Surveys/SelfCheck/Result.jsx';
+import SelfAwarenessResult from './pages/Surveys/SelfAwareness/Result.jsx';
+import DifficultInEmotionResult from './pages/Surveys/DifficultiesInEmotion/Result.jsx';
+import UN17GoalResult from './pages/Surveys/UN17Goal/Result.jsx';
+// 스타일 임포트
+import './App.css';
+// MUI 임포트
+import { makeStyles, ThemeProvider } from '@mui/styles';
+import CssBaseline from '@mui/joy/CssBaseline';
+import { createTheme } from '@mui/material/styles';
 
-import Intro from './pages/Intro';
-import Home from './pages/Home/Home.jsx';
-import SignIn from './pages/sign/signin/signin.jsx';
+//리액트 관련
 import {Routes, Route, Link} from "react-router-dom";
-import Result from './pages/Surveys/LeadershipSurvey/Result';
-import Footer from './pages/components/Footer.jsx';
-// 테스트용
-import About from "./pages/About.jsx";
+import React , {useState}from 'react';
 import { useNavigate } from 'react-router-dom';
+// 쿠키 관련
 import {setCookie, getCookie, deleteCookie} from "./Functions/Cookie"
 
 let cookieLanguage = getCookie("setLanguage")
@@ -78,14 +90,26 @@ export default function App() {
         <Routes>
           <Route path="/home" exact element={<Home  language = {lang} />} />
           <Route path="/about" exact element={<About  language = {lang} />} />
-          <Route path="/Result" element={<Result language = {lang}  />} />
+{/* 설문조사들 */}
+          {/* 홈의 서베이 캐러셀에 반영된 것 */}
           <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey  language = {lang} />} />
           <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey  language = {lang} />} />
-          <Route path="/home/JMLeadershipEvaluationServey" exact element= { <JMLeadershipEvaluationServey  language = {lang} />} />
+          <Route path="/home/JMLeadershipEvaluationSurvey" exact element= { <JMLeadershipEvaluationSurvey  language = {lang} />} />
           <Route path="/home/SelfCheck" exact element= { <SelfCheck  language = {lang} />} />
           <Route path="/home/SelfAwareness" exact element= { <SelfAwareness language = {lang} />} />
           <Route path="/home/DifficultiesInEmotion" exact element= { <DifficultiesInEmotion  language = {lang} />} />
           <Route path="/home/UN17Goal" exact element= { <UN17Goal  language = {lang} />} />
+          {/* 반영 x */}
+{/*  */}
+{/* 결과들 */}
+          <Route path="/LeadershipSurveyResult" element={<LeadershipSurveyResult language = {lang}  />} />       
+          <Route path="/InclusiveLeadershipSurveyResultResult" element={<InclusiveLeadershipSurveyResult language = {lang}  />} />
+          <Route path="/JMLeadershipEvaluationSurveyResult" element={<JMLeadershipEvaluationSurvey language = {lang}  />} />
+          <Route path="/SelfCheckResult" element={<SelfCheckResult language = {lang}  />} />
+          <Route path="/SelfAwarenessResult" element={<SelfAwarenessResult language = {lang}  />} />
+          <Route path="/DifficultInEmotionResult" element={<DifficultInEmotionResult language = {lang}  />} />
+          <Route path="/UN17GoalResult" element={<UN17GoalResult language = {lang}  />} />
+{/*  */}
         </Routes> 
         :
         <Routes>

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
   
-export default function JMLeadershipEvaluationServey() {
+export default function JMLeadershipEvaluationSurvey() {
     const classes = useStyles();
     return (
       <>
