@@ -98,7 +98,7 @@ function BarChartUN17Goal(props) {
 
     ];
     console.log(data)
-    const labels = Object.values(data["userdata"]).map((index)=>{
+    const labels = Object.values(data["userdata"]).map((a, index)=>{
       return (`Goal ${index + 1}`)
     });
     const datasets = userData.map(user => ({
