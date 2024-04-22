@@ -92,9 +92,10 @@ class TokenAuthentication(BaseAuthentication):
             raise AuthenticationFailed('No such user')
         return (user, None)
 class RecieveData(APIView):
-    authentication_classes = [TokenAuthentication]
     print("RecieveData view")
+    authentication_classes = [TokenAuthentication]
     def post(self, request):
+        print("method POST")
         data = json.loads(request.body)
         # 1. 유효한 유저가 요청을 보냈는지 확인
         try:
@@ -109,12 +110,18 @@ class RecieveData(APIView):
             if (len(Survey.objects.filter(survey_name = survey_name) )== 1):
                 survey = Survey.objects.get(survey_name = survey_name)
                 questions = survey.question_set.all()
+                print(questions)
                 responses_to_save = []
                 flag = 0
                 for key, value in data["data"].items():
+                    print(key, value)
+
                     q = questions.filter(question_code=key)
                     # question이 있는지 확인
+                    print(len(q))
                     if len(q) == 1:
+                        print(1)
+
                         q= q.first()
                         # 해당 사용자가 해당 질문에 대해서 답한 이력이 있는지 확인 
                         ## 이력이 있으면, flag를 1로 바꾸가
@@ -154,33 +161,43 @@ class send_result(APIView):
     authentication_classes = [TokenAuthentication]
     def post(self, request):
         data = json.loads(request.body)
-        print(data)
         survey_name = data["survey_name"]
-                                                # '''
-                                                # {survey_name : "설문조사 이름"}
-                                                # '''
         survey = Survey.objects.get(survey_name = survey_name)
         user = request.user
         userob = User.objects.get(userid = user.userid)
         questions = Question.objects.filter(survey = survey)
         resdic = {}
         resalldic = {}
-        print(questions)
-        if (len(questions)!= 0 ):
-            for question in questions:
-                resval = res.objects.filter(question = question, user = userob).first()
-                print(userob.userid)
-                print(question.question_code)
-                resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
-                resdic[question.question_code] = resval.value
-                resalldic[question.question_code] = resall
-            print(resdic)
-            data = result_process_leadership_survey01(resdic)
-            other= result_process_leadership_survey01(resalldic)
-            data["username"] = userob.name
-            data["other"] = other
-            print(data)
-        return JsonResponse(data, status = 200)
+        print(survey)
+        if (survey_name == "LeadershipSurvey"):
+            if (len(questions)!= 0 ):
+                for question in questions:
+                    resval = res.objects.filter(question = question, user = userob).first()
+                    resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
+                    resdic[question.question_code] = resval.value
+                    resalldic[question.question_code] = resall
+                data = result_process_leadership_survey01(resdic)
+                other= result_process_leadership_survey01(resalldic)
+                data["username"] = userob.name
+                data["other"] = other
+            return JsonResponse(data, status = 200)
+        elif (survey_name == "UN17Goal"):
+            print(1)
+            if (len(questions)!= 0):
+                for question in questions:
+                    resval = res.objects.filter(question = question, user = userob).first()
+                    resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
+                    resdic[question.question_code] = resval.value
+                    resalldic[question.question_code] = resall
+                data["username"] = userob.name
+                data["userdata"] = resdic 
+                data["otherdata"] = resalldic
+                print(data)
+
+            return JsonResponse(data,status = 200)
+        else:
+            return JsonResponse({"error":"error"}, status =400)
+
 
 
 def result_process_leadership_survey01(resdic):

@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react'
 // import RadarChartLeadershipData from "./RadarChartLeadershipData"
-import { Divider, Rating, Paper, Container, Grid, Typography, Box, Stack } from '@mui/material'
+import { Button, Divider, Rating, Paper, CircularProgress, Container, Grid, Typography, Box, Stack } from '@mui/material'
 import useStyles from "../../../styles"
 import { data as dt } from "./result_data"
 import 'bootstrap/dist/css/bootstrap.css';
-
-
+import BarChartUN17Goal from "./BarChartUN17Goal"
+// API 결과 형태
+// {
+//   'survey_name': 'UN17Goal', 'username': '123', 
+// 'userdata': {'SDT1': '3', 'SDT2': '3', 'SDT3': '3', 'SDT4': '3', 'SDT5': '3', 'SDT6': '3', 'SDT7': '3', 'SDT8': '3',
+//     'SDT9': '3', 'SDT10': '3', 'SDT11': '3', 'SDT12': '3', 'SDT13': '3', 'SDT14': '3', 'SDT15': '3', 'SDT16': '3', 'SDT17': '3'}, 
+//  'otherdata': {'SDT1': 3.0, 'SDT2': 3.0, 'SDT3': 3.0, 'SDT4': 3.0, 'SDT5': 3.0, 'SDT6': 3.0, 'SDT7': 3.0, 'SDT8': 3.0, '
+//      SDT9': 3.0, 'SDT10': 3.0, 'SDT11': 3.0, 'SDT12': 3.0, 'SDT13': 3.0, 'SDT14': 3.0, 'SDT15': 3.0, 'SDT16': 3.0, 'SDT17': 3.0}
+//   }
 function UN17GoalResult(props) {
   const lang = props.language
+  const [hoveropacity, setHoveropacity] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
   const classes = useStyles();
   const datas = dt[lang].data
   const title = dt[lang].title
@@ -15,9 +23,10 @@ function UN17GoalResult(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [currentGoal, setCurrentGoal] = useState(-1)
   const fetchData = async () => {
+
     try {
-      // const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
-      const response = await fetch("http://127.0.0.1:8000/send_result/", {
+      const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
+      // const response = await fetch("http://127.0.0.1:8000/send_result/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,6 +34,7 @@ function UN17GoalResult(props) {
         },
         body: JSON.stringify({ survey_name: "UN17Goal" })
       });
+
       const resultdata = await response.json();
       setresultdata(resultdata);
       setIsLoading(false)
@@ -33,7 +43,7 @@ function UN17GoalResult(props) {
     }
   };
   useEffect(() => {
-    // fetchData();
+    fetchData();
   }, []);
 
 
@@ -41,10 +51,17 @@ function UN17GoalResult(props) {
 
   const handleMouseOver = (index) => {
     setIsHovering(true);
+
+    let list = [...hoveropacity]
+    list[index] = 0
+    setHoveropacity(list)
     setCurrentGoal(index)
   };
 
-  const handleMouseOut = () => {
+  const handleMouseOut = (index) => {
+    let list = [...hoveropacity]
+    list[index] = 1
+    setHoveropacity(list)
     setIsHovering(false);
     setCurrentGoal(-1)
   };
@@ -67,42 +84,110 @@ function UN17GoalResult(props) {
             </Typography>
           </Box>
         </Grid>
-
         {/* Body */}
         <Grid item xs={12}>
-          <Paper>
-            <Grid container >
-              {datas.map((data, index) => {
-                return (
-                  // 마우스 올리면 나오는 거
-                  <Grid item xs={12} align="center" key={index} onMouseOver={() => handleMouseOver(index)} onMouseOut={handleMouseOut}>
+          <Paper sx={{ paddingTop: "40px", paddingBottom: "60px" }}>
+            {isLoading ? <CircularProgress /> : <BarChartUN17Goal />}
+            <Grid container sx = {{position : "relative"}} >
+              {isLoading ? <CircularProgress /> :
+                datas.map((data, index) => {
+                  return (
+                    <Grid container sx={{ marginX: "50px", position: "relative" }} item xs={12} align="center" key={index} onMouseOver={() => handleMouseOver(index)} onMouseOut={() => handleMouseOut(index)}>
+                      {/* // 마우스 떼면 나오는 거 */}
+                      <Grid container sx={{ zIndex: 2, height: 220, opacity: hoveropacity[index] }} backgroundColor={data.TopicColor} className={classes.smoothTransition}>
+                        <Grid item xs={3} >
+                          <Box sx={{
+                            height: "100%",
+                            backgroundImage: `url(${data.before_hover.imageurl})`,
+                            backgroundSize: "cover", // 배경 이미지를 커버하도록 설정
+                            backgroundPosition: "center", // 배경 이미지를 가운데에 정렬
+                          }}></Box>
+                        </Grid>
+                        <Grid item xs={9}>
+                          <Grid container
+                            direction="row"
+                            justifyContent="center"
+                          >
 
-                    {isHovering && index == currentGoal ?
-                      <Grid container sx={{ height: 200 }}>
-                        <Grid item xs={12}>{data.after_hover.title}</Grid>
+                            <Grid item xs={12} marginTop={3}>
+                              <Rating precision={1} name="read-only" value={resultdata["userdata"][`SDT${index + 1}`]} readOnly />
+                              <Typography variant='h4' fontWeight={800}>{data.before_hover.title}</Typography>
+
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Typography variant="subtitle1">
+                                {data.before_hover.text1}
+
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+
+                      </Grid>
+                      {/* // 마우스 올리면 나오는 거 */}
+                      <Grid container backgroundColor={data.TopicColor} sx={{ zIndex: 1, height: 220, position: "absolute", paddingLeft: "30px", paddingTop: 2}} className={classes.smoothTransition}>
                         <Grid item xs={12}>
                           <Grid container>
-                            <Grid item xs = {9}>{data.after_hover.explain}</Grid>
-                            <Grid item xs = {3}>describes</Grid>
+                            <Grid item xs={8}>
+                              <Typography fontSize={30} fontWeight={700} align="left">
+                                <Grid item xs={12}>{data.after_hover.title}</Grid>
+                              </Typography>
+                              <Typography fontSize={13} textAlign="left" fontWeight={700}>
+                                {data.after_hover.text1}
+                              </Typography></Grid>
+                            <Grid item xs={4}>
+
+                              <Grid container direction="column" sx={{ position: "relative", width: "80%" }} >
+                                <Grid item xs={12}>
+                                  <Grid container>
+                                    <Grid item xs={6}>
+                                      <Stack direction="column">
+                                        <Typography align="left" color="white" fontSize="25px" fontWeight={800}>8</Typography>
+                                        <Typography align="left" color="white" fontSize="14px">Targets</Typography>
+                                      </Stack>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <Stack direction="column">
+                                        <Typography align="left" color="white" fontSize="25px" fontWeight={800}>90</Typography>
+                                        <Typography align="left" color="white" fontSize="14px">Events</Typography>
+                                      </Stack>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <Grid container>
+                                    <Grid item xs={6}>
+                                      <Stack direction="column">
+                                        <Typography align="left" color="white" fontSize="25px" fontWeight={800}>17</Typography>
+                                        <Typography align="left" color="white" fontSize="14px">Publications</Typography>
+                                      </Stack>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <Stack direction="column">
+                                        <Typography align="left" color="white" fontSize="25px" fontWeight={800}>1371</Typography>
+                                        <Typography align="left" color="white" fontSize="14px">Actions</Typography>
+                                      </Stack>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                                <br></br>
+                                <Grid item xs={12}>
+                                  <Button variant="outlined" sx={{ borderColor: "white", color: "white", width: "100%" }}>More Info</Button>
+                                </Grid>
+                              </Grid>
+
+
+                            </Grid>
                           </Grid>
                         </Grid>
-                      </Grid> 
-                        :
-                        // 마우스 떼면 나오는 거
-                        <Grid container sx={{ height: 200 }}>
-                          <Grid item xs={3} >
-                            <Box sx={{height : "100%", backgroundImage : `url(${data.before_hover.imageurl})` }}></Box>
-                          </Grid>
-                          <Grid item xs={9}>{data.before_hover.title}</Grid>
-                        </Grid>
-                    }
-                        <Divider orientation="horizontal" sx={{ borderBottomWidth: 5, borderColor: "#00003360" }} flexItem />
                       </Grid>
-              );
-})}
+                    </Grid>
+                    // <Divider orientation="horizontal" sx={{ borderBottomWidth: 5, borderColor: "#00003360" }} flexItem />
+                  );
+                })}
 
 
-                  </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>

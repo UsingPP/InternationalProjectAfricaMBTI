@@ -18,10 +18,10 @@ export function useForm(initialData) {
   const [values, setValues] = useState(initialData);
   function valueChange(e) {
     const { name, value } = e.target;
-    setValues({
-      ...values,
+    setValues(prevValues => ({
+      ...prevValues,
       [name]: value,
-    });
+    }));
     console.log(value, values);
   }
   return {

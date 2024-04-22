@@ -37,95 +37,74 @@ export default function SurveyForm(props) {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   // 사용자가 선택한 값을 표시할 때 허용 범위를 벗어나지 않도록 조정
   const questionSection = FormData.questions[0];
-  const valueLabelFormat = (value) => {
-    if (value < 0) {
-      return 0; // 최솟값으로 설정
-    } else if (value > 10) {
-      return 10; // 최댓값으로 설정
-    } else {
-      return value;
-    }
-  };
   const marks = [
     {
-      value: 0,
+      value: 1,
       label: 'Strongly Dislike',
     },
     {
-      value: 25,
+      value: 2,
       label: 'Dislike',
     },
     {
-      value: 50,
+      value: 3,
       label: 'Neutral',
     },
     {
-      value: 75,
+      value: 4,
       label: 'Like',
     },
     {
-      value: 100,
+      value: 5,
       label: `Strongly\nLike`,
     },
   ];
   const marks2 = [
     {
-      value: 0,
+      value: 1,
       label: 'Poor',
     },
     {
-      value: 25,
+      value: 2,
       label: 'Needs Improvement',
     },
     {
-      value: 50,
+      value: 3,
       label: 'Average',
     },
     {
-      value: 75,
+      value: 4,
       label: 'Good',
     },
     {
-      value: 100,
+      value: 5,
       label: `Excellent`,
     },
   ];
   // 다음 페이지로 이동하는 함수
-  const handleNextPage = async() => {
-    window.location.href = "/UN17GoalResult"
-
-    // if (currentPage == 2){
-    //   console.log(values)
-    //   const token = localStorage.getItem('token');
-    //   try{
-
-    //     // const response = await fetch("http://127.0.0.1:8000/recievedata/",
-    //     const response = await fetch("https://leadershipsurvey.pythonanywhere.com/recievedata/",
-    //     {
-    //       method : "POST",
-    //       headers :{
-    //         'Authorization': `Bearer ${token}`,
-    //         "Content-Type" : "application/json"
-    //       },
-    //       body : JSON.stringify({ survey_name : "UN17Goal",data:values})
-    //     })
-    //     console.log(response)
-    //   if (response.ok){
-
-    //     const data = await response.json();
-    //     console.log("전송성공");
-    //     window.location.href = "/result"
-    //   }else{
-    //     console.log("서버오류 : ", response.status)
-    //   }} catch (error) {
-    //     console.error('오류:', error);
-    //   }
-
-    // }
-    // setCurrentPage((prevPage) => prevPage + 1); // 현재 페이지 상태를 업데이트하여 다음 페이지로 이동
-    // window.scrollTo({
-    //   top: 0,
-    // });
+  const submit = async() => {
+    console.log(values)
+      const token = localStorage.getItem('token');
+      try{
+        // const response = await fetch("http://127.0.0.1:8000/recievedata/",
+        const response = await fetch("https://leadershipsurvey.pythonanywhere.com/recievedata/",
+        {
+          method : "POST",
+          headers :{
+            'Authorization': `Bearer ${token}`,
+            "Content-Type" : "application/json"
+          },
+          body : JSON.stringify({ survey_name : "UN17Goal",data:values})
+        })
+      if (response.ok){
+        const data = await response.json();
+        console.log("전송성공");
+        window.location.href = "/UN17GoalResult"
+      }else{
+        console.log("서버오류 : ", response.status)
+      }} catch (error) {
+        console.error('오류:', error);
+      }
   };
 
   return (
@@ -139,8 +118,6 @@ export default function SurveyForm(props) {
       <Divider orientation="horizontal" flexItem />
       </Box>
       </Box>
-      
-      
       {/*2페이지*/}
         <Grid container style={{ display: currentPage === 1 ? 'flex' : 'none' }}>
         <Grid item xs={12} paddingTop = '50px'>
@@ -157,14 +134,10 @@ export default function SurveyForm(props) {
                 </Typography>
               </Box>
             </Grid>
-
               <Grid item xs={12}>
                 <Box align="center">
-
                   {/* 소질문 페이퍼 섹션 */}
-
                   <br></br>
-
                 </Box>
                 <Paper elevation={10} sx={{ p: 5 }}>
                   {/* 이게 소질문 집단 */}
@@ -186,10 +159,10 @@ export default function SurveyForm(props) {
                   </Grid>
                   <Grid item xs={12} md={5}>
                     <PrettoSlider
-                      defaultValue={50}
-                      min={0}
-                      max={100}
-                      step={10}
+                      defaultValue={3}
+                      min={1}
+                      max={5}
+                      step={1}
                       marks={marks}
                       name={subquestion.value}
                       valueLabelDisplay="auto"
@@ -213,7 +186,7 @@ export default function SurveyForm(props) {
               sx={{ marginTop: '45px' }}
               className={classes.nextBtn}
               variant="contained"
-              onClick={handleNextPage}
+              onClick={submit}
             >
               {FormData.next}
             </Button>

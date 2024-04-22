@@ -42,8 +42,24 @@ const useStyles = makeStyles((theme) =>({
       paddingLeft : "1px !important",
       paddingRight : "1px !important"
     },
+  },
+  barChartContainer_UN17Goals : {
+    [theme.breakpoints.up('xs')]: {
+      width : "90% !important"
+    },
+    [theme.breakpoints.up('sm')]: {
+      width : "80% !important"
+    },
+    [theme.breakpoints.up('md')]: {
+      width : "70% !important"
+    },
+    [theme.breakpoints.up('lg')]: {
+      width : "60% !important"
+    },
+  },
+  smoothTransition: {
+    transition: "opacity 0.6s ease",
   }
-
 }))
 
 export default useStyles;
