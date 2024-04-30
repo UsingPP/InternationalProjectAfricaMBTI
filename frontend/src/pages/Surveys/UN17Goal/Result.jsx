@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 // import RadarChartLeadershipData from "./RadarChartLeadershipData"
-import { Button, Divider, Rating, Paper, CircularProgress, Container, Grid, Typography, Box, Stack } from '@mui/material'
+import { Button, Divider , Rating, Paper, CircularProgress, Container, Grid, Typography, Box, Stack } from '@mui/material'
 import useStyles from "../../../styles"
 import { data as dt } from "./result_data"
 import 'bootstrap/dist/css/bootstrap.css';
 import BarChartUN17Goal from "./BarChartUN17Goal"
+// import gotoSurvey from "../../components/utils"
 // API 결과 형태
 // {
 //   'survey_name': 'UN17Goal', 'username': '123', 
@@ -14,6 +15,7 @@ import BarChartUN17Goal from "./BarChartUN17Goal"
 //      SDT9': 3.0, 'SDT10': 3.0, 'SDT11': 3.0, 'SDT12': 3.0, 'SDT13': 3.0, 'SDT14': 3.0, 'SDT15': 3.0, 'SDT16': 3.0, 'SDT17': 3.0}
 //   }
 function UN17GoalResult(props) {
+  const surveyname = "UN17Goal"
   const lang = props.language
   const [hoveropacity, setHoveropacity] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
   const classes = useStyles();
@@ -22,22 +24,27 @@ function UN17GoalResult(props) {
   const [resultdata, setresultdata] = useState(1);
   const [isLoading, setIsLoading] = useState(true)
   const [currentGoal, setCurrentGoal] = useState(-1)
+  const [isValidData, setIsValidData ] = useState(0)
   const fetchData = async () => {
 
     try {
-      const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
-      // const response = await fetch("http://127.0.0.1:8000/send_result/", {
+      // const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
+      const response = await fetch("http://127.0.0.1:8000/send_result/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ survey_name: "UN17Goal" })
+        body: JSON.stringify({ survey_name: surveyname })
       });
 
       const resultdata = await response.json();
       setresultdata(resultdata);
       setIsLoading(false)
+      if (resultdata["error"] == undefined){
+        console.log("됐다 ㅎㅎ")
+        setIsValidData(1)
+      }
     } catch (error) {
       console.error('Error:', error);
     }
@@ -45,7 +52,10 @@ function UN17GoalResult(props) {
   useEffect(() => {
     fetchData();
   }, []);
-
+  const gotoSurvey = (event) => {
+      window.location.href = "/home/" + surveyname
+    return "zz"
+  }
 
   const [isHovering, setIsHovering] = useState(false);
 
@@ -65,6 +75,8 @@ function UN17GoalResult(props) {
     setIsHovering(false);
     setCurrentGoal(-1)
   };
+  
+  if (isValidData == 1){
   return (
     <Container className={classes.background_box} maxWidth="lg" sx={{ borderRadius: '16px' }}>
       <div>
@@ -185,6 +197,7 @@ function UN17GoalResult(props) {
                     // <Divider orientation="horizontal" sx={{ borderBottomWidth: 5, borderColor: "#00003360" }} flexItem />
                   );
                 })}
+   
 
 
             </Grid>
@@ -193,7 +206,49 @@ function UN17GoalResult(props) {
       </Grid>
 
     </Container>
-  )
+  )}
+  else if (isValidData == 0){
+    return (
+      <Container className={classes.background_box} maxWidth="lg" sx={{ borderRadius: '16px' }}>
+      <div>
+
+      </div>
+      <br></br>
+      <Grid container  >
+
+        {/* Title */}
+        <Grid item xs={12} sx={{ position: 'relative' }} >
+          <Box sx={{ marginX: "20%", marginTop: "20px", marginBottom: "12px" }}>
+            <Typography variant='h2' align='center' sx={{ borderBottom: "1px solid black", fontFamily: "'Source Serif 4'", fontSize: 72, fontWeight: 700 }}>
+              {title}
+            </Typography>
+            <Typography variant='body1' align='center' sx={{ fontFamily: "'Source Serif 4'", marginBottom: "21px" }}>
+              UN 17 Goals
+            </Typography>
+          </Box>
+        </Grid>
+        {/* Body */}
+        <Grid item xs={12}>
+          <Paper sx={{ paddingTop: "40px", paddingBottom: "60px" }}>
+            <Box display = "flex" justifyContent="center" flexDirection="column" alignItems="center">
+              <Typography variant = "h4">Sorry, There's a problem with your data</Typography>
+              <br>
+              </br>
+              <Button variant = "outlined" sx = {{width : "200px"}} onClick={gotoSurvey}>
+                Go to survey again
+              </Button>
+            </Box>
+
+
+
+          </Paper>
+        </Grid>
+      </Grid>
+
+    </Container>
+
+    )
+  }
 }
 
 export default UN17GoalResult

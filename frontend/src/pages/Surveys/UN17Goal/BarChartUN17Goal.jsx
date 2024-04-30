@@ -35,14 +35,32 @@ ChartJS.register( BarElement,
   LinearScale,
   Tooltip,
   Legend);
+
 const options = {
+
   plugins: {
     legend: {
-        display : false
+        display : false,
+
     },labels: {
       render : "label",
       fontColor : "green"
-    }
+    },
+    tooltip: {
+      callbacks: {
+        title: function(tooltipItem, data) {
+          return data
+        },
+        
+        label: function(tooltipItem, data) {
+          return tooltipItem["dataset"]["info"][tooltipItem["dataIndex"]];
+        },
+        afterLabel : function(tooltipItem, data) {
+            return "yourPoint : " +  tooltipItem["dataset"]["data"][tooltipItem["dataIndex"]];
+        }
+  
+      }
+  }
 },
   scales: {
     y : {
@@ -62,8 +80,8 @@ function BarChartUN17Goal(props) {
   });
 
   useEffect( async()  =>  {
-    const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
-    // const response = await fetch("http://127.0.0.1:8000/send_result/", {
+    // const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
+    const response = await fetch("http://127.0.0.1:8000/send_result/", {
       method : "POST",
       headers :{
         "Content-Type" : "application/json",
@@ -107,7 +125,8 @@ function BarChartUN17Goal(props) {
       backgroundColor: user.backgroundColor,
       borderColor : user.borderColor,
       borderWidth : 1,
-      barPercentage : 1.1
+      barPercentage : 1.1,
+      info : data.questiondetail // 원래는 datasets에 기본 내장된 키가 아닌데, 추가 정보로써 사용하기 위해 추가한 키
     }));
     setUserDataForChart({ labels, datasets });
     setIsLoading(false)

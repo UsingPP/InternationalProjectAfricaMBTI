@@ -77,7 +77,8 @@ export default function App() {
     console.log(1)
     window.location.href = '/home';
   }
-  const disallowedPaths = ['/home', '/about', '/Result', '/home/LeadershipSurvey',"/home/InclusiveLeadershipSurvey"];
+  const disallowedPaths = ['/home', '/about', '/Result', '/home/LeadershipSurvey',"/home/InclusiveLeadershipSurvey",
+          ,"/UN17GoalResult", ];
   if (!isLoggedIn && disallowedPaths.includes(window.location.pathname)) {
     window.location.href= '/signin';
   }

@@ -141,7 +141,10 @@ class RecieveData(APIView):
                     # 플래그가 1이면, 기존의 설문이력 삭제
                     if (flag == 1 ):
                         for q in questions:
-                            res.objects.get(user = userob, question = q).delete()
+                            try:
+                                res.objects.get(user = userob, question = q).delete()
+                            except:
+                                print("존재 x : 따라서 지울수 없음")
                             print(q.question_code, "삭제")
                     # 모든 저장리스트 데이터, 데이터베이스 상에 실제 반영
                     for response in responses_to_save:
@@ -183,15 +186,24 @@ class send_result(APIView):
             return JsonResponse(data, status = 200)
         elif (survey_name == "UN17Goal"):
             print(1)
+            questiondetaillist = []
             if (len(questions)!= 0):
                 for question in questions:
-                    resval = res.objects.filter(question = question, user = userob).first()
+                    questiondetail = question.question_details
+                    questiondetaillist.append(questiondetail)
+                    usersval = res.objects.filter(question = question, user = userob)
+                    if (len(usersval) == 0):
+                        print(1)
+                        return JsonResponse({"error" : "일부 데이터 손실"}, status  = 400)
+                    resval = usersval.first()
                     resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
                     resdic[question.question_code] = resval.value
                     resalldic[question.question_code] = resall
+                    
                 data["username"] = userob.name
                 data["userdata"] = resdic 
                 data["otherdata"] = resalldic
+                data["questiondetail"] = questiondetaillist
                 print(data)
 
             return JsonResponse(data,status = 200)
