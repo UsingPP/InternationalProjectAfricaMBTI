@@ -22,6 +22,8 @@ const init_data = {
   }
 }
 
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 function LeadershipSurveyResult(props) {
   const lang = props.language
   const classes = useStyles();
@@ -54,7 +56,7 @@ function LeadershipSurveyResult(props) {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ survey_name: "LeadershipSurvey" })
+        body: JSON.stringify({ survey_name: props.surveyname })
       });
       const resultdata = await response.json();
       console.log(resultdata)

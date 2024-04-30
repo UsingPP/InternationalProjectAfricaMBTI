@@ -50,6 +50,13 @@ export const data = {
         describe: "DifficultiesInEmotion",
         link: "/home/DifficultiesInEmotion"
       }
+      ,
+      {
+        title: "EntrepreneurshipmindsetSurvey",
+        image: "",
+        describe: "EntrepreneurshipmindsetSurvey",
+        link: "/home/EntrepreneurshipmindsetSurvey"
+      }
     ],
     gosurvey : "설문조사 하러가기",
     showresult : "결과 보러가기",
@@ -87,10 +94,10 @@ export const data = {
       }
       ,
       {
-        title: "Personal attributes Survey ",
+        title: "selfawareness",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRO18mYPbaBdAYoO8xT0qloCvkzJAROge3GpiL5mX4UA&s",
         describe: "Personal attributes Survey  descibe Here",
-        link: "/home/SustainabilitySCCTStudySurvey"
+        link: "/home/SelfAwareness"
       } ,
       {
         title: "SelfCheck",
@@ -111,6 +118,13 @@ export const data = {
         image: "",
         describe: "DifficultiesInEmotion",
         link: "/home/DifficultiesInEmotion"
+      }
+      ,
+      {
+        title: "EntrepreneurshipmindsetSurvey",
+        image: "",
+        describe: "EntrepreneurshipmindsetSurvey",
+        link: "/home/EntrepreneurshipmindsetSurvey"
       }
     ],
     gosurvey : "Start Survey",

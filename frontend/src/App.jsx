@@ -12,6 +12,7 @@ import SelfCheck from './pages/Surveys/SelfCheck/SelfCheck.jsx';
 import DifficultiesInEmotion from './pages/Surveys/DifficultiesInEmotion/DifficultiesInEmotion.jsx';
 import SelfAwareness from './pages/Surveys/SelfAwareness/SelfAawreness.jsx';
 import UN17Goal from './pages/Surveys/UN17Goal/UN17Goal.jsx';
+import EntrepreneurshipmindsetSurvey from './pages/Surveys/EntrepreneurshipmindsetSurvey/EntrepreneurshipmindsetSurvey.jsx';
 // 결과 페이지임포트
 import LeadershipSurveyResult from './pages/Surveys/LeadershipSurvey/Result.jsx';
 import InclusiveLeadershipSurveyResult from './pages/Surveys/InclusiveLeadershipSurvey/Result.jsx';
@@ -20,6 +21,7 @@ import SelfCheckResult from './pages/Surveys/SelfCheck/Result.jsx';
 import SelfAwarenessResult from './pages/Surveys/SelfAwareness/Result.jsx';
 import DifficultInEmotionResult from './pages/Surveys/DifficultiesInEmotion/Result.jsx';
 import UN17GoalResult from './pages/Surveys/UN17Goal/Result.jsx';
+import EntrepreneurshipmindsetSurveyResult from './pages/Surveys/EntrepreneurshipmindsetSurvey/Result.jsx';
 // 스타일 임포트
 import './App.css';
 // MUI 임포트
@@ -77,8 +79,24 @@ export default function App() {
     console.log(1)
     window.location.href = '/home';
   }
-  const disallowedPaths = ['/home', '/about', '/Result', '/home/LeadershipSurvey',"/home/InclusiveLeadershipSurvey",
-          ,"/UN17GoalResult", ];
+  const disallowgeneral = ['/home', '/about']
+  const disallowresult  = ["/LeadershipSurveyResult"  ,
+                          "/InclusiveLeadershipSurveyResult"  ,
+                          "/JMLeadershipEvaluationSurveyResult"  ,
+                          "/SelfCheckResult"  ,
+                          "/SelfAwarenessResult"  ,
+                          "/DifficultInEmotionResult"  ,
+                          "/UN17GoalResult"  ,
+                          "/EntrepreneurshipmindsetSurveyResult"]  
+  const disallowsurvey = ["/home/LeadershipSurvey"
+                          ,"/home/InclusiveLeadershipSurvey"
+                          ,"/home/JMLeadershipEvaluationSurvey"
+                          ,"/home/SelfCheck"
+                          ,"/home/SelfAwareness"
+                          ,"/home/DifficultiesInEmotion"
+                          ,"/home/UN17Goal"
+                          ,"/home/EntrepreneurshipmindsetSurvey"]
+  const disallowedPaths = disallowgeneral + disallowresult + disallowsurvey
   if (!isLoggedIn && disallowedPaths.includes(window.location.pathname)) {
     window.location.href= '/signin';
   }
@@ -93,23 +111,25 @@ export default function App() {
           <Route path="/about" exact element={<About  language = {lang} />} />
 {/* 설문조사들 */}
           {/* 홈의 서베이 캐러셀에 반영된 것 */}
-          <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey  language = {lang} />} />
-          <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey  language = {lang} />} />
-          <Route path="/home/JMLeadershipEvaluationSurvey" exact element= { <JMLeadershipEvaluationSurvey  language = {lang} />} />
-          <Route path="/home/SelfCheck" exact element= { <SelfCheck  language = {lang} />} />
-          <Route path="/home/SelfAwareness" exact element= { <SelfAwareness language = {lang} />} />
-          <Route path="/home/DifficultiesInEmotion" exact element= { <DifficultiesInEmotion  language = {lang} />} />
-          <Route path="/home/UN17Goal" exact element= { <UN17Goal  language = {lang} />} />
+          <Route path="/home/LeadershipSurvey" exact element={<LeadershipSurvey  language = {lang}  surveyname = "LeadershipSurvey"/>} />
+          <Route path="/home/InclusiveLeadershipSurvey" exact element={<InclusiveLeadershipSurvey  language = {lang}  surveyname = "InclusiveLeadershipSurvey"/>} />
+          <Route path="/home/JMLeadershipEvaluationSurvey" exact element= { <JMLeadershipEvaluationSurvey  language = {lang} surveyname = "JMLeadershipEvaluationSurvey" />} />
+          <Route path="/home/SelfCheck" exact element= { <SelfCheck  language = {lang} surveyname = "SelfCheck" />} />
+          <Route path="/home/SelfAwareness" exact element= { <SelfAwareness language = {lang} surveyname = "SelfAwareness" />} />
+          <Route path="/home/DifficultiesInEmotion" exact element= { <DifficultiesInEmotion  language = {lang} surveyname = "DifficultiesInEmotion" />} />
+          <Route path="/home/UN17Goal" exact element= { <UN17Goal  language = {lang} surveyname = "UN17Goal" />} />
+          <Route path="/home/EntrepreneurshipmindsetSurvey" exact element= { <EntrepreneurshipmindsetSurvey  language = {lang} surveyname = "EntrepreneurshipmindsetSurvey" />} />
           {/* 반영 x */}
 {/*  */}
 {/* 결과들 */}
-          <Route path="/LeadershipSurveyResult" element={<LeadershipSurveyResult language = {lang}  />} />       
-          <Route path="/InclusiveLeadershipSurveyResultResult" element={<InclusiveLeadershipSurveyResult language = {lang}  />} />
-          <Route path="/JMLeadershipEvaluationSurveyResult" element={<JMLeadershipEvaluationSurvey language = {lang}  />} />
-          <Route path="/SelfCheckResult" element={<SelfCheckResult language = {lang}  />} />
-          <Route path="/SelfAwarenessResult" element={<SelfAwarenessResult language = {lang}  />} />
-          <Route path="/DifficultInEmotionResult" element={<DifficultInEmotionResult language = {lang}  />} />
-          <Route path="/UN17GoalResult" element={<UN17GoalResult language = {lang}  />} />
+          <Route path="/LeadershipSurveyResult" element={<LeadershipSurveyResult language = {lang} surveyname = "LeadershipSurvey" />} />       
+          <Route path="/InclusiveLeadershipSurveyResult" element={<InclusiveLeadershipSurveyResult language = {lang} surveyname = "InclusiveLeadershipSurvey" />} />
+          <Route path="/JMLeadershipEvaluationSurveyResult" element={<JMLeadershipEvaluationSurveyResult language = {lang} surveyname = "JMLeadershipEvaluationSurvey" />} />
+          <Route path="/SelfCheckResult" element={<SelfCheckResult language = {lang} surveyname = "SelfCheck" />} />
+          <Route path="/SelfAwarenessResult" element={<SelfAwarenessResult language = {lang} surveyname = "SelfAwareness" />} />
+          <Route path="/DifficultInEmotionResult" element={<DifficultInEmotionResult language = {lang} surveyname = "DifficultiesInEmotion" />} />
+          <Route path="/UN17GoalResult" element={<UN17GoalResult language = {lang} surveyname = "UN17Goal" />} />
+          <Route path="/EntrepreneurshipmindsetSurveyResult" element={<EntrepreneurshipmindsetSurveyResult language = {lang} surveyname = "EntrepreneurshipmindsetSurvey" />} />
 {/*  */}
         </Routes> 
         :

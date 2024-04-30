@@ -2,22 +2,23 @@ import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Divider,
-  TextField,
   Button,
   Box,
   Paper,
   Typography,
 } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-
 import { makeStyles, styled } from '@mui/styles';
 import { FormData as FD, initialData } from './form_Data.jsx';
 import { useForm, Form } from '../../components/useForm.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PrettoSlider } from '../../components/Slider.jsx';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
+import FormLabel from '@mui/material/FormLabel';
+
+
 
 const useStyle = makeStyles((theme) => ({
   nextBtn: {
@@ -34,15 +35,10 @@ const useStyle = makeStyles((theme) => ({
     alignSelf: "center"
   }
 }));
-
 // props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 export default function SurveyForm(props) {
-  console.log(props)
   const FormData = FD[props.language]
-  
   const section1 = FormData.sections[0];
-  const section2 = FormData.sections[1];
-  console.log(section1)
   const classes = useStyle();
   const { values, setValues, valueChange } = useForm(initialData);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
@@ -61,7 +57,7 @@ export default function SurveyForm(props) {
     if (currentPage == 1) {
       const token = localStorage.getItem('token');
       try {
-        console.log( "/" + props.surveyname + "Result")
+        console.log(values)
         const response = await fetch("https://leadershipsurvey.pythonanywhere.com/recievedata/",
         // const response = await fetch("http://127.0.0.1:8000/recievedata/",
           // ,
@@ -79,7 +75,6 @@ export default function SurveyForm(props) {
           const data = await response.json();
           console.log("전송성공");
           window.location.href = "/" + props.surveyname + "Result"
-
         } else {
           console.log("서버오류 : ", response.status)
         }
@@ -106,30 +101,36 @@ export default function SurveyForm(props) {
         </Box>
       </Box>
       <br></br>
-      {/* -------------------------------1 페이지------------------------------- */}
-      <Grid
+ {/* -------------------------------2 페이지------------------------------- */}
+ <Grid
         container
         style={{ display: currentPage === 1 ? 'flex' : 'none' }}
+        sx={{ alignItems: 'center', justifyContent: 'center' }}
+        spacing={5}
       >
-        <Grid item xs={12} sx={{ marginTop: '10px', marginBottom: '50px' }}>
-          <Typography variant="h6" component="subtitle2">
-            {FormData.description}
-            <Typography
-              variant="subtitle1"
-              component="p"
-              sx={{ color: 'red', fontWeight: 'medium' }}
-            >
-              {FormData.notice}
+        <Grid item>
+          <Paper elevation={10} sx={{ p: 5 }} variant="outlined">
+            <Typography variant="h6" component="subtitle2">
+             {section1.title}<br />
+              <Typography
+                variant="subtitle1"
+                component="p"
+                sx={{ color: 'red', fontWeight: 'medium' }}
+              >
+                Please read the following description of each competency and
+                rate your own competency in that competency on a scale of 100
+                points.
+              </Typography>
             </Typography>
-          </Typography>
+          </Paper>
         </Grid>
-        {section1.questions.map((question, q_index)=>(
+        {section1.questions.map((question)=>(
         <Grid item xs={12}>
           <Box align="center">
             <img src={question.image} className={classes.Images} />
             {/* 소질문 페이퍼 섹션 */}
             <Typography variant="h4" gutterBottom fontWeight="medium">
-              0{q_index+1} : {question.name}
+              {question.name}
             </Typography>
             <br></br>
             <Typography variant="subtitle1" gutterBottom>
@@ -150,11 +151,11 @@ export default function SurveyForm(props) {
                     {question.name} - Q{index+1}
                   </Typography>
                   <Typography sx={{ ml: 2 }} variant="subtitle1">
-                    {subquestion.desc}
+                    {subquestion.text}
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={5} >
+              <Grid item xs={12} md={5}>
                 <PrettoSlider
                   defaultValue={50}
                   min={0}
@@ -173,10 +174,9 @@ export default function SurveyForm(props) {
             </Grid>
             ))}
           </Paper>
-          <br></br>
-          <br></br>
         </Grid>
         ))}
+        
         <Grid container justifyContent="center">
           <Grid item>
             <Button
@@ -185,10 +185,21 @@ export default function SurveyForm(props) {
               variant="contained"
               onClick={handleNextPage}
             >
-              Next
+              Submit
             </Button>
           </Grid>
         </Grid>
+      </Grid>
+
+      <Grid
+        container
+        name="resultWait"
+        display="none"
+        style={{ display: currentPage === 3 ? 'flex' : 'none' }}
+      >
+        Your submitted data will soon be analyzed and the results will be
+        available shortly. Please wait for the analysis to be completed.{' '}
+        <CircularProgress />
       </Grid>
     </Form>
   );

@@ -22,7 +22,9 @@ const init_data = {
   }
 }
 
-function SelfAawrenessResult() {
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
+function SelfAawrenessResult(props) {
   const classes = useStyles();
   const discretes = data;
   const progressColor = ["success","warning","danger","danger" ]
@@ -49,7 +51,7 @@ function SelfAawrenessResult() {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ survey_name: "InclusiveLeadershipSurvey" })
+        body: JSON.stringify({ survey_name: props.surveyname })
       });
       const resultdata = await response.json();
       setresultdata(resultdata);

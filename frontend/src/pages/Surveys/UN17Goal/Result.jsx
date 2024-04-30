@@ -14,8 +14,10 @@ import BarChartUN17Goal from "./BarChartUN17Goal"
 //  'otherdata': {'SDT1': 3.0, 'SDT2': 3.0, 'SDT3': 3.0, 'SDT4': 3.0, 'SDT5': 3.0, 'SDT6': 3.0, 'SDT7': 3.0, 'SDT8': 3.0, '
 //      SDT9': 3.0, 'SDT10': 3.0, 'SDT11': 3.0, 'SDT12': 3.0, 'SDT13': 3.0, 'SDT14': 3.0, 'SDT15': 3.0, 'SDT16': 3.0, 'SDT17': 3.0}
 //   }
+
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 function UN17GoalResult(props) {
-  const surveyname = "UN17Goal"
   const lang = props.language
   const [hoveropacity, setHoveropacity] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
   const classes = useStyles();
@@ -35,7 +37,7 @@ function UN17GoalResult(props) {
           "Content-Type": "application/json",
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ survey_name: surveyname })
+        body: JSON.stringify({ survey_name: props.surveyname })
       });
 
       const resultdata = await response.json();
@@ -53,7 +55,7 @@ function UN17GoalResult(props) {
     fetchData();
   }, []);
   const gotoSurvey = (event) => {
-      window.location.href = "/home/" + surveyname
+      window.location.href = "/home/" + props.surveyname
     return "zz"
   }
 

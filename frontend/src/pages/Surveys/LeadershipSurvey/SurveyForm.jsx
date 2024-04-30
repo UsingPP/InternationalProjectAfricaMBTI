@@ -37,6 +37,9 @@ const useStyle = makeStyles((theme) => ({
 
 const Page = { 1: 'H', 2: 'L', 3: 'SDT', 4: 'resultWait' };
 
+
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 export default function SurveyForm(props) {
   const FormData = FD[props.language]
   const classes = useStyle();
@@ -100,7 +103,7 @@ export default function SurveyForm(props) {
   ];
   // 다음 페이지로 이동하는 함수
   const handleNextPage = async() => {
-    if (currentPage == 2){
+    if (currentPage == 1){
       console.log(values)
       const token = localStorage.getItem('token');
       try{
@@ -113,14 +116,15 @@ export default function SurveyForm(props) {
             'Authorization': `Bearer ${token}`,
             "Content-Type" : "application/json"
           },
-          body : JSON.stringify({ survey_name : "LeadershipSurvey",data:values})
+          body : JSON.stringify({ survey_name :props.surveyname,data:values})
         })
         console.log(response)
       if (response.ok){
 
         const data = await response.json();
         console.log("전송성공");
-        window.location.href = "/result"
+        window.location.href = "/" + props.surveyname + "Result"
+
       }else{
         console.log("서버오류 : ", response.status)
       }} catch (error) {
@@ -146,42 +150,14 @@ export default function SurveyForm(props) {
       </Box>
       </Box>
       <br></br>
-      <Grid
-        container
-        name="H"
-        style={{ display: currentPage === 1 ? 'flex' : 'none' }}
-      >
-        <Grid item xs={12} sx={{ marginTop: '10px', marginBottom: '50px' }}>
-          <Typography variant="h6" component="subtitle2">
-            {FormData.description}
-            <Typography
-              variant="subtitle1"
-              component="p"
-              sx={{ color: 'red', fontWeight: 'medium' }}
-            >
-              <br/>
-              <br/>
-            </Typography>
-          </Typography>
-        </Grid>
-        <Grid item>
-            <Button
-              sx={{ marginTop: '15px' }}
-              className={classes.nextBtn}
-              variant="contained"
-              onClick={handleNextPage}
-            >
-            {FormData.start}
-            </Button>
-        </Grid>
-      </Grid>
+     
       
 
 
 
 
         {/*2페이지*/}
-      <Grid container style={{ display: currentPage === 2 ? 'flex' : 'none' }}>
+      <Grid container style={{ display: currentPage === 1 ? 'flex' : 'none' }}>
         <Grid item xs={12} paddingTop = '50px'>
           {/* 이게 소질문 집단 */}
           <Grid container spacing={2}>
@@ -271,7 +247,7 @@ export default function SurveyForm(props) {
         container
         name="resultWait"
         display="none"
-        style={{ display: currentPage === 3 ? 'flex' : 'none' }}
+        style={{ display: currentPage === 2 ? 'flex' : 'none' }}
       >
         {FormData.loadingtext}
         <CircularProgress />

@@ -30,6 +30,8 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 export default function SurveyForm(props) {
   const FormData = FD.en
   const classes = useStyle();
@@ -94,12 +96,13 @@ export default function SurveyForm(props) {
             'Authorization': `Bearer ${token}`,
             "Content-Type" : "application/json"
           },
-          body : JSON.stringify({ survey_name : "UN17Goal",data:values})
+          body : JSON.stringify({ survey_name : props.surveyname,data:values})
         })
       if (response.ok){
         const data = await response.json();
         console.log("전송성공");
-        window.location.href = "/UN17GoalResult"
+        window.location.href = "/" + props.surveyname + "Result"
+
       }else{
         console.log("서버오류 : ", response.status)
       }} catch (error) {

@@ -34,6 +34,9 @@ const options = {
     }
 }
 }
+
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 function RadarChartLeadershipData(props) {
   const lang = props.language
   const dd = data[lang].data

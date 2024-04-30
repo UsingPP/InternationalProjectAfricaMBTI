@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
 }));
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 export default function LeadershipSurvey(props) {
   const classes = useStyles();
   return (
@@ -46,7 +48,7 @@ export default function LeadershipSurvey(props) {
         }}
       >
         <Paper className={classes.pageContent}>
-          <SurveyForm language = {props.language}/>
+          <SurveyForm language = {props.language} surveyname = {props.surveyname}/>
         </Paper>
       </Container>
     </>

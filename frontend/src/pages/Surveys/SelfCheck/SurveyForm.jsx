@@ -36,7 +36,9 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-export default function SurveyForm() {
+
+// props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
+export default function SurveyForm(props) {
   const FormData = FD.en;
   const pageSetting = FormData.page[0];
   const page1 = FormData.page[1];
@@ -67,14 +69,15 @@ export default function SurveyForm() {
               'Authorization': `Bearer ${token}`,
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ survey_name: "SustainabilitySCCTStudySurvey", data: values })
+            body: JSON.stringify({ survey_name: props.surveyname, data: values })
           })
 
         if (response.ok) {
 
           const data = await response.json();
           console.log("전송성공");
-          window.location.href = "/result"
+          window.location.href = "/" + props.surveyname + "Result"
+
         } else {
           console.log("서버오류 : ", response.status)
         }

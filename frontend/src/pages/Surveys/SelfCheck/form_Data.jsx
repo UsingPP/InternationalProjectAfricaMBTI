@@ -1,8 +1,8 @@
 export const FormData = {
     en : {
-      title: "Sustainability SCCT Study Survey",
+      title: "Sustainability Self Awareness Survey",
       notice : "Please read the following description of each competency and rate your own competency in that competency on a scale of 100 points or choose your opinion",
-      description: "Thank you for agreeing to participate in the Sustainability SCCT Study Survey",
+      description: "Thank you for agreeing to participate in the Self Awareness Survey",
       page: [
         //Question => page로 바꿔서 인덱싱을 할 때 직관성을 강화
         //question[i] => page[1]
