@@ -219,7 +219,7 @@ export const FormData = {
                 desc : "I have a detailed understanding of the tendencies of the organization’s members.",}, 
                 {name :"human_resources_management3",
                 desc : "I am aware of the personal information of the people I am guiding.",}, 
-                {name :"human_resources_management3",
+                {name :"human_resources_management4",
                 desc : "I have a good understanding of people’s talents. ",}, ]
             },
             {
@@ -465,10 +465,11 @@ export const initialData = {
     lead_under_policy1 : 50,
     lead_under_policy2 : 50,
     lead_under_policy3 : 50,
+    // ## 3페이지 
     human_resources_management1 : 50,
     human_resources_management2 : 50,
     human_resources_management3 : 50,
-    human_resources_management3 : 50,
+    human_resources_management4 : 50,
     conflicts_management1 : 50,
     conflicts_management2 : 50,
     conflicts_management3 : 50,
@@ -484,13 +485,16 @@ export const initialData = {
     decision_ability2 : 50,
     decision_ability3 : 50,
     decision_ability4 : 50,
-    //## 3페이지 : 50,
-    leadership1 : 50,
-    leadership2 : 50,
-    leadership3 : 50,
+    problem_sol_ability1 : 50,
+    problem_sol_ability2 : 50,
+    problem_sol_ability3 : 50,
+    //## 4페이지 : 50,
     vision1 : 50,
     vision2 : 50,
     vision3 : 50,
+    guiding_skills1 : 50,
+    guiding_skills2 : 50,
+    guiding_skills3 : 50,
     rolemodel1 : 50,
     rolemodel2 : 50,
     rolemodel3 : 50,
@@ -503,8 +507,6 @@ export const initialData = {
     mannerism6 : 50,
     mannerism7 : 50,
     mannerism8 : 50,
-    
-    //#4페이지 : 50,
     human_dev1 : 50,
     human_dev2 : 50,
     human_dev3 : 50,
@@ -524,9 +526,5 @@ export const initialData = {
     administration2 : 50,
     administration3 : 50,
 
-    //# 5페이지 : 50,
-    problem_sol_ability1 : 50,
-    problem_sol_ability2 : 50,
-    problem_sol_ability3 : 50,
 };
 
