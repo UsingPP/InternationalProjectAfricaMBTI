@@ -37,7 +37,7 @@ const options = {
 
 
 // props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
-function RadarChartLeadershipData(props) {
+function RadarChartInclusiveLeadershipData(props) {
   const lang = props.language
   const dd = data[lang].data
   console.log(dd)
@@ -52,7 +52,8 @@ function RadarChartLeadershipData(props) {
   const names = dd.map((d) => ({ [d.code]: d.name }));
   console.log(names)
   useEffect( async()  =>  {
-    const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
+    // const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_result/", {
+    const response = await fetch("http://127.0.0.1:8000/send_result/", {
       method : "POST",
       headers :{
         "Content-Type" : "application/json",
@@ -65,7 +66,7 @@ function RadarChartLeadershipData(props) {
     const userData = [
       {
         name: `you : ${data.username}`,
-        scores:  names.map((co)=>data["leadership_mean_by_sector"][Object.keys(co)[0]]),
+        scores:  names.map((co)=>data["mean_by_sector"][Object.keys(co)[0]]),
         // Object.values(data["leadership_mean_by_sector"]),
         backgroundColor: "#ff638470",
         // backgroundColor: "rgb(155,164,179, 0.1)",
@@ -73,7 +74,7 @@ function RadarChartLeadershipData(props) {
       },
       {
         name: "other",
-        scores: names.map((co)=>data["other"]["leadership_mean_by_sector"][Object.keys(co)[0]]),
+        scores: names.map((co)=>data["other"]["mean_by_sector"][Object.keys(co)[0]]),
         backgroundColor: "#36a2eb70",
         borderColor : "#36a2eb"
       },
@@ -113,4 +114,4 @@ function RadarChartLeadershipData(props) {
   );
 }
 
-export default RadarChartLeadershipData;
+export default RadarChartInclusiveLeadershipData;
