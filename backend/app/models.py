@@ -10,12 +10,9 @@ class Survey(models.Model):
         db_table = 'survey'
 
 class Question(models.Model):
-  question_class = models.CharField(max_length = 1000, default = "") 
-  question_index =  models.IntegerField(default = -1)
   question_code = models.CharField(max_length = 100)
   value_type= models.CharField(max_length = 100, default = "int")
-  question_details_en = models.TextField()
-  question_details_ko = models.TextField(default = "")
+  question_details = models.TextField()
   survey = models.ForeignKey(Survey , on_delete = models.CASCADE)
   class Meta:
         db_table = 'question'
