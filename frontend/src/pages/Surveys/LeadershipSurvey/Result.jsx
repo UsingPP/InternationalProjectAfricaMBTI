@@ -5,24 +5,7 @@ import useStyles from "../../../styles"
 import {data as dt} from "./result_data"
 import SlotCounter from 'react-slot-counter';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import Button from 'react-bootstrap/Button';
-import { positions } from '@mui/system';
 import 'bootstrap/dist/css/bootstrap.css';
-const init_data = {
-  "leadership_score_self": "",
-  "leadership_mean_by_sector": {
-      "L_ST":"",
-      "L_A":"",
-      "L_N":"",
-      "L_S":"",
-      "L_C":"",
-      "L_CT":"",
-      "L_SA":"",
-      "L_PS":"",
-  }
-}
-
-
 // props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 function LeadershipSurveyResult(props) {
   const lang = props.language
@@ -90,7 +73,7 @@ function LeadershipSurveyResult(props) {
         <Grid item xs={12}>
           <Grid container>
             <Grid item md={6} xs = {12}>
-              <RadarChartLeadershipData language = {lang}></RadarChartLeadershipData>
+              <RadarChartLeadershipData language = {lang} surveyname = {props.surveyname}></RadarChartLeadershipData>
             </Grid>
             <Grid item md={6} xs = {12} paddingX = "10px !important">
               <Box >

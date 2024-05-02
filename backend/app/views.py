@@ -106,6 +106,7 @@ class RecieveData(APIView):
         
         # 2. 해당 서베이가 데이터베이스에 존재하는지부터 확인 (POST 요청을 막보내는 경우 차단)
         survey_name = data.get("survey_name")
+        print(survey_name)
         if Survey.objects.filter(survey_name = survey_name).exists():
             if (len(Survey.objects.filter(survey_name = survey_name) )== 1):
                 survey = Survey.objects.get(survey_name = survey_name)
@@ -165,13 +166,13 @@ class send_result(APIView):
     def post(self, request):
         data = json.loads(request.body)
         survey_name = data["survey_name"]
+        print(survey_name)
         survey = Survey.objects.get(survey_name = survey_name)
         user = request.user
         userob = User.objects.get(userid = user.userid)
         questions = Question.objects.filter(survey = survey)
         resdic = {}
         resalldic = {}
-        print(survey)
         if (survey_name == "LeadershipSurvey"):
             if (len(questions)!= 0 ):
                 for question in questions:
@@ -179,13 +180,12 @@ class send_result(APIView):
                     resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
                     resdic[question.question_code] = resval.value
                     resalldic[question.question_code] = resall
-                data = result_process_leadership_survey01(resdic)
-                other= result_process_leadership_survey01(resalldic)
+                data = result_process_LeadershipSurvey(resdic)
+                other= result_process_LeadershipSurvey(resalldic)
                 data["username"] = userob.name
                 data["other"] = other
             return JsonResponse(data, status = 200)
         elif (survey_name == "UN17Goal"):
-            print(1)
             questiondetaillist = []
             if (len(questions)!= 0):
                 for question in questions:
@@ -207,12 +207,51 @@ class send_result(APIView):
                 print(data)
 
             return JsonResponse(data,status = 200)
+        elif (survey_name == "InclusiveLeadershipSurvey"):
+            questiondetaillist = []
+            if (len(questions)!= 0):
+                for question in questions:
+                    questiondetail = question.question_details
+                    questiondetaillist.append(questiondetail)
+                    usersval = res.objects.filter(question = question, user = userob)
+                    if (len(usersval) == 0):
+                        return JsonResponse({"error" : "일부 데이터 손실"}, status  = 400)
+                    resval = usersval.first()
+                    resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
+                    resdic[question.question_code] = resval.value
+                    resalldic[question.question_code] = resall
+                data = result_process_InclusiveLeadershipSurvey(resdic)
+                other= result_process_InclusiveLeadershipSurvey(resalldic)
+                data["username"] = userob.name
+                data["other"] = other
+                data["username"] = userob.name
+                data["questiondetail"] = questiondetaillist
+                print(data)
+
+            return JsonResponse(data,status = 200)
         else:
             return JsonResponse({"error":"error"}, status =400)
 
+def result_process_InclusiveLeadershipSurvey(resdic):
+    lis = ["openness", "availability" , "accessibility"]
+    Ldic = {}
+    for key , value in resdic.items():
+        q_type = re.sub(r'\d+$', '', key)
+        if (q_type in lis):
+            if (q_type not in Ldic):
+                Ldic[q_type] = {"sum" : float(value), "count" : 1}
+            else:
+                Ldic[q_type]["sum"]+=float(value)
+                Ldic[q_type]["count"]+=1
+    leadership_mean = {}
+    for key, value in Ldic.items():
+        leadership_mean[key] = value["sum"]/value["count"]
+    print(leadership_mean)
+    return {"mean_by_sector" :  leadership_mean}
+    
 
 
-def result_process_leadership_survey01(resdic):
+def result_process_LeadershipSurvey(resdic):
     leadership_score_self = ""
     lis = ["L_ST"
     ,"L_A"
