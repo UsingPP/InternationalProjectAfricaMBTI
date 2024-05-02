@@ -209,7 +209,7 @@ export const FormData = {
         name: "Ability to grasp, judge, and solve problems ",
         sections : [
           {
-            section_name : "Data collection and decision-making abilities",
+            section_name : "Data collection abilities",
             questions : [{
               name : "Human resources management",
               rows : [

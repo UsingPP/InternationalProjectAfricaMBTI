@@ -1,13 +1,15 @@
 import React, {useState,useEffect} from 'react'
 // import RadarChartLeadershipData from "../../../charts/RadarChartLeadershipData"
-import {Divider, Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
+import { Divider, Rating , CircularProgress ,Container, Grid, Paper, Typography, Box } from '@mui/material'
 import useStyles from "../../../styles"
 import {data} from "./result_data"
 import SlotCounter from 'react-slot-counter';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.css';
-
-
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 // props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 function JMLeadershipEvaluationSurveyResult(props) {
   const classes = useStyles();
@@ -46,12 +48,27 @@ function JMLeadershipEvaluationSurveyResult(props) {
     }
   };
       useEffect(() => {
-        fetchData();
+        // fetchData();
               }, []);
 
   return (
-    <></>
-  )
+    <Container sx = {{backgroundColor : "white"}}>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography>Accordion 2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </Container>)
 }
 
 export default JMLeadershipEvaluationSurveyResult
