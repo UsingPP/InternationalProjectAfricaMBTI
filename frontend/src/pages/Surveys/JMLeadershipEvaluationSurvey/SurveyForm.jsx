@@ -34,12 +34,11 @@ const useStyle = makeStyles((theme) => ({
 // props.surveyname 은 범용적으로 사용할 이 설문조사의 명칭 (백엔드, 프론트엔드 통일이름 (구글 스프레트 시트 참조))
 export default function SurveyForm(props) {
   const FormData = FD.en;
-  const pageSetting = FormData.page[0];
-  const page1 = FormData.page[1];
-  const page2 = FormData.page[2];
-  const page3 = FormData.page[3];
-  const page4 = FormData.page[4];
-  const page5 = FormData.page[5];
+  const pageSetting = FormData.labels;
+  const page1 = FormData.page[0];
+  const page2 = FormData.page[1];
+  const page3 = FormData.page[2];
+  const page4 = FormData.page[3];
   const classes = useStyle();
   const { values, setValues, valueChange } = useForm(initialData);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
@@ -56,12 +55,12 @@ export default function SurveyForm(props) {
   // 다음 페이지로 이동하는 함수
   const handleNextPage = async () => {
     console.log(currentPage)
-    if (currentPage == 5) {
+    if (currentPage == 4) {
       const token = localStorage.getItem('token');
       try {
         console.log(values)
-        // const response = await fetch("http://127.0.0.1:8000/recievedata/",
-        const response = await fetch("https://leadershipsurvey.pythonanywhere.com/recievedata/",
+        const response = await fetch("http://127.0.0.1:8000/recievedata/",
+          // const response = await fetch("https://leadershipsurvey.pythonanywhere.com/recievedata/",
           {
             method: "POST",
             headers: {
@@ -127,75 +126,75 @@ export default function SurveyForm(props) {
             </Typography>
           </Typography>
         </Grid>
-        {page1.questions.map((question, q_index)=>(
-        <Grid item xs={12}>
-          <Box align="center">
-            <img src={question.image} className={classes.Images} />
-            {/* 소질문 페이퍼 섹션 */}
-            <Typography variant="h4" gutterBottom fontWeight="medium">
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              0{q_index+1} : {question.name}
-              {/* -------------------- 수정 가능 ---------------*/}
-            
-            </Typography>
+        {page1.questions.map((question, q_index) => (
+          <Grid item xs={12}>
+            <Box align="center">
+              <img src={question.image} className={classes.Images} />
+              {/* 소질문 페이퍼 섹션 */}
+              <Typography variant="h4" gutterBottom fontWeight="medium">
+
+                {/* -------------------- 수정 가능 ---------------*/}
+                0{q_index + 1} : {question.name}
+                {/* -------------------- 수정 가능 ---------------*/}
+
+              </Typography>
+              <br></br>
+              <Typography variant="subtitle1" gutterBottom>
+
+                {/* -------------------- 수정 가능 ---------------*/}
+                <b>{question.name}</b>: {question.detail}
+                {/* -------------------- 수정 가능 ---------------*/}
+
+              </Typography>
+            </Box>
+            <Paper elevation={10} sx={{ p: 5 }}>
+              {/* 이게 소질문 집단 */}
+              {question.rows.map((subquestion, index) => (
+                <Grid
+                  container
+                  spacing={2}
+                  sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
+                >
+                  <Grid item xs={12} md={7}>
+                    <Box>
+                      <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
+
+                        {/* -------------------- 수정 가능 ---------------*/}
+                        {question.name} - Q{index + 1}
+                        {/* -------------------- 수정 가능 ---------------*/}
+
+                      </Typography>
+                      <Typography sx={{ ml: 2 }} variant="subtitle1">
+
+                        {/* -------------------- 수정 가능 ---------------*/}
+                        {subquestion.desc}
+                        {/* -------------------- 수정 가능 ---------------*/}
+
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} md={5}>
+                    <PrettoSlider
+                      defaultValue={50}
+                      min={0}
+                      max={100}
+                      step={10}
+                      marks={pageSetting.marks}
+                      name={subquestion.name}
+                      valueLabelDisplay="auto"
+                      onChange={valueChange}
+                    // 값 표시 포맷 지정
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider orientation="horizontal" flexItem />
+                  </Grid>
+                </Grid>
+              ))}
+            </Paper>
             <br></br>
-            <Typography variant="subtitle1" gutterBottom>
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              <b>{question.name}</b>: {question.detail}
-              {/* -------------------- 수정 가능 ---------------*/}
-              
-            </Typography>
-          </Box>
-          <Paper elevation={10} sx={{ p: 5 }}>
-            {/* 이게 소질문 집단 */}
-            {question.rows.map((subquestion, index)=>(
-              <Grid
-              container
-              spacing={2}
-              sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
-            >
-              <Grid item xs={12} md={7}>
-                <Box>
-                  <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                    
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {question.name} - Q{index+1}
-                    {/* -------------------- 수정 가능 ---------------*/}
-
-                  </Typography>
-                  <Typography sx={{ ml: 2 }} variant="subtitle1">
-
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {subquestion.desc}
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <PrettoSlider
-                  defaultValue={50}
-                  min={0}
-                  max={100}
-                  step={10}
-                  marks={pageSetting.marks}
-                  name={subquestion.name}
-                  valueLabelDisplay="auto"
-                  onChange={valueChange}
-                // 값 표시 포맷 지정
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider orientation="horizontal" flexItem />
-              </Grid>
-            </Grid>
-            ))}
-          </Paper>
-          <br></br>
-          <br></br>
-        </Grid>
+            <br></br>
+          </Grid>
         ))}
         <Grid container justifyContent="center">
           <Grid item>
@@ -235,75 +234,75 @@ export default function SurveyForm(props) {
             </Typography>
           </Typography>
         </Grid>
-        {page2.questions.map((question, q_index)=>(
-        <Grid item xs={12}>
-          <Box align="center">
-            <img src={question.image} className={classes.Images} />
-            {/* 소질문 페이퍼 섹션 */}
-            <Typography variant="h4" gutterBottom fontWeight="medium">
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              0{q_index+1} : {question.name}
-              {/* -------------------- 수정 가능 ---------------*/}
-            
-            </Typography>
+        {page2.questions.map((question, q_index) => (
+          <Grid item xs={12}>
+            <Box align="center">
+              <img src={question.image} className={classes.Images} />
+              {/* 소질문 페이퍼 섹션 */}
+              <Typography variant="h4" gutterBottom fontWeight="medium">
+
+                {/* -------------------- 수정 가능 ---------------*/}
+                0{q_index + 1} : {question.name}
+                {/* -------------------- 수정 가능 ---------------*/}
+
+              </Typography>
+              <br></br>
+              <Typography variant="subtitle1" gutterBottom>
+
+                {/* -------------------- 수정 가능 ---------------*/}
+                <b>{question.name}</b>: {question.detail}
+                {/* -------------------- 수정 가능 ---------------*/}
+
+              </Typography>
+            </Box>
+            <Paper elevation={10} sx={{ p: 5 }}>
+              {/* 이게 소질문 집단 */}
+              {question.rows.map((subquestion, index) => (
+                <Grid
+                  container
+                  spacing={2}
+                  sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
+                >
+                  <Grid item xs={12} md={7}>
+                    <Box>
+                      <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
+
+                        {/* -------------------- 수정 가능 ---------------*/}
+                        {question.name} - Q{index + 1}
+                        {/* -------------------- 수정 가능 ---------------*/}
+
+                      </Typography>
+                      <Typography sx={{ ml: 2 }} variant="subtitle1">
+
+                        {/* -------------------- 수정 가능 ---------------*/}
+                        {subquestion.desc}
+                        {/* -------------------- 수정 가능 ---------------*/}
+
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} md={5}>
+                    <PrettoSlider
+                      defaultValue={50}
+                      min={0}
+                      max={100}
+                      step={10}
+                      marks={pageSetting.marks}
+                      name={subquestion.name}
+                      valueLabelDisplay="auto"
+                      onChange={valueChange}
+                    // 값 표시 포맷 지정
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider orientation="horizontal" flexItem />
+                  </Grid>
+                </Grid>
+              ))}
+            </Paper>
             <br></br>
-            <Typography variant="subtitle1" gutterBottom>
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              <b>{question.name}</b>: {question.detail}
-              {/* -------------------- 수정 가능 ---------------*/}
-              
-            </Typography>
-          </Box>
-          <Paper elevation={10} sx={{ p: 5 }}>
-            {/* 이게 소질문 집단 */}
-            {question.rows.map((subquestion, index)=>(
-              <Grid
-              container
-              spacing={2}
-              sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
-            >
-              <Grid item xs={12} md={7}>
-                <Box>
-                  <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                    
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {question.name} - Q{index+1}
-                    {/* -------------------- 수정 가능 ---------------*/}
-
-                  </Typography>
-                  <Typography sx={{ ml: 2 }} variant="subtitle1">
-
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {subquestion.desc}
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <PrettoSlider
-                  defaultValue={50}
-                  min={0}
-                  max={100}
-                  step={10}
-                  marks={pageSetting.marks}
-                  name={subquestion.name}
-                  valueLabelDisplay="auto"
-                  onChange={valueChange}
-                // 값 표시 포맷 지정
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider orientation="horizontal" flexItem />
-              </Grid>
-            </Grid>
-            ))}
-          </Paper>
-          <br></br>
-          <br></br>
-        </Grid>
+            <br></br>
+          </Grid>
         ))}
         <Grid container justifyContent="center">
           <Grid item>
@@ -343,75 +342,86 @@ export default function SurveyForm(props) {
             </Typography>
           </Typography>
         </Grid>
-        {page3.questions.map((question, q_index)=>(
-        <Grid item xs={12}>
-          <Box align="center">
-            <img src={question.image} className={classes.Images} />
-            {/* 소질문 페이퍼 섹션 */}
-            <Typography variant="h4" gutterBottom fontWeight="medium">
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              0{q_index+1} : {question.name}
-              {/* -------------------- 수정 가능 ---------------*/}
-            
-            </Typography>
-            <br></br>
-            <Typography variant="subtitle1" gutterBottom>
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              <b>{question.name}</b>: {question.detail}
-              {/* -------------------- 수정 가능 ---------------*/}
-              
-            </Typography>
-          </Box>
-          <Paper elevation={10} sx={{ p: 5 }}>
-            {/* 이게 소질문 집단 */}
-            {question.rows.map((subquestion, index)=>(
-              <Grid
-              container
-              spacing={2}
-              sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
-            >
-              <Grid item xs={12} md={7}>
-                <Box>
-                  <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                    
+        {page3.sections.map((section, section_index) => (
+
+          <Paper>
+            <Typography>{section.section_name}</Typography>
+            {section.questions.map((question, q_index) => (
+
+
+
+
+              <Grid item xs={12}>
+                <Box align="center">
+                  <img src={question.image} className={classes.Images} />
+                  {/* 소질문 페이퍼 섹션 */}
+                  <Typography variant="h4" gutterBottom fontWeight="medium">
+
                     {/* -------------------- 수정 가능 ---------------*/}
-                    {question.name} - Q{index+1}
+                    0{q_index + 1} : {question.name}
                     {/* -------------------- 수정 가능 ---------------*/}
 
                   </Typography>
-                  <Typography sx={{ ml: 2 }} variant="subtitle1">
+                  <br></br>
+                  <Typography variant="subtitle1" gutterBottom>
 
                     {/* -------------------- 수정 가능 ---------------*/}
-                    {subquestion.desc}
+                    <b>{question.name}</b>: {question.detail}
                     {/* -------------------- 수정 가능 ---------------*/}
-                    
+
                   </Typography>
                 </Box>
+                <Paper elevation={10} sx={{ p: 5 }}>
+                  {/* 이게 소질문 집단 */}
+                  {question.rows.map((subquestion, index) => (
+                    <Grid
+                      container
+                      spacing={2}
+                      sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
+                    >
+                      <Grid item xs={12} md={7}>
+                        <Box>
+                          <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
+
+                            {/* -------------------- 수정 가능 ---------------*/}
+                            {question.name} - Q{index + 1}
+                            {/* -------------------- 수정 가능 ---------------*/}
+
+                          </Typography>
+                          <Typography sx={{ ml: 2 }} variant="subtitle1">
+
+                            {/* -------------------- 수정 가능 ---------------*/}
+                            {subquestion.desc}
+                            {/* -------------------- 수정 가능 ---------------*/}
+
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12} md={5}>
+                        <PrettoSlider
+                          defaultValue={50}
+                          min={0}
+                          max={100}
+                          step={10}
+                          marks={pageSetting.marks}
+                          name={subquestion.name}
+                          valueLabelDisplay="auto"
+                          onChange={valueChange}
+                        // 값 표시 포맷 지정
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider orientation="horizontal" flexItem />
+                      </Grid>
+                    </Grid>
+                  ))}
+                </Paper>
+                <br></br>
+                <br></br>
               </Grid>
-              <Grid item xs={12} md={5}>
-                <PrettoSlider
-                  defaultValue={50}
-                  min={0}
-                  max={100}
-                  step={10}
-                  marks={pageSetting.marks}
-                  name={subquestion.name}
-                  valueLabelDisplay="auto"
-                  onChange={valueChange}
-                // 값 표시 포맷 지정
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider orientation="horizontal" flexItem />
-              </Grid>
-            </Grid>
             ))}
           </Paper>
-          <br></br>
-          <br></br>
-        </Grid>
+
         ))}
         <Grid container justifyContent="center">
           <Grid item>
@@ -426,7 +436,6 @@ export default function SurveyForm(props) {
           </Grid>
         </Grid>
       </Grid>
-
       {/* -------------------------------4 페이지------------------------------- */}
       <Grid
         container
@@ -451,75 +460,86 @@ export default function SurveyForm(props) {
             </Typography>
           </Typography>
         </Grid>
-        {page4.questions.map((question, q_index)=>(
-        <Grid item xs={12}>
-          <Box align="center">
-            <img src={question.image} className={classes.Images} />
-            {/* 소질문 페이퍼 섹션 */}
-            <Typography variant="h4" gutterBottom fontWeight="medium">
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              0{q_index+1} : {question.name}
-              {/* -------------------- 수정 가능 ---------------*/}
-            
-            </Typography>
-            <br></br>
-            <Typography variant="subtitle1" gutterBottom>
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              <b>{question.name}</b>: {question.detail}
-              {/* -------------------- 수정 가능 ---------------*/}
-              
-            </Typography>
-          </Box>
-          <Paper elevation={10} sx={{ p: 5 }}>
-            {/* 이게 소질문 집단 */}
-            {question.rows.map((subquestion, index)=>(
-              <Grid
-              container
-              spacing={2}
-              sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
-            >
-              <Grid item xs={12} md={7}>
-                <Box>
-                  <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                    
+        {page4.sections.map((section, section_index) => (
+
+          <Paper>
+            <Typography>{section.section_name}</Typography>
+            {section.questions.map((question, q_index) => (
+
+
+
+
+              <Grid item xs={12}>
+                <Box align="center">
+                  <img src={question.image} className={classes.Images} />
+                  {/* 소질문 페이퍼 섹션 */}
+                  <Typography variant="h4" gutterBottom fontWeight="medium">
+
                     {/* -------------------- 수정 가능 ---------------*/}
-                    {question.name} - Q{index+1}
+                    0{q_index + 1} : {question.name}
                     {/* -------------------- 수정 가능 ---------------*/}
 
                   </Typography>
-                  <Typography sx={{ ml: 2 }} variant="subtitle1">
+                  <br></br>
+                  <Typography variant="subtitle1" gutterBottom>
 
                     {/* -------------------- 수정 가능 ---------------*/}
-                    {subquestion.desc}
+                    <b>{question.name}</b>: {question.detail}
                     {/* -------------------- 수정 가능 ---------------*/}
-                    
+
                   </Typography>
                 </Box>
+                <Paper elevation={10} sx={{ p: 5 }}>
+                  {/* 이게 소질문 집단 */}
+                  {question.rows.map((subquestion, index) => (
+                    <Grid
+                      container
+                      spacing={2}
+                      sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
+                    >
+                      <Grid item xs={12} md={7}>
+                        <Box>
+                          <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
+
+                            {/* -------------------- 수정 가능 ---------------*/}
+                            {question.name} - Q{index + 1}
+                            {/* -------------------- 수정 가능 ---------------*/}
+
+                          </Typography>
+                          <Typography sx={{ ml: 2 }} variant="subtitle1">
+
+                            {/* -------------------- 수정 가능 ---------------*/}
+                            {subquestion.desc}
+                            {/* -------------------- 수정 가능 ---------------*/}
+
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12} md={5}>
+                        <PrettoSlider
+                          defaultValue={50}
+                          min={0}
+                          max={100}
+                          step={10}
+                          marks={pageSetting.marks}
+                          name={subquestion.name}
+                          valueLabelDisplay="auto"
+                          onChange={valueChange}
+                        // 값 표시 포맷 지정
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider orientation="horizontal" flexItem />
+                      </Grid>
+                    </Grid>
+                  ))}
+                </Paper>
+                <br></br>
+                <br></br>
               </Grid>
-              <Grid item xs={12} md={5}>
-                <PrettoSlider
-                  defaultValue={50}
-                  min={0}
-                  max={100}
-                  step={10}
-                  marks={pageSetting.marks}
-                  name={subquestion.name}
-                  valueLabelDisplay="auto"
-                  onChange={valueChange}
-                // 값 표시 포맷 지정
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider orientation="horizontal" flexItem />
-              </Grid>
-            </Grid>
             ))}
           </Paper>
-          <br></br>
-          <br></br>
-        </Grid>
+
         ))}
         <Grid container justifyContent="center">
           <Grid item>
@@ -529,121 +549,11 @@ export default function SurveyForm(props) {
               variant="contained"
               onClick={handleNextPage}
             >
-              Next
+              Submit
             </Button>
           </Grid>
         </Grid>
       </Grid>
-
-     {/* -------------------------------5 페이지------------------------------- */}
-      <Grid
-        container
-        style={{ display: currentPage === 5 ? 'flex' : 'none' }}
-      >
-        <Grid item xs={12} sx={{ marginTop: '10px', marginBottom: '50px' }}>
-          <Typography variant="h6" component="subtitle2">
-
-            {/* -------------------- 수정 가능 ---------------*/}
-            {FormData.description}
-            {/* -------------------- 수정 가능 ---------------*/}
-
-            <Typography
-              variant="subtitle1"
-              component="p"
-              sx={{ color: 'red', fontWeight: 'medium' }}
-            >
-              {/* -------------------- 수정 가능 ---------------*/}
-              {FormData.notice}
-              {/* -------------------- 수정 가능 ---------------*/}
-
-            </Typography>
-          </Typography>
-        </Grid>
-        {page5.questions.map((question, q_index)=>(
-        <Grid item xs={12}>
-          <Box align="center">
-            <img src={question.image} className={classes.Images} />
-            {/* 소질문 페이퍼 섹션 */}
-            <Typography variant="h4" gutterBottom fontWeight="medium">
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              0{q_index+1} : {question.name}
-              {/* -------------------- 수정 가능 ---------------*/}
-            
-            </Typography>
-            <br></br>
-            <Typography variant="subtitle1" gutterBottom>
-              
-              {/* -------------------- 수정 가능 ---------------*/}
-              <b>{question.name}</b>: {question.detail}
-              {/* -------------------- 수정 가능 ---------------*/}
-              
-            </Typography>
-          </Box>
-          <Paper elevation={10} sx={{ p: 5 }}>
-            {/* 이게 소질문 집단 */}
-            {question.rows.map((subquestion, index)=>(
-              <Grid
-              container
-              spacing={2}
-              sx={{ alignItems: 'flex-end', justifyContent: 'center' }}
-            >
-              <Grid item xs={12} md={7}>
-                <Box>
-                  <Typography sx={{ mb: 1 }} variant="h6" gutterBottom>
-                    
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {question.name} - Q{index+1}
-                    {/* -------------------- 수정 가능 ---------------*/}
-
-                  </Typography>
-                  <Typography sx={{ ml: 2 }} variant="subtitle1">
-
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    {subquestion.desc}
-                    {/* -------------------- 수정 가능 ---------------*/}
-                    
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <PrettoSlider
-                  defaultValue={50}
-                  min={0}
-                  max={100}
-                  step={10}
-                  marks={pageSetting.marks}
-                  name={subquestion.name}
-                  valueLabelDisplay="auto"
-                  onChange={valueChange}
-                // 값 표시 포맷 지정
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider orientation="horizontal" flexItem />
-              </Grid>
-            </Grid>
-            ))}
-          </Paper>
-          <br></br>
-          <br></br>
-        </Grid>
-        ))}
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Button
-              sx={{ marginTop: '45px' }}
-              className={classes.nextBtn}
-              variant="contained"
-              onClick={handleNextPage}
-            >
-              Sumbit
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-
-
 
       <Grid
         container

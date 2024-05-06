@@ -230,6 +230,30 @@ class send_result(APIView):
                 print(data)
 
             return JsonResponse(data,status = 200)
+        elif (survey_name == "JMLeadershipEvaluationSurvey"):
+            print(1)
+            if (len(questions)!= 0):
+                print(questions, userob.name)
+                for question in questions:
+                    usersval = res.objects.filter(question = question, user = userob)
+                    print(usersval)
+                    print(question.question_code)
+                    if (len(usersval) == 0):
+                        return JsonResponse({"error" : "일부 데이터 손실"}, status  = 400)
+                    resval = usersval.first()
+                    resall = res.objects.filter(question=question).aggregate(Avg('value'))["value__avg"]
+                    resdic[question.question_code] = resval.value
+                    resalldic[question.question_code] = resall
+                data = result_process_JMLeadershipEvaluationSurvey(resdic)
+                other= result_process_JMLeadershipEvaluationSurvey(resalldic)
+                keys = data.keys()
+                ddddd = {}
+                for key in keys:
+                    print(key)
+                    ddddd[key] = {"user" : data[key], "other" : other[key]}
+                ddddd["username"] = userob.name
+                print(ddddd)
+            return JsonResponse(ddddd,status = 200)
         else:
             return JsonResponse({"error":"error"}, status =400)
 class send_to_home(APIView):
@@ -423,6 +447,67 @@ def group_calc(request_group_info, userob,target = "user"):
     return dic
     
 
+def result_process_JMLeadershipEvaluationSurvey(resdic):
+    personal_list = ["experiences", 
+                     "attribute_of_learning" , 
+                     "accessibility",
+                     "resiliency",
+                     "belief_in_telent",
+                     "appearance",
+                     "resp_behaviors",
+                     "self_evaluation",
+                     "habit_of_writting"]
+    cummunication_list = ["listening",
+                    "communication_envir",
+                    "operating_through_communication",
+                    "lead_under_policy",]
+    decision_list = ["human_resources_management",
+                    "conflicts_management",
+                    "data_collection",
+                    "resonalble_decision_making",
+                    "decision_ability",
+                    "problem_sol_ability",]
+    leadership_list = ["vision",
+                    "guiding_skills",
+                    "rolemodel",
+                    "mannerism",
+                    "human_dev",
+                    "compassion_for_others",
+                    "organizational_management",
+                    "project_management",
+                    "administration",]
+    Ldic = {}
+    for key , value in resdic.items():
+        q_type = re.sub(r'\d+$', '', key)
+        section_key = ""
+        if (q_type in personal_list):
+            section_key = "Personal attributes and growth mindset"
+        elif (q_type in cummunication_list):
+            section_key = "Ability of Communication"
+        elif (q_type in decision_list):
+            section_key = "Ability to grasp, judge, and solve problems "
+        elif (q_type in leadership_list):
+            section_key = "Leadership Abilities"
+        
+        if section_key not in Ldic:
+            Ldic[section_key] = {}
+
+        if (q_type not in Ldic[section_key]):
+            Ldic[section_key][q_type] = {"sum" : float(value), "count" : 1}
+        else:
+            Ldic[section_key][q_type]["sum"]+=float(value)
+            Ldic[section_key][q_type]["count"]+=1
+    leadership_mean = {}
+    print(Ldic.items())
+    for key, value in Ldic.items():
+        print(key, value)
+        if key not in leadership_mean:
+            leadership_mean[key] = {}
+        for k, v in Ldic[key].items():
+            leadership_mean[key][k]= v["sum"]/v["count"]
+    print(leadership_mean)
+    return  leadership_mean
+    
 def result_process_InclusiveLeadershipSurvey(resdic):
     lis = ["openness", "availability" , "accessibility"]
     Ldic = {}

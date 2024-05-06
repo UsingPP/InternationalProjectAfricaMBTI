@@ -15,7 +15,7 @@ class Survey(models.Model):
   class Meta:
         db_table = 'survey'
 
-class Question(models.Model): 
+class Question(models.Model):
   question_code = models.CharField(max_length = 100)
   value_type= models.CharField(max_length = 100, default = "int")
   question_title = models.TextField(default = "")

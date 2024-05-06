@@ -3,45 +3,38 @@ export const FormData = {
       title: "JM Leadership Evaluation Servey",
       notice : "Please read the following description of each competency and rate your own competency in that competency on a scale of 100 points.",
       description: "Thank you for agreeing to participate in the Inclusive leadership survey.",
+      labels : {
+        type: "PrettoSlider",
+        marks : [
+          {
+            value: 0,
+            label: 'Strongly\nDisagree',
+          },
+          {
+            value: 25,
+            label: 'Disagree',
+          },
+          {
+            value: 50,
+            label: 'Neutral',
+          },
+          {
+            value: 75,
+            label: 'Agree',
+          },
+          {
+            value: 100,
+            label: `Strongly\nAgree`,
+          },
+        ],
+
+      },
       page: [
-        //Question => page로 바꿔서 인덱싱을 할 때 직관성을 강화
-        //question[i] => page[1]
-        //각각의 페이지는 중괄호로 묶임
-
         // page[0]
+        // Personal attributes and growth mindset
         {
           type: "PrettoSlider",
-          marks : [
-            {
-              value: 0,
-              label: 'Strongly\nDisagree',
-            },
-            {
-              value: 25,
-              label: 'Disagree',
-            },
-            {
-              value: 50,
-              label: 'Neutral',
-            },
-            {
-              value: 75,
-              label: 'Agree',
-            },
-            {
-              value: 100,
-              label: `Strongly\nAgree`,
-            },
-          ],
-
-          title : "title1"
-        },
-  
-        // page[1]
-        
-        {
-          type: "PrettoSlider",
-          page_name: "1.	Personal attributes and growth mindset",
+          name: "Personal attributes and growth mindset",
 
           // 해야 할 질문이 n개 있다고 해도 question이라는 이름을 무조건 집어 넣어 사용에 편의 추가
           // questions는 []로 감싸고 그 안에 {}가 n개 있는 형태
@@ -63,7 +56,6 @@ export const FormData = {
                 { name : "experiences3",
                   desc : "I have unique experiences that can inspire people.", },]
               },
-            // map 쓰면 이 덩어리로 쪼개짐 ↑
 
             {
               name : "Attitude of learning",
@@ -151,12 +143,10 @@ export const FormData = {
             ]
         },
       
-        //page[2]
+        //page[1]
         {
-
           type: "PrettoSlider",
-          name: "LeadershipQuestions",
-
+          name: "Ability of Communication",
           // 해야 할 질문이 n개 있다고 해도 question이라는 이름을 무조건 집어 넣어 사용에 편의 추가
           // questions는 []로 감싸고 그 안에 {}가 n개 있는 형태
           // {} (questions[n]) 내부에는 name, title, rows가 필수적으로 있어야 함
@@ -207,7 +197,20 @@ export const FormData = {
                 {name :"lead_under_policy3",
                 desc : "I not only say what the other person wants to hear but also express what needs to be said.",}, ]
             },
-            {
+            
+            
+            ]
+            // map 쓰면 이 덩어리로 쪼개짐 ↑
+
+        },
+
+        //page[2] 3페이지
+        { type: "PrettoSlider",
+        name: "Ability to grasp, judge, and solve problems ",
+        sections : [
+          {
+            section_name : "Data collection abilities",
+            questions : [{
               name : "Human resources management",
               rows : [
                 {name :"human_resources_management1",
@@ -216,7 +219,7 @@ export const FormData = {
                 desc : "I have a detailed understanding of the tendencies of the organization’s members.",}, 
                 {name :"human_resources_management3",
                 desc : "I am aware of the personal information of the people I am guiding.",}, 
-                {name :"human_resources_management3",
+                {name :"human_resources_management4",
                 desc : "I have a good understanding of people’s talents. ",}, ]
             },
             {
@@ -230,8 +233,11 @@ export const FormData = {
                 desc : "I quickly identify issues and conflicts arising within the organization.",}, 
                 {name :"conflicts_management4",
                 desc : "I regularly examine whether there are individuals causing issues within the organization.",}, ]
-            },
-            {
+            },]
+          },
+          {
+            section_name : "Decision-making",
+            questions : [{
               name : "Data collection and decision-making processes",
               rows : [
                 {name :"data_collection1",
@@ -264,148 +270,11 @@ export const FormData = {
                 desc : "Most of the time, my discernments are correct."},
                 {name :"decision_ability4",
                 desc : "The outcomes of my decisions are often beneficial, as expected.",}]
-            }
-            
-            
-            ]
-            // map 쓰면 이 덩어리로 쪼개짐 ↑
-
-        },
-
-        // 3페이지
-        { type: "PrettoSlider",
-        name: "LeadershipQuestions",
-
-      
-        questions: [
-        {
-          name : "Leadership",
-          rows : [
-            {name : "leadership1",
-             desc : "I have a philosophy when it comes to leading people.",},
-            {name : "leadership2",
-            desc : "I possess leadership skills in guiding people.",},
-            {name : "leadership3",
-            desc : "I am adept at leading and guiding people.",},]
-        },
-        {
-          name : "Show the vision",
-          rows : [
-            {name : "vision1",
-             desc : "I provide people with a vision.",},
-            {name : "vision2",
-            desc : "I envision people with dreams.",},
-            {name : "vision3",
-            desc : "I make people feel optimistic about the future of our organization.",},]
-        },
-        {
-          name : "Role model",
-          rows : [
-            {name : "rolemodel1",
-             desc : "I pay attention to my actions, considering their influence on others.",},
-            {name : "rolemodel2",
-            desc : "I do not show a hopeless attitude in front of people, even in desperate situations.",},
-            {name : "rolemodel3",
-            desc : "I take action in a way that allows those I lead to observe and learn.",},
-            {name : "rolemodel4",
-            desc : "I act as a role model, behaving excellently so others can observe and learn from my actions.",}]
-        },
-        {   
-          name : "Mannerism",      
-          rows : [
-            {name : "mannerism1",
-             desc : "I choose my words carefully to ensure that people do not get hurt.",},
-            {name : "mannerism2",
-            desc : "I manage my facial expressions well.",},
-            {name : "mannerism3",
-            desc : "I behave according to proper etiquette."},
-            {name : "mannerism4",
-            desc : "I teach people kindly and in a detailed manner.",},
-            {name : "mannerism5",
-            desc : "I do not carelessly share people’s mistakes or faults.",},
-            {name : "mannerism6",
-            desc : "I constantly provide people with exciting experiences."},
-            {name : "mannerism7",
-            desc : "I plan activities that people can have fun and enjoy.",},
-            {name : "mannerism8",
-            desc : "I create a good (positive) work atmosphere with people."},]
-        },
-      ],},
-
-        // 4페이지
-        { type: "PrettoSlider",
-        name: "LeadershipQuestions",
-
-        questions: [    
-          {
-            name : "Human development",
-            rows : [
-            {name : "human_dev1",
-              desc : "I educate talented people to grow into leaders." },
-            {name : "human_dev2",
-              desc : "I lead people according to their individual differences." },
-            {name : "human_dev3",
-              desc : "I guide people by elevating their levels while considering their growth." },
-            {name : "human_dev4",
-              desc : "I adjust my guidance based on the level of individuals." },],
+            },]
           },
-
           {
-            name : "Compassion for others",
-            rows : [
-            {name : "compassion_for_others1",
-              desc : "I embrace and treat everyone fairly." },
-            {name : "compassion_for_others2",
-              desc : "I forgive people for their mistakes and faults." },
-            {name : "compassion_for_others3",
-              desc : "I give people another chance even if they make mistakes while working." },],
-          },
-
-          {
-            name : "Organizational management",
-            rows : [
-            {name : "organizational_management1",
-              desc : "I establish/build organizational structures effectively." },
-            {name : "organizational_management2",
-              desc : "I manage the organization by assigning clear roles and responsibilities to individuals." },
-            {name : "organizational_management3",
-              desc : "I strategically allocate team members to each department." },
-            {name : "organizational_management4",
-              desc : "I place individuals in appropriate positions, considering their unique personalities." },],
-          },
-
-          {
-            name : "Project management",
-            rows : [
-            {name : "project_management1",
-              desc : "I plan and proceed with the work." },
-            {name : "project_management2",
-              desc : "I ensure that roles are appropriately assigned among people." },
-            {name : "project_management3",
-              desc : "I distribute tasks effectively." },
-            {name : "project_management4",
-              desc : "I regularly check the progress of the work and ensure that it is completed within the designated timeframe." },],
-          },
-
-          {
-            name : "Administration",
-            rows : [
-            {name : "administration1",
-              desc : "I operate the organization with a well-structured administrative system." },
-            {name : "administration2",
-              desc : "I apply the administrative system considering the company’s/organization’s objectives." },
-            {name : "administration3",
-              desc : "I have a good understanding of administrative laws and can apply them effectively." },],
-          }
-      
-      ],},
-
-        // 5페이지
-        { type: "PrettoSlider",
-        name: "LeadershipQuestions",
-
-        questions: [
-          { name : "Problem-solving ability",
+            section_name : "Problem-solving ability",
+            questions : [{ name : "Problem-solving ability",
             rows : [
             { name : "problem_sol_ability1",
             desc : "I promptly resolve issues when they happen/arise.",},
@@ -413,8 +282,136 @@ export const FormData = {
             desc : "I quickly address issues when they occur.",},
             { name : "problem_sol_ability3",
             desc : "I quietly resolve the issue when someone causes a problem without escalating the situation.",},]
+          }  ]
           }
-      ],},
+        ],
+        },
+
+        // page[3] 4페이지
+        { type: "PrettoSlider",
+        name: "LeadershipQuestions",
+        sections : [
+          {
+            section_name : "Humanistic Leadership",
+            questions : [{
+              name : "Show the vision",
+              rows : [
+                {name : "vision1",
+                 desc : "I provide people with a vision.",},
+                {name : "vision2",
+                desc : "I envision people with dreams.",},
+                {name : "vision3",
+                desc : "I make people feel optimistic about the future of our organization.",},]
+            },
+            {
+              name : "Role model",
+              rows : [
+                {name : "rolemodel1",
+                 desc : "I pay attention to my actions, considering their influence on others.",},
+                {name : "rolemodel2",
+                desc : "I do not show a hopeless attitude in front of people, even in desperate situations.",},
+                {name : "rolemodel3",
+                desc : "I take action in a way that allows those I lead to observe and learn.",},
+                {name : "rolemodel4",
+                desc : "I act as a role model, behaving excellently so others can observe and learn from my actions.",}]
+            },
+            {   
+              name : "Mannerism",      
+              rows : [
+                {name : "mannerism1",
+                 desc : "I choose my words carefully to ensure that people do not get hurt.",},
+                {name : "mannerism2",
+                desc : "I manage my facial expressions well.",},
+                {name : "mannerism3",
+                desc : "I behave according to proper etiquette."},
+                {name : "mannerism4",
+                desc : "I teach people kindly and in a detailed manner.",},
+                {name : "mannerism5",
+                desc : "I do not carelessly share people’s mistakes or faults.",},
+                {name : "mannerism6",
+                desc : "I constantly provide people with exciting experiences."},
+                {name : "mannerism7",
+                desc : "I plan activities that people can have fun and enjoy.",},
+                {name : "mannerism8",
+                desc : "I create a good (positive) work atmosphere with people."},]
+            }
+            ,{
+              name : "Compassion for others",
+              rows : [
+              {name : "compassion_for_others1",
+                desc : "I embrace and treat everyone fairly." },
+              {name : "compassion_for_others2",
+                desc : "I forgive people for their mistakes and faults." },
+              {name : "compassion_for_others3",
+                desc : "I give people another chance even if they make mistakes while working." },],
+            },]
+          },
+          {
+            section_name : "Organizational Leadership",
+            questions : [  {
+              name : "Human development",
+              rows : [
+              {name : "human_dev1",
+                desc : "I educate talented people to grow into leaders." },
+              {name : "human_dev2",
+                desc : "I lead people according to their individual differences." },
+              {name : "human_dev3",
+                desc : "I guide people by elevating their levels while considering their growth." },
+              {name : "human_dev4",
+                desc : "I adjust my guidance based on the level of individuals." },],
+            },
+  
+            
+  
+            {
+              name : "Organizational management",
+              rows : [
+              {name : "organizational_management1",
+                desc : "I establish/build organizational structures effectively." },
+              {name : "organizational_management2",
+                desc : "I manage the organization by assigning clear roles and responsibilities to individuals." },
+              {name : "organizational_management3",
+                desc : "I strategically allocate team members to each department." },
+              {name : "organizational_management4",
+                desc : "I place individuals in appropriate positions, considering their unique personalities." },],
+            },
+  
+            {
+              name : "Project management",
+              rows : [
+              {name : "project_management1",
+                desc : "I plan and proceed with the work." },
+              {name : "project_management2",
+                desc : "I ensure that roles are appropriately assigned among people." },
+              {name : "project_management3",
+                desc : "I distribute tasks effectively." },
+              {name : "project_management4",
+                desc : "I regularly check the progress of the work and ensure that it is completed within the designated timeframe." },],
+            },
+  
+            {
+              name : "Administration",
+              rows : [
+              {name : "administration1",
+                desc : "I operate the organization with a well-structured administrative system." },
+              {name : "administration2",
+                desc : "I apply the administrative system considering the company’s/organization’s objectives." },
+              {name : "administration3",
+                desc : "I have a good understanding of administrative laws and can apply them effectively." },],
+            },
+            {
+              name : "guiding skills",
+              rows : [
+                {name : "guiding_skills1",
+                 desc : "I have a philosophy when it comes to leading people.",},
+                {name : "guiding_skills2",
+                desc : "I possess leadership skills in guiding people.",},
+                {name : "guiding_skills3",
+                desc : "I am adept at leading and guiding people.",},]
+            },]
+          },
+        ],
+        },
       ],
   
 
@@ -468,10 +465,11 @@ export const initialData = {
     lead_under_policy1 : 50,
     lead_under_policy2 : 50,
     lead_under_policy3 : 50,
+    // ## 3페이지 
     human_resources_management1 : 50,
     human_resources_management2 : 50,
     human_resources_management3 : 50,
-    human_resources_management3 : 50,
+    human_resources_management4 : 50,
     conflicts_management1 : 50,
     conflicts_management2 : 50,
     conflicts_management3 : 50,
@@ -487,13 +485,16 @@ export const initialData = {
     decision_ability2 : 50,
     decision_ability3 : 50,
     decision_ability4 : 50,
-    //## 3페이지 : 50,
-    leadership1 : 50,
-    leadership2 : 50,
-    leadership3 : 50,
+    problem_sol_ability1 : 50,
+    problem_sol_ability2 : 50,
+    problem_sol_ability3 : 50,
+    //## 4페이지 : 50,
     vision1 : 50,
     vision2 : 50,
     vision3 : 50,
+    guiding_skills1 : 50,
+    guiding_skills2 : 50,
+    guiding_skills3 : 50,
     rolemodel1 : 50,
     rolemodel2 : 50,
     rolemodel3 : 50,
@@ -506,8 +507,6 @@ export const initialData = {
     mannerism6 : 50,
     mannerism7 : 50,
     mannerism8 : 50,
-    
-    //#4페이지 : 50,
     human_dev1 : 50,
     human_dev2 : 50,
     human_dev3 : 50,
@@ -527,9 +526,5 @@ export const initialData = {
     administration2 : 50,
     administration3 : 50,
 
-    //# 5페이지 : 50,
-    problem_sol_ability1 : 50,
-    problem_sol_ability2 : 50,
-    problem_sol_ability3 : 50,
 };
 
