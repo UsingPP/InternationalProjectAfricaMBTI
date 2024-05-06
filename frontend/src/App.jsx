@@ -75,10 +75,6 @@ export default function App() {
   console.log("로그인?" , isLoggedIn)
   // 로그인 상태를 확인하고 isLoggedIn이 true이면 홈으로 자동으로 리디렉션
   const allowpath  = ['/','/signin']
-  if (isLoggedIn && allowpath.includes(window.location.pathname) ) {
-    console.log(1)
-    window.location.href = '/home';
-  }
   const disallowgeneral = ['/home', '/about']
   const disallowresult  = ["/LeadershipSurveyResult"  ,
                           "/InclusiveLeadershipSurveyResult"  ,
@@ -96,7 +92,11 @@ export default function App() {
                           ,"/home/DifficultiesInEmotion"
                           ,"/home/UN17Goal"
                           ,"/home/EntrepreneurshipmindsetSurvey"]
-  const disallowedPaths = disallowgeneral + disallowresult + disallowsurvey
+                          const disallowedPaths = disallowgeneral + disallowresult + disallowsurvey
+  if (isLoggedIn && allowpath.includes(window.location.pathname) ) {
+    console.log(1)
+    window.location.href = '/home';
+  }
   if (!isLoggedIn && disallowedPaths.includes(window.location.pathname)) {
     window.location.href= '/signin';
   }

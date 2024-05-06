@@ -30,7 +30,16 @@ path('UN17GoalResult/', TemplateView.as_view(template_name = 'index.html')) ,#ì¶
    path('signup/', SignUp.as_view()),
     path('login/', SignIn.as_view()),
     path('recievedata/', RecieveData.as_view()),
-    path("send_result/", send_result.as_view())
+    path("send_result/", send_result.as_view()),
 
+    
+    path("send_to_survey_form/", send_to_survey_form.as_view()),
+    path("send_to_home/", send_to_home.as_view()),
+    path("save_user_answer/", save_user_answer.as_view()),
+    path("send_completed_survey_list/", send_completed_survey_list.as_view()),
+    path("result_data_render/", result_data_render.as_view()),
+
+
+    path("JMdata/", jmdata),
   # path('api/transmit-survey-data/', TransmitSurveyDataApi.as_view(), name='transmit_survey_data'),
 ]

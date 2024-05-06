@@ -3,10 +3,11 @@ from django.http import JsonResponse, HttpResponse
 from django.views import View
 from rest_framework import generics
 from rest_framework.response import Response
+from django.forms.models import model_to_dict
 from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Question, Response  as res,User,Survey
+from .models import Question, Response  as res,User,Survey, CompletedSurvey
 from datetime import datetime as date
 from django.core.serializers import serialize
 from django.db.models import Q
@@ -57,7 +58,7 @@ class SignIn(APIView):
                     token = jwt.encode({'user' : user.userid}, SECRET_KEY, algorithm='HS256')
                     print(token)
                     ## 로그인 성공시
-                    return JsonResponse({"message" : "success" , "token" : token}, status=200)
+                    return JsonResponse({"message" : "success" , "token" : token, "name" : user.name}, status=200)
                                                                                                                                     ## 이제 토큰을 프론트에서 local storage에 저장하는 코드 작성하면됌
                 ## 아이디는 맞는데 비밀번호가 틀린경우
                 return JsonResponse({"message" : "ID or password is incorrect"})
@@ -231,6 +232,196 @@ class send_result(APIView):
             return JsonResponse(data,status = 200)
         else:
             return JsonResponse({"error":"error"}, status =400)
+class send_to_home(APIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        user = request.user
+        userob = User.objects.get(userid = user.userid)
+        data = json.loads(request.body)
+        request_survey_count = data["surveycount"]
+        request_language = data["language"]
+        surveys = Survey.objects.filter(survey_number__gte=1, survey_number__lte=request_survey_count).order_by('survey_number')
+        done_survey_count = 0
+        survey_dict = {"meta" : {}, "data" : {}}
+        all_fields = Survey._meta.fields
+        for surveyobj in surveys:
+            questionsCount = Question.objects.filter(survey=surveyobj).count()
+            surveydict = model_to_dict(surveyobj)
+            sd = {"questionsCount" : questionsCount}
+            for field in all_fields:
+                field_name = field.name
+                field_value = surveydict.get(field_name)
+                print(1)
+                try:
+                    field_value = json.loads(field_value.replace('\r', '').replace('\n', '').strip())
+                    print(field_value)
+                    print(type(field_value))
+                except:
+                    field_value = field_value
+                sd[field_name] = field_value
+            completed = CompletedSurvey.objects.filter(user=userob, survey=surveyobj)
+            if (len(completed)>=1):
+                done_survey_count += 1
+                sd["isCompleted"] = 1
+                sd["completedAt"] = completed.first().completed_at
+            else: 
+                sd["isCompleted"] = 0
+                sd["completedAt"] = "not completed"
+                
+            survey_dict["data"][surveyobj.survey_name] = sd
+        survey_dict["meta"]["done_survey_count"] = done_survey_count
+        survey_dict["meta"]["total_survey_count"] = request_survey_count
+
+
+        return JsonResponse(data = survey_dict,safe = False, status = 200)
+        # else:
+        #     return JsonResponse({"error":"error"}, status =400)
+class send_to_survey_form(APIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        user = request.user
+        userob = User.objects.get(userid = user.userid)
+        data = json.loads(request.body)
+        request_surveyname = data["surveyname_"]
+        request_language = data["language"]
+        survey = Survey.objects.filter(survey_name = request_surveyname)        
+        data = {"meta" : {}, "data" : {}}
+        question_fields = Question._meta.fields
+        if (len(survey)==1):
+            survey = survey.first()
+            questions = Question.objects.filter(survey = survey)
+            survey_title = json.loads(survey.survey_title.replace('\r', '').replace('\n', '').strip())
+            survey_subtitle = json.loads(survey.survey_subtitle.replace('\r', '').replace('\n', '').strip())
+            survey_index_description = json.loads(survey.survey_index_description.replace('\r', '').replace('\n', '').strip())
+            survey_ETAmin = survey.survey_ETAmin
+            survey_img = survey.survey_img
+            data["meta"] = {
+                "survey_title" : survey_title,
+                "survey_subtitle" : survey_subtitle,
+                "survey_index_description" : survey_index_description,
+                "survey_ETAmin" : survey_ETAmin,
+                "survey_img" : survey_img,
+                "participated_count" : CompletedSurvey.objects.filter(survey = survey).count(),
+                "question_counts" : Question.objects.filter(survey = survey).count()
+            }
+
+            for question in questions:
+                questiondict = model_to_dict(question)
+                sd = {}
+                try:
+                    question_notice = json.loads(questiondict['question_notice'].replace('\r', '').replace('\n', '').strip())
+                except:
+                    question_notice = {}
+                for field in question_fields:
+                    field_name = field.name
+                    field_value = questiondict.get(field_name)
+                    print(1)
+                    try:
+                        field_value = json.loads(field_value.replace('\r', '').replace('\n', '').strip())
+
+                        print(field_value)
+                        print(type(field_value))
+                    except:
+                        field_value = field_value
+                    sd[field_name] = field_value
+                data["data"][question.question_code] = sd
+            return JsonResponse(data = data, safe = False, status = 200)
+        else:
+            return JsonResponse({"error" : "에러"}, status =404)
+class save_user_answer(APIView):
+    print(123333)
+    print(123333)
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        # try:
+        user = request.user
+        userob = User.objects.get(userid = user.userid)
+        data = json.loads(request.body)
+        request_surveyname = data["surveyname_"]
+        userAnswer = data["data"]
+        survey = Survey.objects.get(survey_name = request_surveyname )
+        questions = Question.objects.filter(survey = survey)
+        responses = []
+        if (CompletedSurvey.objects.filter(user= userob, survey = survey).exists()):
+            for question in questions:
+                qcode = question.question_code
+                CompletedSurvey.objects.filter(user = userob, survey = survey).delete()
+                res.objects.get(user = userob, question = question).delete()
+                print(qcode + "삭제완료")
+        for question in questions:
+            qcode = question.question_code
+            print(userAnswer)
+            responses.append(res(user = userob, question = question , value = userAnswer[qcode] ))
+        res.objects.bulk_create(responses)
+        CompletedSurvey(user = userob, survey = survey).save()
+        
+        return JsonResponse({"success" : "save success!" }, status = 200)
+        # except:
+        #     return JsonResponse({"error" : "에러"}, status =404)
+class send_completed_survey_list(APIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        print(123333)
+        # try:
+        user = request.user
+        userob = User.objects.get(userid = user.userid)
+        completesurveys = CompletedSurvey.objects.filter(user = userob).order_by('-completed_at')
+        data = []
+        for completesurvey in completesurveys:
+            surveyimg = completesurvey.survey.survey_img
+            surveytitle = json.loads(completesurvey.survey.survey_title.replace('\r', '').replace('\n', '').strip())
+            surveysubtitle = json.loads(completesurvey.survey.survey_subtitle.replace('\r', '').replace('\n', '').strip())
+            data.append({
+                "surveyimg" : surveyimg,
+                "surveytitle" : surveytitle,
+                "surveysubtitle" : surveysubtitle,
+                "completedAt" : completesurvey.completed_at,
+                "surveyname" : completesurvey.survey.survey_name,
+            })
+        print(data)
+        return JsonResponse({"data" : data}, status = 200)
+        # except:
+        #     return JsonResponse({"error" : "에러"}, status =404)
+
+        # else:
+        #     return JsonResponse({"error":"error"}, status =400)
+class result_data_render(APIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        print(123333)
+        data = json.loads(request.body)
+        user = request.user
+        userob = User.objects.get(userid = user.userid)
+        request_group_info = data["group_info_"]
+        senddata = {"user" : {}, "other" : {}}
+        # try:
+        senddata["user"] = group_calc(request_group_info, userob)
+        senddata["other"] = group_calc(request_group_info, userob, target = "other")
+        senddata["total"] = sum([ v for v in senddata["user"].values()])/len(senddata["user"].values())
+        print(senddata)
+        return JsonResponse({"senddata" : senddata}, status = 200)
+        # except:
+        #     return JsonResponse({"error" : "에러"}, status =404)
+
+
+        # else:
+        #     return JsonResponse({"error":"error"}, status =400)
+def group_calc(request_group_info, userob,target = "user"):
+    dic = {}
+    for group_name, q_codes in request_group_info.items():
+        print(group_name)
+        sum_ = 0
+        for q_code in q_codes :
+            question = Question.objects.get(question_code = q_code)
+            if (target == "user"):
+                response_value = int(res.objects.get(question = question , user = userob).value)
+            elif(target == "other"):
+                response_value = res.objects.filter(question = question ).aggregate(Avg('value'))['value__avg']
+            sum_+=response_value
+        mean_ = sum_/len(q_codes)
+        dic[group_name] = mean_ 
+    return dic
+    
 
 def result_process_InclusiveLeadershipSurvey(resdic):
     lis = ["openness", "availability" , "accessibility"]
@@ -285,3 +476,60 @@ def result_process_LeadershipSurvey(resdic):
 ## 9. 로그인 한사람만 들어갈수 있게 구현 끝까지
 ## 10. 회원가입 승인되면 로그인페이지로, 승인 오류(중복 등)나면 다이알로그 뜨게
 
+
+
+def jmdata(request):
+    with open('./JMdata.txt', "r", encoding="utf-8") as f:
+        data = f.read()
+    data = data.split('\n')
+    l = []
+    for i in data:
+        i = i.strip()
+        l.append(i)
+    ll = []
+    sep = []
+    for i in l:
+        if(i!= ""):
+            ll.append(i)
+        if i=="":
+            sep.append(ll) 
+            ll = []
+    aaaa = []
+    print(sep)
+    for s in sep:
+        try:
+            databasekey = s[0]
+            qcount = (len(s)-3)/2
+            print(qcount)
+            print(databasekey)
+            kotitle = s[1]
+            entitle = s[2]
+            dic = {"databasekey" : databasekey, "entitle" : entitle, "kotitle" : kotitle, "questions" : []}
+            for qc in range(int(qcount)):
+                kot = 3+2*qc 
+                ent = 4+2*qc
+                koq = s[kot]
+                enq = s[ent]
+                dic["questions"].append({"index" : qc+1, "koQ" : koq, "enQ" : enq})
+            aaaa.append(dic)
+        except:
+            pass
+    print(aaaa)
+
+    for d in aaaa:
+        databasekey = d["databasekey"]
+        for q in d["questions"]:
+            index = q["index"]
+            koQ = q["koQ"]
+            enQ = q["enQ"]
+            entitle = d["entitle"]
+            kotitle = d["kotitle"]
+            questionobject = Question.objects.get(question_code = databasekey+str(index))
+            questionobject.question_basic = json.dumps({"en" : [enQ], "ko" : [koQ]},ensure_ascii=False)
+            questionobject.question_details = json.dumps({"en" : [enQ], "ko" : [koQ]},ensure_ascii=False)
+            questionobject.question_title = json.dumps({"en" : [entitle + " " + str(index)], "ko" : [kotitle + " " + str(index)]},ensure_ascii=False)
+            questionobject.question_subtitle = json.dumps({"en" : [entitle], "ko" : [kotitle]},ensure_ascii=False )
+            questionobject.save()
+
+    return JsonResponse(aaaa, safe = False)
+    

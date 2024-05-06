@@ -6,13 +6,26 @@ from django.contrib.auth.models import User
 
 class Survey(models.Model):
   survey_name = models.CharField(max_length = 100)
+  survey_title = models.TextField( default = "")
+  survey_subtitle = models.TextField(default = "")
+  survey_index_description = models.TextField(default = "")
+  survey_ETAmin = models.CharField(max_length = 100, default = "")
+  survey_img = models.TextField(default = "")
+  survey_number = models.IntegerField(default = -1)
   class Meta:
         db_table = 'survey'
 
 class Question(models.Model): 
   question_code = models.CharField(max_length = 100)
   value_type= models.CharField(max_length = 100, default = "int")
-  question_details = models.TextField()
+  question_title = models.TextField(default = "")
+  question_subtitle = models.TextField(default = "")
+  question_basic = models.TextField(default = "")
+  question_details = models.TextField(default = "")
+  question_required = models.BooleanField(default = True)
+  question_label = models.CharField(default = "emotion" , max_length= 200)
+  question_notice = models.TextField(default = "")
+
   survey = models.ForeignKey(Survey , on_delete = models.CASCADE)
   class Meta:
         db_table = 'question'
@@ -31,3 +44,10 @@ class Response(models.Model):
   question = models.ForeignKey(Question, on_delete=models.CASCADE)
   class Meta:
         db_table = 'response'
+class CompletedSurvey(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    completed_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'completed_survey'

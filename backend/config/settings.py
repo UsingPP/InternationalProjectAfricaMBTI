@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 CORS_ORIGIN_WHITELIST = [ #추가
-  'https://localhost:3000'
+  'https://localhost:3000','https://localhost:3030'
 ]
 CSRF_TRUSTED_ORIGINS = ['https://localhost:3000' ]
 CORS_ORIGIN_ALLOW_ALL = True #추가
@@ -102,6 +102,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        
     }
 }
 

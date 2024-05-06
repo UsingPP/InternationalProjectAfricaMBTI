@@ -1,0 +1,306 @@
+experiences
+경험치
+Experiences
+나는 사람들을 이끌 수 있을 만큼 경험과 체험이 많다. 
+I have extensive experience and exposure that enables me to lead people effectively. 
+나는 사람들이 듣고 놀랄 정도의 경험과 체험이 있다. 
+I have experiences that can amaze people when they hear about them. 
+나는 사람에게 영감을 줄 수 있는 놀라운 경험이 있다. 
+I have unique experiences that can inspire people. 
+
+attribute_of_learning
+배움의 자세
+Attitude of learning
+새로운 것을 배우고 싶어서 종종 여분의 과제를 한다. 
+I often undertake extra assignments out of a desire to learn new things.  
+시험이나 취업에 직접 관계가 없는 분야일지라도 배움을 위하여 최선을 다한다. 
+I give my best in learning, even in areas unrelated to exams or job opportunities.  
+모르는 내용이 있으면 어떻게든 확실히 알려고 노력한다.  
+When I encounter something I don’t understand, I try to grasp it fully. 
+
+resiliency
+회복 탄력성
+Resiliency
+나의 실패의 결과에 크게 감정적으로 흔들리지 않는다. 
+I am not significantly emotionally disturbed by the outcomes of my failures. 
+실패 이후 부정적인 기분이나 감정으로 인해 일에 지장을 받지는 않는다. 
+Negative feelings or emotions following a failure do not hinder my work. 
+나는 실수나 실패에 대해 빨리 잊고 다시 시도하는 편이다. 
+I forget about mistakes or failures and try again quickly. 
+
+belief_in_telent
+노력에 대한 신념
+Belief in the talent
+유능한 강점을 가졌더라도 끈기 있게 노력하는 자를 뛰어 넘을 수는 없다고 생각한다. 
+Even those with natural solid abilities cannot surpass someone who perseveres and works diligently. 
+위대한 예술가는 1%의 타고난 재능에 99%의 노력이 더해져야 만들어진다. 
+A great artist is created with 1% natural talent and 99% effort. 
+타고난 재능만을 가진 사람보다는 끊임없이 그것을 개발한 자가 그 재능으로 성공할 수 있다. 
+Individuals who continuously develop their innate talents are more likely to succeed than those who solely rely on their natural abilities. 
+
+appearance
+품위 유지
+Appearance
+나는 때에 맞게 옷을 잘 갖춰 입는다. 
+I make sure to dress appropriately for different occasions. 
+나는 옷을 늘 깔끔하게 갖춰 입는다. 
+I always keep my attire neat. 
+나는 용모를 단정하게 한다. 
+I maintain a well-groomed appearance. 
+
+resp_behaviors
+책임감 있는 행동
+Responsible behaviors
+나는 스스로 말한 것에 책임을 진다. 
+I take responsibility for what I say. 
+나는 말과 행동을 일치시킨다. 
+I align my words with my actions. 
+나는 불법적인 일들을 하지 않는다. 
+I do not engage in illegal activities. 
+나는 내가 할 수 있는 일을 다른 사람에게 불필요하게 시키지 않는다. 
+I do not unnecessarily assign tasks to others that I can do myself. 
+
+self_evaluation
+자기평가
+Self-evaluation
+나는 나의 능력을 정확히 평가한다. 
+I accurately assess my abilities. 
+나는 의사결정을 할 때 나타나는 나의 약점을 잘 안다. 
+I am well aware of my weaknesses when making decisions.  
+나는 의사결정을 할 때 순간 좋아 보이는 것을 바로 선택하지 않는다. 
+I wait to choose what seems good at the moment when making decisions.   
+
+habit_of_writting
+글쓰기
+Habit of taking a note
+나는 중요하게 겪은 일들을 꼭 기록한다. 
+I always make sure to record the significant events in my life. 
+나는 매일 일기를 쓴다. 
+I write a diary every day. 
+나는 중요한 아이디어를 기록해둔다. 
+I record noteworthy ideas. 
+
+listening
+경청의 자세 
+attitude of listening
+나는 사람들의 말을 경청한다. 
+I carefully listen to what people say. 
+나는 사람들의 의견에 귀를 기울인다. 
+I pay attention to people’s opinions. 
+나는 부서원의 보고를 세밀히 검토한다. 
+I thoroughly review the reports from team members. 
+나는 다른 지도자들의 의견을 듣는다. 
+I listen to the opinions of other leaders. 
+ 
+communication_envir
+원활한 소통 환경 조성 능력 
+Ability to create a smooth communication environment
+나는 동료들과 함께 의논하기 위한 자리를 자주 마련한다. 
+I regularly create opportunities to discuss with colleagues. 
+나는 아랫사람들과 함께 의논할 수 있는 자리를 만든다. 
+I create opportunities to discuss with subordinates. 
+나는 사람들이 원할 때마다 나와 편하게 소통할 수 있도록 기회를 열어둔다. 
+I keep open opportunities for people to communicate with me comfortably whenever they need me. 
+나는 사람들이 내게 편히 말을 걸 수 있도록 친근하게 대한다. 
+I approach people in a friendly manner to make them feel comfortable talking to me. 
+
+operating_through_communication
+소통을 통한 운영
+Operation through communication
+나는 함께 일하는 사람들의 의견을 고려하여 일을 진행한다. 
+I consider the opinions of those I work with when making decisions and progressing tasks. 
+When progressing tasks, I consider the opinions of those I work with in making decisions. 
+나는 지도자들과 의논을 하면서 조직을 운영한다. 
+I operate the organization through discussions with leaders. 
+나는 조언자들에게 의견을 묻고 일을 진행한다. 
+I seek opinions from advisors and proceed with the work. 
+
+lead_under_policy
+조직 철학에 맞추어서 소통하고 이끌기 
+Communicate and lead in line with organizational philosophy
+나는 사람들이 듣기 좋아하는 말만 하지 않는다. 
+I do not only say things that people want to hear. 
+나는 입장과 처지에 따라 말을 다르게 하지 않는다. 
+I do not speak differently based on positions or situations. 
+나는 상대가 듣고 싶어 하는 말만 하지 않고 꼭 해주어야 하는 말은 해준다. 
+I not only say what the other person wants to hear but also express what needs to be said. 
+
+human_resources_management
+사람 파악
+Human resources management
+나는 이끄는 사람들의 심리적 특성을 파악하고 있다. 
+I understand/comprehend/grasp the psychological characteristics of the people I am guiding. 
+나는 조직원들의 성향을 자세히 알고 있다. 
+I have a detailed understanding of the tendencies of the organization’s members. 
+나는 이끄는 사람들의 신상 정보를 파악하고 있다. 
+I am aware of the personal information of the people I am guiding. 
+나는 사람들의 재능을 잘 파악하고 있다. 
+I have a good understanding of people’s talents.  
+
+conflicts_management
+갈등 및 문제 파악 
+Identifying conflicts and problems
+나는 조직 내의 갈등을 빠르게 파악한다. 
+I quickly discern conflicts within the organization. 
+나는 사람들 간에 오해와 다툼이 발생했을 때 이를 빠르게 파악한다. 
+I quickly identify misunderstandings and conflicts that arise among people. 
+나는 조직 안에서 발생하는 문제와 갈등을 빠르게 확인한다. 
+I quickly identify issues and conflicts arising within the organization. 
+나는 조직 안에 문제를 일으키는 사람이 없는지 수시로 살펴본다. 
+I regularly examine whether there are individuals causing issues within the organization. 
+
+data_collection
+데이터 취합 및 의사결정 과정
+Data collection and decision-making processes
+나는 의사결정을 하기 전에 모든 선택지를 검토한다. 
+I review all options before making a decision. 
+나는 의사결정을 할 때 관련된 모든 정보를 알고 결정한다. 
+I make decisions with a complete understanding of all relevant information.  
+나는 의사결정을 할 때 그 분야의 전문가에게 조언을 구한다. 
+When making decisions, I seek advice from experts in the field. 
+
+resonalble_decision_making
+합리적 판단 능력 
+Rational judgment ability
+나는 모든 선택지의 장단점을 세밀히 분석해보고 판단한다. 
+I carefully analyze all options' pros and cons before deciding. 
+나는 나의 전문지식으로 판단을 용이하게 할 줄 안다. 
+I can make judgments more efficiently with my expertise. 
+나는 스스로 판단하기 어려운 일이 있으면 그 분야를 잘 아는 사람에게 조언을 구한다. 
+When faced with something difficult to judge, I seek advice from someone knowledgeable. 
+나는 한 가지만 생각하지 않고 다양한 요소를 모두 고려해 판단한다. 
+I consider various factors and make judgments, not limiting myself to a single perspective. 
+
+decision_ability
+판단 능력(결과론적) 
+Judgment ability (consequentialist)
+나는 상황 판단을 잘하는 편이다. 
+I am good at assessing situations. 
+I am good at making accurate judgments in different situations. 
+나는 판단력이 좋다는 말을 자주 듣는다. 
+I often hear that I have sound discernment.  
+나의 판단이 옳은 경우가 대부분이다. 
+Most of the time, my discernments are correct. 
+나의 판단의 결과가 예상대로 유익한 경우가 많다. 
+The outcomes of my decisions are often beneficial, as expected. 
+
+problem_sol_ability
+문제 해결의 능력
+problem solving skills
+나는 문제가 발생했을 때 신속하게 해결한다. 
+I promptly resolve issues when they happen/arise. 
+나는 문제가 생겼을 때 빠르게 대처한다. 
+I quickly address issues when they occur. 
+나는 누군가 문제를 일으켰을 때 일을 키우지 않고 조용히 해결한다. 
+I quietly resolve the issue when someone causes a problem without escalating the situation. 
+ 
+vision
+비전제시
+Show the vision
+나는 사람들에게 비전을 준다. 
+I provide people with a vision. 
+나는 사람들에게 꿈을 심어 준다. 
+I envision people with dreams. 
+나는 우리 조직의 미래에 대하여 사람들이 긍정적으로 느낄 수 있도록 한다. 
+I make people feel optimistic about the future of our organization. 
+
+rolemodel
+본을 보이기
+Role model
+나는 사람들에게 미칠 영향력을 고려하여 나의 행동에 주의를 기울인다. 
+I pay attention to my actions, considering their influence on others. 
+나는 어떤 절망적인 상황에서도 사람들 앞에서 자포자기하는 모습을 보이지 않는다. 
+I do not show a hopeless attitude in front of people, even in desperate situations. 
+나는 이끄는 사람들과 함께 활동하면서 이들이 보고 배울 수 있을 정도로 행동한다. 
+I take action in a way that allows those I lead to observe and learn. 
+나는 다른 사람들이 나의 행동을 보고 배울 수 있도록 모범적으로 행동한다. 
+I act as a role model, behaving excellently so others can observe and learn from my actions. 
+I behave in a way that others can watch and learn from. 
+
+mannerism
+매너
+Mannerism
+나는 사람들이 상처 받지 않도록 말을 조심한다. 
+I choose my words carefully to ensure that people do not get hurt. 
+나는 표정을 잘 관리한다. 
+I manage my facial expressions well. 
+나는 매너를 지켜 행동한다. 
+I behave according to proper etiquette. 
+나는 사람들을 자상하고 세밀히 가르쳐준다. 
+I teach people kindly and in a detailed manner. 
+나는 사람들의 실수나 잘못을 함부로 공유하지 않는다. 
+I do not carelessly share people’s mistakes or faults. 
+나는 사람들에게 지속적으로 흥미로운 경험을 제공한다. 
+I constantly provide people with exciting experiences. 
+나는 사람들이 재미를 느끼고 즐길 수 있는 활동을 기획한다. 
+I plan activities that people can have fun and enjoy. 
+나는 사람들과 일 분위기를 좋게 (긍정적)으로 조성한다. 
+I create a good (positive) work atmosphere with people. 
+
+compassion_for_others
+관용
+Compassion for others
+나는 모든 사람을 포용하고 공의롭게 대한다. 
+I embrace and treat everyone fairly. 
+나는 사람들의 실수와 잘못을 용서한다. 
+I forgive people for their mistakes and faults. 
+나는 사람들이 일을 하다가 실수를 해도 다시 기회를 준다. 
+I give people another chance even if they make mistakes while working.
+
+human_dev
+인재양성
+Human development
+나는 인재를 지도자로 성장할 수 있도록 교육한다. 
+I educate talented people to grow into leaders. 
+나는 사람들 성향에 맞게 지도한다. 
+I lead people according to their individual differences. 
+나는 사람들의 성장을 고려하여 수준을 높여가며 지도한다. 
+I guide people by elevating their levels while considering their growth. 
+나는 사람들의 수준에 맞추어서 지도한다. 
+I adjust my guidance based on the level of individuals. 
+ 
+organizational_management
+조직 구성 능력
+Organizational management
+나는 조직 체계를 잘 구축한다. 
+I establish/build organizational structures effectively. 
+나는 사람들에게 명확한 역할과 책임을 부여하여 조직을 관리한다. 
+I manage the organization by assigning clear roles and responsibilities to individuals. 
+나는 각 부서에 구성원들을 잘 배치한다. 
+I strategically allocate team members to each department. 
+나는 각자의 개성을 고려해 적재적소에 사람들을 배치한다. 
+I place individuals in appropriate positions, considering their unique personalities. 
+
+project_management
+일 관리
+Project management
+나는 미리 계획을 세워 일을 진행한다. 
+I plan and proceed with the work. 
+나는 사람들 간에 역할분담이 적절히 되도록 한다. 
+I ensure that roles are appropriately assigned among people. 
+나는 일을 잘 분배한다. 
+I distribute tasks effectively. 
+나는 일의 진행 상황을 주기적으로 점검하여 반드시 완료될 수 있도록 한다. 
+I regularly check the progress of the work and ensure that it is completed within the designated timeframe. 
+I periodically review the progress of tasks to ensure their timely completion. 
+
+guiding_skill
+지도력
+guiding skills
+나는 사람들을 지도하는 데 있어 철학이 있다. 
+I have a philosophy when it comes to leading people. 
+나는 사람들을 이끄는 지도력이 있다. 
+I possess leadership skills in guiding people. 
+나는 사람들을 이끄는 데 능수능란하다. 
+I am adept at leading and guiding people. 
+
+administration
+행정 운영
+Administration
+나는 행정 체계를 잘 갖추어 조직을 운영한다. 
+I operate the organization with a well-structured administrative system. 
+나는 회사(단체)의 목적을 고려하여 행정 체계에 적용한다. 
+I apply the administrative system considering the company’s/organization’s objectives. 
+나는 행정적인 법률을 잘 알고 적용할 수 있다. 
+I have a good understanding of administrative laws and can apply them effectively. 
+
