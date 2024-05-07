@@ -56,6 +56,7 @@ urlpatterns = [
     path("save_user_answer/", save_user_answer.as_view()),
     path("send_completed_survey_list/", send_completed_survey_list.as_view()),
     path("result_data_render/", result_data_render.as_view()),
+    path("send_feedback/", send_feedback.as_view()),
     # path("JMdata/", jmdata),
 
 

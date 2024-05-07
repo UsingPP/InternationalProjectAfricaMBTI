@@ -7,7 +7,7 @@ from django.forms.models import model_to_dict
 from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Question, Response  as res,User,Survey, CompletedSurvey
+from .models import Question, Response  as res,User,Survey, CompletedSurvey,FeedBack
 from datetime import datetime as date
 from django.core.serializers import serialize
 from django.db.models import Q
@@ -428,6 +428,22 @@ class result_data_render(APIView):
             senddata["total"] = sum([ v for v in senddata["user"].values()])/len(senddata["user"].values())
         print(senddata)
         return JsonResponse({"senddata" : senddata}, status = 200)
+      
+        # except:
+        #     return JsonResponse({"error" : "에러"}, status =404)
+
+
+        # else:
+        #     return JsonResponse({"error":"error"}, status =400)
+class send_feedback(APIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        data = json.loads(request.body)
+        user = request.user
+        userob = User.objects.get(userid = user.userid)
+        feedback = data["feedback"]
+        FeedBack(feedback = feedback , user = userob).save()
+        return JsonResponse({"success" : 200}, status = 200)
       
         # except:
         #     return JsonResponse({"error" : "에러"}, status =404)

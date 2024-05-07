@@ -51,3 +51,9 @@ class CompletedSurvey(models.Model):
     
     class Meta:
         db_table = 'completed_survey'
+class FeedBack(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    feedback = models.TextField(default = "")
+    
+    class Meta:
+        db_table = 'FeedBack'
