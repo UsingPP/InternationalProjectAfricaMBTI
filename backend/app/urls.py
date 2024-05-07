@@ -49,7 +49,7 @@ urlpatterns = [
 
 
 
-    path('signup/', SignUp.as_view()),
+    path('signup_backend/', SignUp.as_view()),
     path('login/', SignIn.as_view()),
     path("send_to_survey_form/", send_to_survey_form.as_view()),
     path("send_to_home/", send_to_home.as_view()),
