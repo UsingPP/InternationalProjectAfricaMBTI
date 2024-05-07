@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
 
     # API Path
-    path('signup/', SignUp.as_view()),
+    # path('signup/', SignUp.as_view()),
 
 #       path('', TemplateView.as_view(template_name = 'index.html')) ,#추가된 부분
 # path('home/', TemplateView.as_view(template_name = 'index.html')) ,#추가된 부분
