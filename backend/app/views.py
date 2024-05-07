@@ -444,7 +444,7 @@ class send_feedback(APIView):
         feedback = data["feedback"]
         print(feedback)
         FeedBack(feedback = feedback , user = userob).save()
-        return JsonResponse({"success" : 200}, status = 200)
+        return JsonResponse({"message" : "success"}, status = 200)
       
         # except:
         #     return JsonResponse({"error" : "에러"}, status =404)
