@@ -442,6 +442,7 @@ class send_feedback(APIView):
         user = request.user
         userob = User.objects.get(userid = user.userid)
         feedback = data["feedback"]
+        print(feedback)
         FeedBack(feedback = feedback , user = userob).save()
         return JsonResponse({"success" : 200}, status = 200)
       
