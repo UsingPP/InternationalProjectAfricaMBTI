@@ -72,7 +72,7 @@ urlpatterns = [
     path('Results/LeadershipSurveyResult/', TemplateView.as_view(template_name = 'index.html')) ,
      path('Results/UN17GoalResult/', TemplateView.as_view(template_name = 'index.html')) ,
 
-    path('UN17GoalResult/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('UN17Goal/', TemplateView.as_view(template_name = 'index.html')) ,
     path('PersonalInformationSurvey/', TemplateView.as_view(template_name = 'index.html')) ,
     path('LeadershipSurvey/', TemplateView.as_view(template_name = 'index.html')) ,
     path('InclusiveLeadershipSurvey/', TemplateView.as_view(template_name = 'index.html')) ,
