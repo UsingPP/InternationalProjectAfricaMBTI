@@ -417,33 +417,42 @@ class result_data_render(APIView):
         user = request.user
         userob = User.objects.get(userid = user.userid)
         request_group_info = data["group_info_"]
-        senddata = {"user" : {}, "other" : {}}
+        senddata = {"user" : {}, "other" : {}, "total" : 0 }
+        survey_name = data["surveyname_"]
         # try:
-        senddata["user"] = group_calc(request_group_info, userob)
-        senddata["other"] = group_calc(request_group_info, userob, target = "other")
-        senddata["total"] = sum([ v for v in senddata["user"].values()])/len(senddata["user"].values())
+        if survey_name == "PersonalInformationSurvey":
+            senddata["user"] = group_calc(request_group_info, userob, survey_name)
+        else:
+            senddata["user"] = group_calc(request_group_info, userob, survey_name)
+            senddata["other"] = group_calc(request_group_info, userob, survey_name, target = "other")
+            senddata["total"] = sum([ v for v in senddata["user"].values()])/len(senddata["user"].values())
         print(senddata)
         return JsonResponse({"senddata" : senddata}, status = 200)
+      
         # except:
         #     return JsonResponse({"error" : "에러"}, status =404)
 
 
         # else:
         #     return JsonResponse({"error":"error"}, status =400)
-def group_calc(request_group_info, userob,target = "user"):
+def group_calc(request_group_info, userob,survey_name,target = "user"):
     dic = {}
     for group_name, q_codes in request_group_info.items():
         print(group_name)
         sum_ = 0
-        for q_code in q_codes :
-            question = Question.objects.get(question_code = q_code)
-            if (target == "user"):
-                response_value = int(res.objects.get(question = question , user = userob).value)
-            elif(target == "other"):
-                response_value = res.objects.filter(question = question ).aggregate(Avg('value'))['value__avg']
-            sum_+=response_value
-        mean_ = sum_/len(q_codes)
-        dic[group_name] = mean_ 
+        if (survey_name == "PersonalInformationSurvey"):
+            question = Question.objects.get(question_code = q_codes[0])
+            dic[group_name] = res.objects.get(question = question , user = userob).value
+        else:
+            for q_code in q_codes :
+                question = Question.objects.get(question_code = q_code)
+                if (target == "user"):
+                    response_value = int(res.objects.get(question = question , user = userob).value)
+                elif(target == "other"):
+                    response_value = res.objects.filter(question = question ).aggregate(Avg('value'))['value__avg']
+                sum_+=response_value
+            mean_ = sum_/len(q_codes)
+            dic[group_name] = mean_ 
     return dic
     
 
