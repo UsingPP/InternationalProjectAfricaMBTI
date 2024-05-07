@@ -61,22 +61,22 @@ urlpatterns = [
 
     path('', TemplateView.as_view(template_name = 'index.html')) ,
 
-    path('/404', TemplateView.as_view(template_name = 'index.html')) ,
-    path('signin', TemplateView.as_view(template_name = 'index.html')) ,
-    path('signup', TemplateView.as_view(template_name = 'index.html')) ,
+    path('404/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('signin/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('signup/', TemplateView.as_view(template_name = 'index.html')) ,
 
-    path('Results', TemplateView.as_view(template_name = 'index.html')) ,
-    path('Results/PersonalInformationSurveyResult', TemplateView.as_view(template_name = 'index.html')) ,
-    path('Results/JMLeadershipEvaluationSurveyResult', TemplateView.as_view(template_name = 'index.html')) ,
-    path('Results/InclusiveLeadershipSurveyResult', TemplateView.as_view(template_name = 'index.html')) ,
-    path('Results/LeadershipSurveyResult"', TemplateView.as_view(template_name = 'index.html')) ,
-     path('Results/UN17GoalResult"', TemplateView.as_view(template_name = 'index.html')) ,
+    path('Results/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('Results/PersonalInformationSurveyResult/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('Results/JMLeadershipEvaluationSurveyResult/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('Results/InclusiveLeadershipSurveyResult/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('Results/LeadershipSurveyResult/', TemplateView.as_view(template_name = 'index.html')) ,
+     path('Results/UN17GoalResult/', TemplateView.as_view(template_name = 'index.html')) ,
 
-    path('UN17GoalResult"', TemplateView.as_view(template_name = 'index.html')) ,
-    path('PersonalInformationSurvey"', TemplateView.as_view(template_name = 'index.html')) ,
-    path('LeadershipSurvey', TemplateView.as_view(template_name = 'index.html')) ,
-    path('InclusiveLeadershipSurvey', TemplateView.as_view(template_name = 'index.html')) ,
-    path('JMLeadershipEvaluationSurvey', TemplateView.as_view(template_name = 'index.html')) ,
+    path('UN17GoalResult/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('PersonalInformationSurvey/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('LeadershipSurvey/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('InclusiveLeadershipSurvey/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('JMLeadershipEvaluationSurvey/', TemplateView.as_view(template_name = 'index.html')) ,
 
   # path('api/transmit-survey-data/', TransmitSurveyDataApi.as_view(), name='transmit_survey_data'),
 
