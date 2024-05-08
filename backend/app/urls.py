@@ -51,13 +51,17 @@ urlpatterns = [
 
     path('signup_backend/', SignUp.as_view()),
     path('login/', SignIn.as_view()),
+    path('adminlogin/', AdminSignIn.as_view()),
+    path('adminsignup_backend/', AdminSignUp.as_view()),
     path("send_to_survey_form/", send_to_survey_form.as_view()),
     path("send_to_home/", send_to_home.as_view()),
     path("save_user_answer/", save_user_answer.as_view()),
     path("send_completed_survey_list/", send_completed_survey_list.as_view()),
     path("result_data_render/", result_data_render.as_view()),
+    path("result_data_render_admin/", result_data_render_admin.as_view()),
     path("result_data_render2/", result_data_render.as_view()),
     path("send_feedback/", send_feedback.as_view()),
+    path("send_to_adminpage/", send_to_adminpage.as_view()),
     # path("JMdata/", jmdata),
 
 
@@ -65,6 +69,7 @@ urlpatterns = [
 
     path('404/', TemplateView.as_view(template_name = 'index.html')) ,
     path('signin/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('adminsignin/', TemplateView.as_view(template_name = 'index.html')) ,
     path('signup/', TemplateView.as_view(template_name = 'index.html')) ,
 
     path('Results/', TemplateView.as_view(template_name = 'index.html')) ,

@@ -38,6 +38,11 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = 'users'
+class Admin(models.Model):
+    adminid = models.CharField(max_length=200)
+    password   = models.CharField(max_length=200)
+    class Meta:
+        db_table = 'admin'
 class Response(models.Model):
   value = models.CharField(max_length = 1000)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -54,6 +59,5 @@ class CompletedSurvey(models.Model):
 class FeedBack(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     feedback = models.TextField(default = "")
-    
     class Meta:
         db_table = 'FeedBack'

@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from django.forms.models import model_to_dict
 from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
+from django.db.models import F, ExpressionWrapper, DurationField
 from rest_framework import status
-from .models import Question, Response  as res,User,Survey, CompletedSurvey,FeedBack
+from .models import Question, Response  as res,User,Survey, CompletedSurvey,FeedBack,Admin
 from datetime import datetime as date
 from django.core.serializers import serialize
 from django.db.models import Q
@@ -15,12 +16,15 @@ import re
 from .survey_info import SURVAY_BASIS_INFO
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.views import APIView
+from datetime import datetime, timedelta
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 import json
 import bcrypt
 import jwt
 from config.settings import SECRET_KEY
+from django.db.models import Count
+import pytz
 ## 1. 회원가입
 ## 2. 로그인
 ## 3. 로그아웃
@@ -39,6 +43,21 @@ class SignUp(APIView):
             password = bcrypt.hashpw(data["password"].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8"),
             name=data["name"],
                 birthdate=data["birthdate"]
+            ).save()
+            return JsonResponse({"message" : "success"}, status=200)
+        except KeyError:
+            return JsonResponse({"message" : "INVALID_KEYS"}, status=400)
+class AdminSignUp(APIView):
+    print(1)
+    def post(self, request):
+        data = json.loads(request.body)
+        print(data)
+        try:
+            if Admin.objects.filter(adminid = data['userid']).exists():
+                return JsonResponse({"message" : "EXISTS_ID"}, status=201)
+            Admin.objects.create(
+                adminid = data['userid'],
+                password = bcrypt.hashpw(data["password"].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8"),
             ).save()
             return JsonResponse({"message" : "success"}, status=200)
         except KeyError:
@@ -63,6 +82,26 @@ class SignIn(APIView):
         ## 뭔가 잘못된경우
         except KeyError:
             return JsonResponse({'message' : "INVALID_KEYS"}, status=400)
+class AdminSignIn(APIView):
+    def post(self, request):
+        data = json.loads(request.body)
+        adminid = data['userid']
+        password = data['password']
+        try:
+            adminob = Admin.objects.get(adminid = adminid)
+            print(bcrypt.checkpw(password.encode('UTF-8'), adminob.password.encode('UTF-8')))
+            print(password.encode('UTF-8'),adminob.password,adminob.password.encode('UTF-8') )
+            # user = User.objects.get(userid=data["userid"])
+            if bcrypt.checkpw(password.encode('UTF-8'), adminob.password.encode('UTF-8')):
+                token = jwt.encode({'admin' : adminob.adminid}, SECRET_KEY, algorithm='HS256')
+                        ## 로그인 성공시
+                return JsonResponse({"message" : "success" , "token" : token, "name" : adminob.adminid}, status=200)
+            else: 
+                return JsonResponse({"message" : "fail"}, status=400)
+        except:
+                return JsonResponse({"message" : "fail"}, status=400)
+
+                
 
 ## 3. 설문조사 데이터 수신
 from rest_framework.authentication import BaseAuthentication
@@ -71,22 +110,31 @@ from rest_framework.exceptions import AuthenticationFailed
 class TokenAuthentication(BaseAuthentication):
     def authenticate(self, request):
         token = request.headers.get('Authorization')
+        print(1)
         if not token:
             return None
-
         try:
             # 토큰에서 사용자 정보 추출
             payload = jwt.decode(token.split()[1], SECRET_KEY, algorithms=['HS256'])
-            user_id = payload['user']
+            print(payload)
+            if ("admin" in payload.keys()):
+                user_id = payload["admin"]
+            else:
+                user_id = payload['user']
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Token expired')
         except jwt.InvalidTokenError:
             raise AuthenticationFailed('Invalid token')
         # 사용자 확인
         try:
-            user = User.objects.get(userid=user_id)
+            if ("admin" in payload.keys()):
+                admin = Admin.objects.get(adminid = user_id)
+            else:
+                user = User.objects.get(userid=user_id)
         except User.DoesNotExist:
             raise AuthenticationFailed('No such user')
+        if ("admin" in payload.keys()):
+            return (admin, None)
         return (user, None)
 class RecieveData(APIView):
     authentication_classes = [TokenAuthentication]
@@ -323,6 +371,7 @@ class save_user_answer(APIView):
     authentication_classes = [TokenAuthentication]
     def post(self, request):
         # try:
+        # 서버 기준시 UTC
         user = request.user
         userob = User.objects.get(userid = user.userid)
         data = json.loads(request.body)
@@ -387,27 +436,31 @@ class result_data_render(APIView):
             senddata["other"] = group_calc(request_group_info, userob, survey_name, target = "other")
             senddata["total"] = sum([ v for v in senddata["user"].values()])/len(senddata["user"].values())
         return JsonResponse({"senddata" : senddata}, status = 200)
+class result_data_render_admin(APIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        data = json.loads(request.body)
+        print(data)
+        request_group_info = data["group_info_"]
+        senddata = {"data" : {} }
+        survey_name = data["surveyname_"]
+        if (survey_name == "UN17Goal"):
+            dic , dd = group_calc_admin(request_group_info, survey_name)
+            senddata["data"] = dic 
+            senddata["subtitles"] = dd
+        else:
+            senddata["data"] = group_calc_admin(request_group_info, survey_name)
+        print(senddata)
+        return JsonResponse({"senddata" : senddata}, status = 200)
 class result_data_render2(APIView):
     authentication_classes = [TokenAuthentication]
     def post(self, request):
         data = json.loads(request.body)
-        user = request.user
-        userob = User.objects.get(userid = user.userid)
         request_group_info = data["group_info_"]
-        senddata = {"user" : {}, "other" : {}, "total" : 0 }
+        senddata = {"data" : {} }
         survey_name = data["surveyname_"]
-        for key,questions_sec in request_group_info.items():
-            count = 0
-            sum = 0
-            for question_title, sub_questions in questions_sec.items():
-                for sub_question in sub_questions :
-                    q = Question.objects.get(question_code = sub_question)
-                    val = res.objects.get(user = userob, question = q)
-                    count +=1
-                    sum += val 
-            mean = sum/count
-        senddata["user"] = group_calc(request_group_info, userob, survey_name)
-        senddata["total"] = sum([ v for v in senddata["user"].values()])/len(senddata["user"].values())
+        senddata["user"] = group_calc_admin(request_group_info, survey_name)
+        print(senddata)
         return JsonResponse({"senddata" : senddata}, status = 200)
       
         # except:
@@ -425,6 +478,55 @@ class send_feedback(APIView):
         feedback = data["feedback"]
         FeedBack(feedback = feedback , user = userob).save()
         return JsonResponse({"message" : "success"}, status = 200)
+class send_to_adminpage(APIView):
+    authentication_classes = [TokenAuthentication]
+    def post(self, request):
+        data = json.loads(request.body)
+        timezone = data["timezone"]
+        utc_timezone = pytz.timezone('UTC')
+        local_timezone = pytz.timezone(timezone)
+        utc_time = datetime.now(utc_timezone)
+        local_time = utc_time.astimezone(local_timezone)
+        time_utc = datetime.strptime(str(utc_time)[:-6], "%Y-%m-%d %H:%M:%S.%f")
+        time_local = datetime.strptime(str(local_time)[:-6], "%Y-%m-%d %H:%M:%S.%f")
+        time_difference = time_local - datetime.now()
+        print("두 시간의 차이:", time_difference)
+        grouped_counts = CompletedSurvey.objects.values("survey_id").annotate(count=Count('survey_id'))
+        for item in grouped_counts:
+            print(f"{Survey.objects.get(id = item['survey_id']).survey_name}: {item['count']}")
+        # 최근 10일 간의 일자 목록 생성
+        today = (datetime.now()+time_difference).date()
+        date_range = [today - timedelta(days=i) for i in range(9, -1, -1)]
+        # 일자별로 데이터를 그룹화하고 각 그룹의 개수를 카운트
+        # F() 객체를 사용하여 completed_at 필드에 time_difference를 더합니다.
+        # 필터링된 데이터를 조회한 후에 각각의 결과에 대해 completed_at 필드에 three_days_before를 더하여 연산
+        completed_surveys = CompletedSurvey.objects.filter(
+            completed_at__date__range=[date_range[0], today]
+        )
+        unique_values = list(Survey.objects.values_list('survey_name', flat=True).distinct())
+        # 특정 애트리뷰트값으로 정렬된 쿼리셋을 가져오기
+        sorted_queryset = Survey.objects.order_by('survey_number')
+
+        # 정렬된 쿼리셋에서 특정 다른 애트리뷰트 값만 추출하여 리스트로 만들기
+        values_list = list(sorted_queryset.values_list('survey_name', flat=True))
+        print(values_list)
+        value_dict = {value: {"title" : value, "image" : Survey.objects.get(survey_name = value).survey_img,  "meta" : {"total" : 0},"date" : {datetime.strftime(day, "%m-%d") : 0 for  day in date_range}} for value  in unique_values}
+        # 각각의 결과에 대해 completed_at 필드에 three_days_before를 더하여 연산
+        for survey in completed_surveys:
+            survey_complete_date_local = (survey.completed_at + time_difference).date()
+            survey_complete_date_local = datetime.strftime(survey_complete_date_local, "%m-%d")
+            value_dict[survey.survey.survey_name]["date"][survey_complete_date_local] +=1
+            value_dict[survey.survey.survey_name]["meta"]["total"] += 1
+        value_dict["sort"] = values_list
+        print(value_dict)
+
+
+            # if (value_dict[survey.survey_name])
+
+        # 데이터를 그룹화하고 처리
+
+      
+        return JsonResponse({"data" :value_dict}, status = 200)
       
         # except:
         #     return JsonResponse({"error" : "에러"}, status =404)
@@ -450,6 +552,35 @@ def group_calc(request_group_info, userob,survey_name,target = "user"):
             mean_ = sum_/len(q_codes)
             dic[group_name] = mean_ 
     return dic
+def group_calc_admin(request_group_info,survey_name):
+    dd= {}
+    survey = Survey.objects.get(survey_name = survey_name)
+    completes = CompletedSurvey.objects.filter(survey = survey)
+    user_list = []
+    for complete in completes:
+        userob = complete.user 
+        user_list.append(userob)
+    dic = {}
+    print(user_list)
+    for group_name, q_codes in request_group_info.items():
+        user_mean_list = []
+        for user in user_list:
+            sum_ = 0
+            for q_code in q_codes :
+                question = Question.objects.get(question_code = q_code)
+                resval = res.objects.get(question =question, user = user)
+                sum_+=int(resval.value)
+            mean_ = sum_/len(q_codes)
+            user_mean_list.append(mean_)
+        dic[group_name] = user_mean_list
+        print(dic[group_name])
+        if(survey_name == "UN17Goal"):
+            
+            dd[group_name]= {"subtitle" : json.loads(question.question_basic.replace('\r', '').replace('\n', '').strip())}
+    if(survey_name == "UN17Goal"):
+        return dic ,dd
+    else:
+        return dic
     
 
 def result_process_JMLeadershipEvaluationSurvey(resdic):
