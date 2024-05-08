@@ -70,7 +70,12 @@ urlpatterns = [
     path('404/', TemplateView.as_view(template_name = 'index.html')) ,
     path('signin/', TemplateView.as_view(template_name = 'index.html')) ,
     path('adminsignin/', TemplateView.as_view(template_name = 'index.html')) ,
+    path('adminpage/', TemplateView.as_view(template_name = 'index.html')) ,
     path('signup/', TemplateView.as_view(template_name = 'index.html')) ,
+    path("adminpage/LeadershipSurveyResult" , TemplateView.as_view(template_name = "index.html") ),
+    path("adminpage/InclusiveLeadershipSurveyResult" , TemplateView.as_view(template_name = "index.html") ),
+    path("adminpage/JMLeadershipEvaluationSurveyResult" , TemplateView.as_view(template_name = "index.html") ),
+    path("adminpage/UN17GoalResult" , TemplateView.as_view(template_name = "index.html") ),
 
     path('Results/', TemplateView.as_view(template_name = 'index.html')) ,
     path('Results/PersonalInformationSurveyResult/', TemplateView.as_view(template_name = 'index.html')) ,
